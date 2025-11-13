@@ -46,7 +46,7 @@ struct ContentView: View {
                             Text("\(String(describing: readUserDefault("LastCookieUpdate") ?? "N/A"))")
                             Text("\(Date().timeIntervalSince1970.description)")
                             if readUserDefault("LastCookieUpdate") != nil {
-                                Text("\(readUserDefault("LastCookieUpdate")! as! Double - Date().timeIntervalSince1970 > 7200 ? "Yes" : "No")")
+                                Text("\(Date().timeIntervalSince1970 - (readUserDefault("LastCookieUpdate")! as! Double) >= 7200 ? "Yes" : "No")")
                             }
                         }
                         VStack {
@@ -89,6 +89,23 @@ struct ContentView: View {
                             secondDP.toggle()
                         }
                     })
+                }
+            }
+            .onAppear {
+                if Date().timeIntervalSince1970 - (readUserDefault("LastCookieUpdate")! as! Double) >= 7200 {
+                    AF.request("https://chartfox.org/", headers: headers())
+                        .saveLogin()
+                        .response {_ in
+                            testConnection { r in
+                                print("r rcvd")
+                                print(r)
+                                if r != .ok {
+                                    showLoginCFoxBtn = true
+                                } else {
+                                    showLoginCFoxBtn = false
+                                }
+                            }
+                        }
                 }
             }
         }
@@ -243,9 +260,6 @@ struct MainView: View {
                 //        }
                 Spacer()
             }
-        }
-        .onAppear {
-            consoleManager.isVisible = true
         }
         //        .onChange(of: showLoginCFox) { _, _ in
         //            testConnection() { r in
