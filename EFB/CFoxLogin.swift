@@ -32,7 +32,7 @@ struct CFoxLogin: View {
             print("Cookie Change")
             for cookie in nv {
                 if cookie.key.hasPrefix("remember_web_") {
-                    print(cookie.key)
+//                    print(cookie.key)
                     rweb = cookie.key
                     rwebd = cookie.value
                 }
@@ -41,7 +41,7 @@ struct CFoxLogin: View {
                 cfoxPAT = nv["chartfox_user_pat"]!
                 cfoxSID = nv["chartfoxv2_session"]!
                 xsrf = nv["XSRF-TOKEN"]!
-                print(cfoxPAT)
+//                print(cfoxPAT)
                 testConnection() { r in
                     if r == .ok {
                         isPresented = false

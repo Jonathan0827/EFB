@@ -16,39 +16,12 @@ enum stat {
 func testConnection(completion: @escaping (stat) -> Void) {
     print("TC")
     var toTest = ""
-    AF.request("https://chartfox.org/RKSI", headers: headers(false))
-        .response {r in
-            switch r.result {
-            case .success:
-                let cookies = r.response!.headers.value(for: "Set-Cookie")!.split(separator: ", ")
-                var realCookies = [String: String]()
-                var a = 0
-                for cookie in cookies {
-                    if a % 2 == 0 {
-                        let realCookie = cookie.split(separator: ";")[0].split(separator: "=")
-                        let name = String(realCookie[0])
-                        let value = String(realCookie[1])
-                        realCookies[name] = value
-                    }
-                    a += 1
-                }
-                saveUserDefault("cfoxPAT", realCookies["chartfox_user_pat"])
-                saveUserDefault("cfoxSID", realCookies["chartfoxv2_session"])
-                saveUserDefault("xsrf", realCookies["XSRF-TOKEN"])
-                for cookie in realCookies {
-                    if cookie.key.hasPrefix("remember_web_") {
-                        saveUserDefault("rweb", cookie.key)
-                        saveUserDefault("rwebd", cookie.value)
-                    }
-                }
-            case .failure(let e):
-                print("fail ch")
-                print(e)
-            }
-        }
+    AF.request("https://chartfox.org/RKSI", headers: headers())
+        .saveLogin()
         .responseDecodable(of: Index.self) { r in
             switch r.result {
             case .success(let data):
+                print(data.component)
                 if data.component == "charts/index" {
                     let charts = data.props.groupedCharts!
                     toTest = charts["0"]![0].id!
@@ -56,6 +29,7 @@ func testConnection(completion: @escaping (stat) -> Void) {
                         .responseDecodable(of: ChartData.self) {r in
                             switch r.result {
                             case .success(let data):
+                                print("ok tc")
                                 completion(.ok)
                             case .failure(let e):
                                 print("fail chtd de")
@@ -64,6 +38,7 @@ func testConnection(completion: @escaping (stat) -> Void) {
                             }
                         }
                 } else if data.component == "auth/loginLanding" {
+                    print("login req")
                     completion(.loginreq)
                 }
             case .failure(let err):

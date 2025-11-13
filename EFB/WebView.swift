@@ -97,3 +97,22 @@ func clearAllCookies() {
         print("✅ All WKWebView cookies and website data cleared.")
     }
 }
+func clearChartFox() {
+    let dataStore = WKWebsiteDataStore.default()
+    dataStore.httpCookieStore.getAllCookies { cookies in
+        for cookie in cookies {
+            if cookie.domain.contains("chartfox.org") {
+                dataStore.httpCookieStore.delete(cookie)
+            }
+        }
+    }
+    let types = WKWebsiteDataStore.allWebsiteDataTypes()
+    let dateFrom = Date(timeIntervalSince1970: 0)
+    
+    dataStore.fetchDataRecords(ofTypes: types) { records in
+        let targetRecords = records.filter { $0.displayName.contains("chartfox.org") }
+        dataStore.removeData(ofTypes: types, for: targetRecords) {
+            print("ChartFox.org data cleared.")
+        }
+    }
+}

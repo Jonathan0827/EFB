@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9101E0C32EC2EF880010677F /* LocalConsole in Frameworks */ = {isa = PBXBuildFile; productRef = 9101E0C22EC2EF880010677F /* LocalConsole */; };
+		9101E0C62EC2EFB20010677F /* LocalConsole in Frameworks */ = {isa = PBXBuildFile; productRef = 9101E0C52EC2EFB20010677F /* LocalConsole */; };
+		9101E0CB2EC341680010677F /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 9101E0CA2EC341680010677F /* SwiftSoup */; };
 		914133AF2EC0696500944BC5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 914133AE2EC0696500944BC5 /* WebKit.framework */; };
 		914133C02EC0701C00944BC5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 914133BF2EC0701C00944BC5 /* Alamofire */; };
 /* End PBXBuildFile section */
@@ -43,7 +46,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				914133AF2EC0696500944BC5 /* WebKit.framework in Frameworks */,
+				9101E0C32EC2EF880010677F /* LocalConsole in Frameworks */,
+				9101E0C62EC2EFB20010677F /* LocalConsole in Frameworks */,
 				914133C02EC0701C00944BC5 /* Alamofire in Frameworks */,
+				9101E0CB2EC341680010677F /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +102,9 @@
 			name = EFB;
 			packageProductDependencies = (
 				914133BF2EC0701C00944BC5 /* Alamofire */,
+				9101E0C22EC2EF880010677F /* LocalConsole */,
+				9101E0C52EC2EFB20010677F /* LocalConsole */,
+				9101E0CA2EC341680010677F /* SwiftSoup */,
 			);
 			productName = EFB;
 			productReference = 9141339F2EC0686A00944BC5 /* EFB.app */;
@@ -127,6 +136,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				914133BE2EC0701C00944BC5 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				9101E0C42EC2EFB20010677F /* XCLocalSwiftPackageReference "LocalConsole-iOS18_crash_fix" */,
+				9101E0C92EC341680010677F /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 914133A02EC0686A00944BC5 /* Products */;
@@ -285,7 +296,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WY46Y9J55L;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EFB/Info.plist;
@@ -323,7 +334,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WY46Y9J55L;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EFB/Info.plist;
@@ -377,7 +388,22 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		9101E0C42EC2EFB20010677F /* XCLocalSwiftPackageReference "LocalConsole-iOS18_crash_fix" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "LocalConsole-iOS18_crash_fix";
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
+		9101E0C92EC341680010677F /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.11.1;
+			};
+		};
 		914133BE2EC0701C00944BC5 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -389,6 +415,19 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9101E0C22EC2EF880010677F /* LocalConsole */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LocalConsole;
+		};
+		9101E0C52EC2EFB20010677F /* LocalConsole */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LocalConsole;
+		};
+		9101E0CA2EC341680010677F /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9101E0C92EC341680010677F /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
 		914133BF2EC0701C00944BC5 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 914133BE2EC0701C00944BC5 /* XCRemoteSwiftPackageReference "Alamofire" */;

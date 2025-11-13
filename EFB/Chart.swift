@@ -25,6 +25,7 @@ func headers(_ inclpat: Bool = true) -> HTTPHeaders {
 
 func getCharts(_ icao: String, completion: @escaping (ChartList) -> Void) {
     AF.request("https://chartfox.org/\(icao)", headers: headers())
+        .saveLogin()
         .responseDecodable(of: Index.self) { res in
             switch res.result {
                 case .success(let value):
