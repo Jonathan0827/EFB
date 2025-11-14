@@ -14,7 +14,12 @@ extension DataRequest {
             print("saveLogin")
             switch r.result {
             case .success:
-                let cookies = r.response!.headers.value(for: "Set-Cookie")!.split(separator: ", ")
+                let setcookie = r.response!.headers.value(for: "Set-Cookie")
+                if setcookie == nil {
+                    print("No cookie")
+                    return
+                }
+                let cookies = setcookie!.split(separator: ", ")
                 var realCookies = [String: String]()
                 var a = 0
                 for cookie in cookies {
@@ -36,6 +41,7 @@ extension DataRequest {
                         saveUserDefault("rwebd", cookie.value)
                     }
                 }
+                print("cookie set")
             case .failure(let e):
                 print("fail ch")
                 print(e)

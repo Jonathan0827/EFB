@@ -194,6 +194,25 @@ struct MainView: View {
                     }
                 }
                 HStack {
+                    NavigationLink(destination: IFATCView()) {
+                        VStack {
+                            Image(systemName: "info.circle.fill")
+                                .resizable()
+                                .frame(width: 130, height: 130)
+                                .cornerRadius(20)
+                                .tint(.prm)
+                                .padding([.horizontal, .top], 25)
+                            Text("Airport Info")
+                                .foregroundStyle(.prm)
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .padding(.bottom)
+                        }
+                        .background {
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color(uiColor: UIColor.systemGray6))
+                        }
+                    }
                     VStack {
                         Button("Reset CFox", action: {
                             cfoxPAT = ""
