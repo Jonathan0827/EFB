@@ -2,7 +2,8 @@
 
 set -e
 
-
+/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $1" ./EFB/Info.plist
+echo "Updated CFBundleVersion to $NEW_VERSION"
 
 WORKING_LOCATION="$(pwd)"
 APPLICATION_NAME=EFB

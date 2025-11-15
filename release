@@ -1,7 +1,10 @@
 #!/bin/zsh
+
 jq --argjson s "$(stat -f%z ./build/EFB.ipa)" '.apps[0].size = $s' repo.json > tmp.json
+jq --arg s "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' ./EFB/Info.plist)" '.apps[0].version = $s' repo.json > tmp1.json
 rm repo.json
-mv tmp.json repo.json
+rm tmp.json
+mv tmp1.json repo.json
 git add repo.json
 git commit -m "repo update"
 git push
