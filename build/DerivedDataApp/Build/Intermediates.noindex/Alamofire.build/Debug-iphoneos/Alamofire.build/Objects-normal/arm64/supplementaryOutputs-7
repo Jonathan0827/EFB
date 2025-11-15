@@ -1,0 +1,30 @@
+{
+  "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/SourcePackages/checkouts/Alamofire/Source/Extensions/URLRequest+Alamofire.swift" : {
+    "const-values" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/URLRequest+Alamofire.swiftconstvalues",
+    "dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/URLRequest+Alamofire.d",
+    "diagnostics" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/URLRequest+Alamofire.dia",
+    "object" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/URLRequest+Alamofire.o",
+    "swift-dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/URLRequest+Alamofire.swiftdeps"
+  },
+  "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/SourcePackages/checkouts/Alamofire/Source/Extensions/URLSessionConfiguration+Alamofire.swift" : {
+    "const-values" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/URLSessionConfiguration+Alamofire.swiftconstvalues",
+    "dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/URLSessionConfiguration+Alamofire.d",
+    "diagnostics" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/URLSessionConfiguration+Alamofire.dia",
+    "object" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/URLSessionConfiguration+Alamofire.o",
+    "swift-dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/URLSessionConfiguration+Alamofire.swiftdeps"
+  },
+  "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/SourcePackages/checkouts/Alamofire/Source/Features/AlamofireExtended.swift" : {
+    "const-values" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/AlamofireExtended.swiftconstvalues",
+    "dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/AlamofireExtended.d",
+    "diagnostics" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/AlamofireExtended.dia",
+    "object" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/AlamofireExtended.o",
+    "swift-dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/AlamofireExtended.swiftdeps"
+  },
+  "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/SourcePackages/checkouts/Alamofire/Source/Features/AuthenticationInterceptor.swift" : {
+    "const-values" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/AuthenticationInterceptor.swiftconstvalues",
+    "dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/AuthenticationInterceptor.d",
+    "diagnostics" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/AuthenticationInterceptor.dia",
+    "object" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/AuthenticationInterceptor.o",
+    "swift-dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/AuthenticationInterceptor.swiftdeps"
+  }
+}

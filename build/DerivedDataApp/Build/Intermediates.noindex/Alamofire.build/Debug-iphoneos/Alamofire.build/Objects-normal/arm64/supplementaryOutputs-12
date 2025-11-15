@@ -1,0 +1,23 @@
+{
+  "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/SourcePackages/checkouts/Alamofire/Source/Features/ServerTrustEvaluation.swift" : {
+    "const-values" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/ServerTrustEvaluation.swiftconstvalues",
+    "dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/ServerTrustEvaluation.d",
+    "diagnostics" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/ServerTrustEvaluation.dia",
+    "object" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/ServerTrustEvaluation.o",
+    "swift-dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/ServerTrustEvaluation.swiftdeps"
+  },
+  "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/SourcePackages/checkouts/Alamofire/Source/Features/URLEncodedFormEncoder.swift" : {
+    "const-values" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/URLEncodedFormEncoder.swiftconstvalues",
+    "dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/URLEncodedFormEncoder.d",
+    "diagnostics" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/URLEncodedFormEncoder.dia",
+    "object" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/URLEncodedFormEncoder.o",
+    "swift-dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/URLEncodedFormEncoder.swiftdeps"
+  },
+  "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/SourcePackages/checkouts/Alamofire/Source/Features/Validation.swift" : {
+    "const-values" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/Validation.swiftconstvalues",
+    "dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/Validation.d",
+    "diagnostics" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/Validation.dia",
+    "object" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/Validation.o",
+    "swift-dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/Alamofire.build/Debug-iphoneos/Alamofire.build/Objects-normal/arm64/Validation.swiftdeps"
+  }
+}

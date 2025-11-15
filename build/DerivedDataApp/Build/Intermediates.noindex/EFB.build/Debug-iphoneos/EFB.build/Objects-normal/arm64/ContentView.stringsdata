@@ -1,0 +1,224 @@
+{
+  "source": "/Users/jonathanlim/Desktop/coding/EFB/EFB/ContentView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "EFB",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 80
+        }
+      },
+      {
+        "comment": "",
+        "key": "Last Cookie Update:",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 40
+        }
+      },
+      {
+        "comment": "",
+        "key": "Current Unix Time:",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 41
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cookie Reset required:",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 43
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 47
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 48
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 50
+        }
+      },
+      {
+        "comment": "",
+        "key": "CFox PAT",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 54
+        }
+      },
+      {
+        "comment": "",
+        "key": "CFox SID",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 55
+        }
+      },
+      {
+        "comment": "",
+        "key": "XSRF",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 56
+        }
+      },
+      {
+        "comment": "",
+        "key": "rweb",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 57
+        }
+      },
+      {
+        "comment": "",
+        "key": "rwebd",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 58
+        }
+      },
+      {
+        "comment": "",
+        "key": "ADB API Key",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 59
+        }
+      },
+      {
+        "comment": "",
+        "key": "Login to ChartFox",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 85
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ Secondary Screen",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 89
+        }
+      },
+      {
+        "comment": "",
+        "key": "Simbrief",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 149
+        }
+      },
+      {
+        "comment": "",
+        "key": "MSFS",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 166
+        }
+      },
+      {
+        "comment": "",
+        "key": "Charts",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 185
+        }
+      },
+      {
+        "comment": "",
+        "key": "Airport Info",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 207
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reset CFox",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 219
+        }
+      },
+      {
+        "comment": "",
+        "key": "Print Cookies",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 226
+        }
+      },
+      {
+        "comment": "",
+        "key": "Run test",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 231
+        }
+      },
+      {
+        "comment": "",
+        "key": "Toggle Console",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 242
+        }
+      },
+      {
+        "comment": "",
+        "key": "Test AutoLogin",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 247
+        }
+      },
+      {
+        "comment": "",
+        "key": "Clear ChartFox Cookies",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 262
+        }
+      },
+      {
+        "comment": "",
+        "key": "Test IFATC",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 265
+        }
+      },
+      {
+        "comment": "",
+        "key": "Toggle showAdd",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 273
+        }
+      }
+    ]
+  },
+  "version": 1
+}

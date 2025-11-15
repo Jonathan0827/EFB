@@ -1,0 +1,95 @@
+{
+  "object" : {
+    "artifacts" : [
+
+    ],
+    "dependencies" : [
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "alamofire",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/Alamofire/Alamofire",
+          "name" : "Alamofire"
+        },
+        "state" : {
+          "checkoutState" : {
+            "revision" : "513364f870f6bfc468f9d2ff0a95caccc10044c5",
+            "version" : "5.10.2"
+          },
+          "name" : "sourceControlCheckout"
+        },
+        "subpath" : "Alamofire"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "localconsole-ios18_crash_fix",
+          "kind" : "fileSystem",
+          "location" : "/Users/jonathanlim/Desktop/coding/EFB/LocalConsole-iOS18_crash_fix",
+          "name" : "LocalConsole-iOS18_crash_fix"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/jonathanlim/Desktop/coding/EFB/LocalConsole-iOS18_crash_fix"
+        },
+        "subpath" : "localconsole-ios18_crash_fix"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "lrucache",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/nicklockwood/LRUCache.git",
+          "name" : "LRUCache"
+        },
+        "state" : {
+          "checkoutState" : {
+            "revision" : "0d91406ecd4d6c1c56275866f00508d9aeacc92a",
+            "version" : "1.2.0"
+          },
+          "name" : "sourceControlCheckout"
+        },
+        "subpath" : "LRUCache"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "swift-atomics",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/apple/swift-atomics.git",
+          "name" : "swift-atomics"
+        },
+        "state" : {
+          "checkoutState" : {
+            "revision" : "b601256eab081c0f92f059e12818ac1d4f178ff7",
+            "version" : "1.3.0"
+          },
+          "name" : "sourceControlCheckout"
+        },
+        "subpath" : "swift-atomics"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "swiftsoup",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/scinfu/SwiftSoup",
+          "name" : "SwiftSoup"
+        },
+        "state" : {
+          "checkoutState" : {
+            "revision" : "4206bc7b8bd9a4ff8e9511211e1b4bff979ef9c4",
+            "version" : "2.11.1"
+          },
+          "name" : "sourceControlCheckout"
+        },
+        "subpath" : "SwiftSoup"
+      }
+    ],
+    "prebuilts" : [
+
+    ]
+  },
+  "version" : 7
+}

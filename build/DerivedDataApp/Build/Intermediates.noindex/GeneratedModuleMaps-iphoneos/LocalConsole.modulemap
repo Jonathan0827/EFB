@@ -1,0 +1,4 @@
+module LocalConsole {
+header "LocalConsole-Swift.h"
+export *
+}

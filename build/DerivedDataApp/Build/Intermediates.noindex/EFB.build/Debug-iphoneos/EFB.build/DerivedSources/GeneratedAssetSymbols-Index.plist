@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>colors</key>
+	<array>
+		<dict>
+			<key>catalogPath</key>
+			<string>/Users/jonathanlim/Desktop/coding/EFB/EFB/Assets.xcassets</string>
+			<key>objcSymbol</key>
+			<string>ACColorNamePrm</string>
+			<key>relativePath</key>
+			<string>./prm.colorset</string>
+			<key>swiftSymbol</key>
+			<string>prm</string>
+		</dict>
+	</array>
+	<key>images</key>
+	<array>
+		<dict>
+			<key>catalogPath</key>
+			<string>/Users/jonathanlim/Desktop/coding/EFB/EFB/Assets.xcassets</string>
+			<key>objcSymbol</key>
+			<string>ACImageNameMSFS</string>
+			<key>relativePath</key>
+			<string>./MSFS.imageset</string>
+			<key>swiftSymbol</key>
+			<string>MSFS</string>
+		</dict>
+		<dict>
+			<key>catalogPath</key>
+			<string>/Users/jonathanlim/Desktop/coding/EFB/EFB/Assets.xcassets</string>
+			<key>objcSymbol</key>
+			<string>ACImageNameSimbrief</string>
+			<key>relativePath</key>
+			<string>./Simbrief.imageset</string>
+			<key>swiftSymbol</key>
+			<string>simbrief</string>
+		</dict>
+		<dict>
+			<key>catalogPath</key>
+			<string>/Users/jonathanlim/Desktop/coding/EFB/EFB/Assets.xcassets</string>
+			<key>objcSymbol</key>
+			<string>ACImageNameIfatc</string>
+			<key>relativePath</key>
+			<string>./ifatc.imageset</string>
+			<key>swiftSymbol</key>
+			<string>ifatc</string>
+		</dict>
+	</array>
+	<key>symbols</key>
+	<array/>
+</dict>
+</plist>

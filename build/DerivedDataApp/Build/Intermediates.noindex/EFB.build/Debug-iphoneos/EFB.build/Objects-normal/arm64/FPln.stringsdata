@@ -1,0 +1,16 @@
+{
+  "source": "/Users/jonathanlim/Desktop/coding/EFB/EFB/FPln.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "MS Flight Planner",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 14
+        }
+      }
+    ]
+  },
+  "version": 1
+}

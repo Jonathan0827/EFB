@@ -1,0 +1,16 @@
+{
+  "source": "/Users/jonathanlim/Desktop/coding/EFB/EFB/CFoxLogin.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "%@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 22
+        }
+      }
+    ]
+  },
+  "version": 1
+}

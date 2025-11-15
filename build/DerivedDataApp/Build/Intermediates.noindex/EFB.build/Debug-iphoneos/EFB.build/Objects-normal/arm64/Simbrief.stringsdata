@@ -1,0 +1,16 @@
+{
+  "source": "/Users/jonathanlim/Desktop/coding/EFB/EFB/Simbrief.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Simbrief Dispatch",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 14
+        }
+      }
+    ]
+  },
+  "version": 1
+}

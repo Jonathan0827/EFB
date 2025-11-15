@@ -1,0 +1,37 @@
+{
+  "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/SourcePackages/checkouts/SwiftSoup/Sources/HtmlTreeBuilder.swift" : {
+    "const-values" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/HtmlTreeBuilder.swiftconstvalues",
+    "dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/HtmlTreeBuilder.d",
+    "diagnostics" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/HtmlTreeBuilder.dia",
+    "object" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/HtmlTreeBuilder.o",
+    "swift-dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/HtmlTreeBuilder.swiftdeps"
+  },
+  "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/SourcePackages/checkouts/SwiftSoup/Sources/HtmlTreeBuilderState.swift" : {
+    "const-values" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/HtmlTreeBuilderState.swiftconstvalues",
+    "dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/HtmlTreeBuilderState.d",
+    "diagnostics" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/HtmlTreeBuilderState.dia",
+    "object" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/HtmlTreeBuilderState.o",
+    "swift-dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/HtmlTreeBuilderState.swiftdeps"
+  },
+  "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/SourcePackages/checkouts/SwiftSoup/Sources/Mutex.swift" : {
+    "const-values" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Mutex.swiftconstvalues",
+    "dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Mutex.d",
+    "diagnostics" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Mutex.dia",
+    "object" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Mutex.o",
+    "swift-dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Mutex.swiftdeps"
+  },
+  "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/SourcePackages/checkouts/SwiftSoup/Sources/Node.swift" : {
+    "const-values" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Node.swiftconstvalues",
+    "dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Node.d",
+    "diagnostics" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Node.dia",
+    "object" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Node.o",
+    "swift-dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Node.swiftdeps"
+  },
+  "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/SourcePackages/checkouts/SwiftSoup/Sources/NodeTraversor.swift" : {
+    "const-values" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/NodeTraversor.swiftconstvalues",
+    "dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/NodeTraversor.d",
+    "diagnostics" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/NodeTraversor.dia",
+    "object" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/NodeTraversor.o",
+    "swift-dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/NodeTraversor.swiftdeps"
+  }
+}

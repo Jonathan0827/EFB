@@ -1,0 +1,30 @@
+{
+  "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/SourcePackages/checkouts/SwiftSoup/Sources/TextNode.swift" : {
+    "const-values" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/TextNode.swiftconstvalues",
+    "dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/TextNode.d",
+    "diagnostics" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/TextNode.dia",
+    "object" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/TextNode.o",
+    "swift-dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/TextNode.swiftdeps"
+  },
+  "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/SourcePackages/checkouts/SwiftSoup/Sources/Token.swift" : {
+    "const-values" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Token.swiftconstvalues",
+    "dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Token.d",
+    "diagnostics" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Token.dia",
+    "object" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Token.o",
+    "swift-dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Token.swiftdeps"
+  },
+  "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/SourcePackages/checkouts/SwiftSoup/Sources/TokenQueue.swift" : {
+    "const-values" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/TokenQueue.swiftconstvalues",
+    "dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/TokenQueue.d",
+    "diagnostics" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/TokenQueue.dia",
+    "object" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/TokenQueue.o",
+    "swift-dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/TokenQueue.swiftdeps"
+  },
+  "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/SourcePackages/checkouts/SwiftSoup/Sources/Tokeniser.swift" : {
+    "const-values" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Tokeniser.swiftconstvalues",
+    "dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Tokeniser.d",
+    "diagnostics" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Tokeniser.dia",
+    "object" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Tokeniser.o",
+    "swift-dependencies" : "/Users/jonathanlim/Desktop/coding/EFB/build/DerivedDataApp/Build/Intermediates.noindex/SwiftSoup.build/Debug-iphoneos/SwiftSoup.build/Objects-normal/arm64/Tokeniser.swiftdeps"
+  }
+}
