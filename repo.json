@@ -5,8 +5,8 @@
   "subtitle": "EFB Repo",
   "description": "Electronic Flight Bag",
   "tintColor": "000000",
-  "iconURL": "https://www.boeing.com/content/theboeingcompany/us/en/company/key-orgs/brand/_jcr_content/root/container/container_1690781466/image.coreimg.85.1600.jpeg/1702305421285/boeing-logo-300x119.jpeg",
-  "headerURL": "https://www.boeing.com/content/theboeingcompany/us/en/company/key-orgs/brand/_jcr_content/root/container/container_1690781466/image.coreimg.85.1600.jpeg/1702305421285/boeing-logo-300x119.jpeg",
+  "iconURL": "https://github.com/Jonathan0827/EFB/raw/refs/heads/main/icon.png",
+  "headerURL": "https://github.com/Jonathan0827/EFB/raw/refs/heads/main/icon.png",
   "apps": [
     {
       "beta": true,
@@ -19,9 +19,10 @@
       "versionDescription": "Beta",
       "downloadURL": "https://github.com/Jonathan0827/EFB/raw/refs/heads/main/build/EFB.ipa",
       "localizedDescription": "Open Source EFB for iPad",
-      "iconURL": "https://raw.githubusercontent.com/YTLitePlus/YTLitePlus-Altstore/main/Youtube_logo-512.png",
+      "iconURL": "https://github.com/Jonathan0827/EFB/raw/refs/heads/main/icon.png",
       "tintColor": "000000",
       "category": "Utility",
+      "size": 3031711
     }
   ]
 }
