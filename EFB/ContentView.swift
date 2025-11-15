@@ -97,7 +97,7 @@ struct ContentView: View {
                 if Date().timeIntervalSince1970 - (readUserDefault("LastCookieUpdate")! as! Double) >= 7200 {
                     AF.request("https://chartfox.org/", headers: headers())
                         .saveLogin()
-                        .response {_ in
+                        .response { _ in
                             testConnection { r in
                                 print("r rcvd")
                                 print(r)
