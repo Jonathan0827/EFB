@@ -1,0 +1,26 @@
+{
+  "name": "EFB",
+  "identifier": "com.efb.repo",
+  "website": "https://github.com/Jonathan0827/EFB",
+  "subtitle": "EFB Repo",
+  "description": "Electronic Flight Bag",
+  "tintColor": "000000",
+  "iconURL": "https://www.boeing.com/content/theboeingcompany/us/en/company/key-orgs/brand/_jcr_content/root/container/container_1690781466/image.coreimg.85.1600.jpeg/1702305421285/boeing-logo-300x119.jpeg",
+  "headerURL": "https://www.boeing.com/content/theboeingcompany/us/en/company/key-orgs/brand/_jcr_content/root/container/container_1690781466/image.coreimg.85.1600.jpeg/1702305421285/boeing-logo-300x119.jpeg",
+  "apps": [
+    {
+      "beta": true,
+      "name": "EFB",
+      "bundleIdentifier": "com.jonathan.EFB",
+      "developerName": "Jonathan0827",
+      "subtitle": "Electronic Flight Bag for simulation",
+      "version": "0.0.1",
+      "versionDate": "2025-11-25",
+      "versionDescription": "Beta",
+      "localizedDescription": "Open Source EFB for iPad",
+      "iconURL": "https://raw.githubusercontent.com/YTLitePlus/YTLitePlus-Altstore/main/Youtube_logo-512.png",
+      "tintColor": "000000",
+      "category": "Utility",
+    }
+  ]
+}

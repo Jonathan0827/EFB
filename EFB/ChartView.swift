@@ -26,7 +26,8 @@ struct ChartView: View {
             VStack {
                 HStack {
                     TextField("icao", text: $icao)
-                        .textCase(.uppercase)
+                        .disableAutocorrection(true)
+                        .textInputAutocapitalization(.characters)
                         .onChange(of: icao) { o, n in
                             loadingAirport = true
                             searchICAO(n) { r in
@@ -58,8 +59,8 @@ struct ChartView: View {
                         ProgressView()
                         Spacer()
                     } else {
-                        List {
-                            ForEach(airportList, id:\.id) { airport in
+                        List(airportList, id:\.id) { airport in
+//                            ForEach(airportList, id:\.id) { airport in
                                 Button("\(airport.icaoCode!): \(airport.name)", action: {
                                     icao = airport.icaoCode!
                                     showChartList = true
@@ -69,7 +70,7 @@ struct ChartView: View {
                                         loading = false
                                     }
                                 })
-                            }
+//                            }
                         }
                     }
                 }
@@ -119,9 +120,8 @@ struct ChartView: View {
         }, detail: {
             NavigationStack {
                 VStack {
-                    if let chartData {
+                    if chartData != nil {
                         RealChartView(chart: $chartData, columnVis: $columnVisibility)
-                            
                     } else {
                         Text("Choose an item from the content")
                     }

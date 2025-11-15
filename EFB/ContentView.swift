@@ -17,6 +17,7 @@ struct ContentView: View {
     @AppStorage("xsrf") var xsrf: String = ""
     @AppStorage("rweb") var rweb: String = ""
     @AppStorage("rwebd") var rwebd: String = ""
+    @AppStorage("ADBAPI") var ADBAPI: String = ""
     @State var showLoginCFox: Bool = false
     @State var showLoginCFoxBtn: Bool = false
     @State var showAdd: Bool = false
@@ -55,6 +56,7 @@ struct ContentView: View {
                             TextField("XSRF", text: $xsrf)
                             TextField("rweb", text: $rweb)
                             TextField("rwebd", text: $rwebd)
+                            TextField("ADB API Key", text: $ADBAPI)
                         }
                     }
                 }
@@ -194,7 +196,7 @@ struct MainView: View {
                     }
                 }
                 HStack {
-                    NavigationLink(destination: IFATCView()) {
+                    NavigationLink(destination: AirportInfoView()) {
                         VStack {
                             Image(systemName: "info.circle.fill")
                                 .resizable()
