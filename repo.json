@@ -9,7 +9,7 @@
   "headerURL": "https://github.com/Jonathan0827/EFB/raw/refs/heads/main/icon.png",
   "apps": [
     {
-      "beta": true,
+      "beta": false,
       "name": "EFB",
       "bundleIdentifier": "com.jonathan.EFB",
       "developerName": "Jonathan0827",
