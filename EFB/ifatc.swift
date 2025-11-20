@@ -17,6 +17,7 @@ func searchAirportIFATC(_ icao: String, _ prog: Int,completion: @escaping ([ifat
                 completion(value.results, prog)
             case .failure(let error):
                 print(error)
+                completion([], prog)
             }
         }
 }
@@ -47,6 +48,7 @@ func getGateInfo(_ icao: String, completion: @escaping ([gateType]) -> Void) {
                 completion(final)
             } catch let error {
                 print(error)
+                completion([])
             }
         }
 }
@@ -71,13 +73,15 @@ func getAllGates(_ icao: String, completion: @escaping ([gate]) -> Void) {
                             gateName: list[i*4],
                             type: list[(i+1)*4-3],
                             aircraftType: list[(i+1)*4-2],
-                            aircraft: list[(i+1)*4-1].split(separator: ", ").toStringArray()
+                            aircraft: list[(i+1)*4-1]
                         )
                     )
                 }
+                print(final)
                 completion(final)
             } catch let error {
                 print(error)
+                completion([])
             }
         }
 }
@@ -91,7 +95,7 @@ struct gate {
     let gateName: String
     let type: String
     let aircraftType: String
-    let aircraft: [String]
+    let aircraft: String
 }
 extension Array<Substring> {
     func toStringArray() -> [String] {

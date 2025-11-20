@@ -4,7 +4,9 @@ set -e
 
 #/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $1" ./EFB/Info.plist
 #echo "Updated CFBundleVersion to $NEW_VERSION"
-
+sed -i '' "s/MARKETING_VERSION = .*/MARKETING_VERSION = $1;/" \
+    ./EFB.xcodeproj/project.pbxproj
+echo "Version set to $1"
 WORKING_LOCATION="$(pwd)"
 APPLICATION_NAME=EFB
 

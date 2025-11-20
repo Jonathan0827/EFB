@@ -80,11 +80,13 @@ struct RealAirportInfoView: View {
     @Binding var icao: String
     @State var airport: AirportDetail?
     @State var gateInfo: [gateType]?
+    @State var gates: [gate]?
     @State var loading = 0
+    @State var showAllGates = false
     @Binding var columnVis: NavigationSplitViewVisibility
     var body: some View {
         VStack {
-            if loading != 2{
+            if loading != 3{
                 ProgressView()
                     .onAppear {
                         columnVis = .detailOnly
@@ -103,7 +105,23 @@ struct RealAirportInfoView: View {
                                 Text("N/A")
                             }
                             ForEach(gateInfo!, id: \.type) { g in
-                                Text("Class: \(g.type), Count: \(g.count), Max Aircraft Size: \(g.aircraft)")
+                                Text("Class \(g.type): Count: \(g.count), Max Aircraft Size: \(g.aircraft)")
+                            }
+                        }
+                        Section(header: Text("Gates")) {
+                            if gates!.isEmpty {
+                                Text("N/A")
+                            } else {
+                                Button("\(showAllGates ? "Hide" : "Show") All Gates", action: {
+                                    withAnimation {
+                                        showAllGates.toggle()
+                                    }
+                                })
+                                if showAllGates {
+                                    ForEach(gates!, id: \.gateName) { g in
+                                        Text("\(g.gateName), Class: \(g.aircraftType), Aircrafts: \(g.aircraft)")
+                                    }
+                                }
                             }
                         }
                         //                    }
@@ -154,6 +172,11 @@ struct RealAirportInfoView: View {
                 print("g rcvd")
                 gateInfo = g
                 print(g)
+                loading += 1
+            }
+            getAllGates(icao) { g in
+                print("all g rcvd")
+                gates = g
                 loading += 1
             }
         }
