@@ -18,18 +18,21 @@ struct SearchFlightsView: View {
         VStack {
             HStack {
                 TextField("Departure ICAO", text: $depIcao)
+                    .textCase(.uppercase)
                 Button(action: {
                     searchAirport = 1
                 }, label: {
                     Image(systemName: "magnifyingglass")
                 })
                 TextField("Arrival ICAO", text: $arrIcao)
+                    .textCase(.uppercase)
                 Button(action: {
                     searchAirport = 2
                 }, label: {
                     Image(systemName: "magnifyingglass")
                 })
             }
+            .padding(.horizontal)
             Button("Search", action: {
                 state = 1
                 getFlightsAlt(depIcao, arrIcao) { r in
