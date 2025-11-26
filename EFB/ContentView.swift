@@ -18,6 +18,7 @@ struct ContentView: View {
     @AppStorage("rweb") var rweb: String = ""
     @AppStorage("rwebd") var rwebd: String = ""
     @AppStorage("ADBAPI") var ADBAPI: String = ""
+    @AppStorage("ALAPI") var ALAPI: String = ""
     @State var showLoginCFox: Bool = false
     @State var showLoginCFoxBtn: Bool = false
     @State var showAdd: Bool = false
@@ -34,32 +35,6 @@ struct ContentView: View {
         : [GridItem(.flexible()), GridItem(.flexible())]
         NavigationView {
             VStack {
-                if showAdd {
-                    HStack {
-                        VStack(alignment: .trailing) {
-                            Text("Last Cookie Update:")
-                            Text("Current Unix Time:")
-                            if readUserDefault("LastCookieUpdate") != nil {
-                                Text("Cookie Reset required:")
-                            }
-                        }
-                        VStack(alignment: .leading) {
-                            Text("\(String(describing: readUserDefault("LastCookieUpdate") ?? "N/A"))")
-                            Text("\(Date().timeIntervalSince1970.description)")
-                            if readUserDefault("LastCookieUpdate") != nil {
-                                Text("\(Date().timeIntervalSince1970 - (readUserDefault("LastCookieUpdate")! as! Double) >= 7200 ? "Yes" : "No")")
-                            }
-                        }
-                        VStack {
-                            TextField("CFox PAT", text: $cfoxPAT)
-                            TextField("CFox SID", text: $cfoxSID)
-                            TextField("XSRF", text: $xsrf)
-                            TextField("rweb", text: $rweb)
-                            TextField("rwebd", text: $rwebd)
-                            TextField("ADB API Key", text: $ADBAPI)
-                        }
-                    }
-                }
                 LazyVGrid(columns: columns) {
                     MainView(
                         showLoginCFox: $showLoginCFox,
@@ -74,6 +49,34 @@ struct ContentView: View {
                             showAdd: $showAdd
                         )
                         .frame(height: (currentOrientation.rawValue == 1 || currentOrientation.rawValue == 2) && secondDP ? UIScreen.main.bounds.height/2-25 : UIScreen.main.bounds.height-30)
+                    }
+                }
+            }
+            .sheet(isPresented: $showAdd) {
+                VStack {
+                    Text("Menu")
+                    VStack(alignment: .trailing) {
+                        Text("Last Cookie Update:")
+                        Text("Current Unix Time:")
+                        if readUserDefault("LastCookieUpdate") != nil {
+                            Text("Cookie Reset required:")
+                        }
+                    }
+                    VStack(alignment: .leading) {
+                        Text("\(String(describing: readUserDefault("LastCookieUpdate") ?? "N/A"))")
+                        Text("\(Date().timeIntervalSince1970.description)")
+                        if readUserDefault("LastCookieUpdate") != nil {
+                            Text("\(Date().timeIntervalSince1970 - (readUserDefault("LastCookieUpdate")! as! Double) >= 7200 ? "Yes" : "No")")
+                        }
+                    }
+                    VStack {
+                        TextField("CFox PAT", text: $cfoxPAT)
+                        TextField("CFox SID", text: $cfoxSID)
+                        TextField("XSRF", text: $xsrf)
+                        TextField("rweb", text: $rweb)
+                        TextField("rwebd", text: $rwebd)
+                        TextField("ADB API Key", text: $ADBAPI)
+                        TextField("AirLabs API Key", text: $ALAPI)
                     }
                 }
             }
@@ -215,6 +218,25 @@ struct MainView: View {
                                 .fill(Color(uiColor: UIColor.systemGray6))
                         }
                     }
+                    NavigationLink(destination: SearchFlightsView()) {
+                        VStack {
+                            Image(systemName: "airplane.departure")
+                                .resizable()
+                                .frame(width: 130, height: 130)
+                                .cornerRadius(20)
+                                .tint(.prm)
+                                .padding([.horizontal, .top], 25)
+                            Text("Search Flights")
+                                .foregroundStyle(.prm)
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .padding(.bottom)
+                        }
+                        .background {
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color(uiColor: UIColor.systemGray6))
+                        }
+                    }
                     VStack {
                         Button("Reset CFox", action: {
                             cfoxPAT = ""
@@ -242,8 +264,8 @@ struct MainView: View {
                         Button("Toggle Console", action: {
                             consoleManager.isVisible.toggle()
                         })
-                    }
-                    VStack {
+//                    }
+//                    VStack {
                         Button("Test AutoLogin", action: {
                             AF.request("https://chartfox.org/", headers: headers())
                                 .saveLogin()
@@ -262,15 +284,15 @@ struct MainView: View {
                         Button("Clear ChartFox Cookies", action: {
                             clearChartFox()
                         })
-                        Button("Test IFATC", action: {
-                            getGateInfo("RKSI") { r in
-                                print(r)
-                            }
-                            getAllGates("RKSI") { r in
-                                print(r[0])
-                            }
-                        })
-                        Button("Toggle showAdd", action: {
+//                        Button("Test IFATC", action: {
+//                            getGateInfo("RKSI") { r in
+//                                print(r)
+//                            }
+//                            getAllGates("RKSI") { r in
+//                                print(r[0])
+//                            }
+//                        })
+                        Button("Show Menu", action: {
                             withAnimation {
                                 showAdd.toggle()
                             }

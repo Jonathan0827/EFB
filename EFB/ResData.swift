@@ -7,6 +7,154 @@
 
 import Foundation
 
+struct FlightInfo: Codable, Hashable {
+    let aircraftLabel: String?
+    let aircraftType: String?
+    let airlineLogo: String?
+    let airlineName: String?
+
+    let arriveLabel: String?
+    let connectionCity: String?
+    let connectionLabel: String?
+    let departLabel: String?
+
+    let destination: String?
+    let destinationFontWeight: String?
+
+    var flightArrivalDay: String?
+    var flightArrivalTime: String?
+    var flightDepartureDay: String?
+    var flightDepartureTime: String?
+
+    var flightIdent: String?
+    let flightStatus: String?
+
+    let layoverDuration: String?
+    let layoverLabel: String?
+
+    let logoRowspan: String?
+    let origin: String?
+    let originFontWeight: String?
+    let rowspan: String?
+}
+
+extension FlightInfo {
+    enum CodingKeys: String, CodingKey {
+        case aircraftLabel
+        case aircraftType
+        case airlineLogo
+        case airlineName
+        case arriveLabel
+        case connectionCity
+        case connectionLabel
+        case departLabel
+        case destination
+        case destinationFontWeight = "destination-font-weight"
+        case flightArrivalDay
+        case flightArrivalTime
+        case flightDepartureDay
+        case flightDepartureTime
+        case flightIdent
+        case flightStatus
+        case layoverDuration
+        case layoverLabel
+        case logoRowspan
+        case origin
+        case originFontWeight = "origin-font-weight"
+        case rowspan
+    }
+}
+
+struct Flight: Codable, Hashable {
+//    var id: String { reg }
+    
+    let aircraftType: String?
+    let alliance: String?
+    let operatorName: String?
+    let prefix: String?
+    let reg: String?
+    let destinationCity: String?
+    
+    let estimatedDepartureTime: String?
+    let estimatedArrivalTime: String?
+    let scheduledBlockOut: String?
+    let scheduledBlockIn: String?
+    let filedDepartureTime: String?
+    let filedArrivalTime: String?
+    let filedETE: String?
+    
+    let gateOrigin: String?
+    let gateDestination: String?
+    let terminalOrigin: String?
+    let terminalDestination: String?
+    
+    let seatsBusiness: String?
+    let seatsCoach: String?
+    let seatsFirst: String?
+    
+    let routeDistance: String?
+    let status: String?
+    let statusCode: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case aircraftType = "aircrafttype_friendly"
+        case alliance
+        case operatorName = "operator"
+        case prefix
+        case reg
+        case destinationCity = "destination_city"
+        case estimatedDepartureTime = "estimateddeparturetime"
+        case estimatedArrivalTime = "estimatedarrivaltime"
+        case scheduledBlockOut = "sch_block_out"
+        case scheduledBlockIn = "sch_block_in"
+        case filedDepartureTime = "filed_departuretime"
+        case filedArrivalTime = "filed_arrivaltime"
+        case filedETE = "filed_ete"
+        case gateOrigin = "gate_orig"
+        case gateDestination = "gate_dest"
+        case terminalOrigin = "terminal_orig"
+        case terminalDestination = "terminal_dest"
+        case seatsBusiness = "seats_cabin_business"
+        case seatsCoach = "seats_cabin_coach"
+        case seatsFirst = "seats_cabin_first"
+        case routeDistance = "route_distance"
+        case status
+        case statusCode = "status_code"
+    }
+}
+
+nonisolated
+struct AirlabsResponse: Codable {
+    let response: [Route]
+}
+
+struct Route: Codable {
+    let airline_iata: String?
+    let airline_icao: String?
+    let flight_number: String?
+    let flight_iata: String?
+    let flight_icao: String?
+//    let cs_airline_iata: String?
+//    let cs_flight_iata: String?
+//    let cs_flight_number: String? Might fuck everything up
+    let dep_iata: String?
+    let dep_icao: String?
+    let dep_terminals: [String]?
+    let dep_time: String?
+    let dep_time_utc: String?
+    let arr_iata: String?
+    let arr_icao: String?
+    let arr_terminals: [String]?
+    let arr_time: String?
+    let arr_time_utc: String?
+    let duration: Int?
+    let aircraft_icao: String?
+    let counter: Int?
+    let updated: String?
+    let days: [String]?
+}
+
+
 nonisolated
 struct AirportDetail: Codable {
     let ident: String

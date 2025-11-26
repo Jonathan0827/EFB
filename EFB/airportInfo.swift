@@ -14,11 +14,11 @@ func airportInfo(_ icao: String, completion: @escaping (AirportDetail) -> Void) 
         
     } else {
         AF.request("https://airportdb.io/api/v1/airport/\(icao)?apiToken=\(apiKey!)")
-            .response { r in
-                if let data = r.data {
+//            .response { r in
+//                if let data = r.data {
 //                    print(String(data: data, encoding: .utf8) ?? "no data")
-                }
-            }
+//                }
+//            }
             .responseDecodable(of: AirportDetail.self) { res in
                 switch res.result {
                 case .success(let value):

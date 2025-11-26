@@ -32,9 +32,9 @@ struct ChartView: View {
                             loadingAirport = true
                             searchICAO(n) { r in
                                 do {
-                                    if try r.get() != nil {
+//                                    if try r.get() != nil {
                                         airportList = try r.get().data
-                                    }
+//                                    }
                                 } catch {
                                     print("No airport found")
                                     airportList = []
@@ -210,7 +210,7 @@ func searchICAO(_ icao: String, completion: @escaping (Result<AirportResponse, E
             switch r.result {
             case .success(let res):
                 for i in res.data {
-                    print(i.icaoCode)
+                    print(i.icaoCode ?? "")
                 }
                 completion(.success(res))
             case .failure(let e):
