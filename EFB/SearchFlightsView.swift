@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct SearchFlightsView: View {
-    @State var depIcao: String = "RKPK"
-    @State var arrIcao: String = "RKPC"
+    @State var depIcao: String = ""
+    @State var arrIcao: String = ""
 //    @State var opIcao: String = ""
     @State var searchAirport: Int = 0
     @State var routes: [flDS] = []

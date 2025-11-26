@@ -1,10 +1,15 @@
 #!/bin/zsh
-
+sh ./build.sh $1
 jq --argjson s "$(stat -f%z ./build/EFB.ipa)" '.apps[0].size = $s' repo.json > tmp.json
 jq --arg s "$1" '.apps[0].version = $s' repo.json > tmp1.json
+jq --arg s "$2" '.apps[0].versionDescription = $s' tmp1.json > tmp2.json
 rm repo.json
 rm tmp.json
-mv tmp1.json repo.json
-git add repo.json
+rm tmp1.json
+mv tmp2.json repo.json
+git add repo.json EFB.xcodeproj/project.pbxproj build/EFB.ipa
 git commit -m "repo update"
+git push
+git add .
+git commit -m $2
 git push
