@@ -31,7 +31,7 @@ func getFlights(_ depIcao: String?, _ arrIcao: String?, completion: @escaping (A
         }
 }
 
-func getFlightsAlt(_ depIcao: String, _ arrIcao: String, completion: @escaping ([flDS]) -> Void) {
+func getFlightsAlt(_ depIcao: String, _ arrIcao: String, completion: @escaping ([[flDS]]) -> Void) {
     AF.request("https://www.flightaware.com/live/findflight?origin=\(depIcao)&destination=\(arrIcao)", headers: langhead)
         .response { r in
             print("r")
@@ -57,6 +57,7 @@ func getFlightsAlt(_ depIcao: String, _ arrIcao: String, completion: @escaping (
                         do {
                             let flight = try decoder.decode([[Flight]].self, from: String(fl).data(using: .utf8)!)
                             let flatFlights = flight.flatMap { $0 }
+//                            print(flatFlights[0])
                             for j in list[1].split(separator: "\n") {
                                 if j.contains("FA.findflight.resultsContent") {
                                     let fl = j.replacing("FA.findflight.resultsContent = ", with: "").replacing("];", with: "]")
@@ -75,11 +76,16 @@ func getFlightsAlt(_ depIcao: String, _ arrIcao: String, completion: @escaping (
                                             cache.flightArrivalDay = try SwiftSoup.parse(flight.flightArrivalDay!).text()
                                             finals.append(cache)
                                         }
-                                    var tr = [flDS]()
+//                                    print(finals[0])
+                                    var tr = [[flDS]]()
                                         var a = 0
-                                        for fl in flatFlights {
-                                            tr.append(flDS(flight: fl, flightInfo: finals[a]))
-                                            a += 1
+                                        for fl in flight {
+                                            var c = [flDS]()
+                                            for j in fl {
+                                                c.append(flDS(flight: j, flightInfo: finals[a]))
+                                                a += 1
+                                            }
+                                            tr.append(c)
                                         }
                                         completion(tr)
                                 }

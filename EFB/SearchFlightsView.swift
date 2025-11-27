@@ -12,20 +12,22 @@ struct SearchFlightsView: View {
     @State var arrIcao: String = ""
 //    @State var opIcao: String = ""
     @State var searchAirport: Int = 0
-    @State var routes: [flDS] = []
+    @State var routes: [[flDS]] = []
     @State var state: Int = 0
     var body: some View {
         VStack {
             HStack {
                 TextField("Departure ICAO", text: $depIcao)
-                    .textCase(.uppercase)
+                    .disableAutocorrection(true)
+                    .textInputAutocapitalization(.characters)
                 Button(action: {
                     searchAirport = 1
                 }, label: {
                     Image(systemName: "magnifyingglass")
                 })
                 TextField("Arrival ICAO", text: $arrIcao)
-                    .textCase(.uppercase)
+                    .disableAutocorrection(true)
+                    .textInputAutocapitalization(.characters)
                 Button(action: {
                     searchAirport = 2
                 }, label: {
@@ -36,7 +38,6 @@ struct SearchFlightsView: View {
             Button("Search", action: {
                 state = 1
                 getFlightsAlt(depIcao, arrIcao) { r in
-//                    print(r)
                     routes = r
                     state = 2
                 }
@@ -56,20 +57,28 @@ struct SearchFlightsView: View {
                     Spacer()
                 } else {
                     List {
-                        ForEach(routes, id:\.flightInfo.debugDescription) { route in
-                            HStack {
-                                AsyncImage(url: URL(string: route.flightInfo!.airlineLogo!)){ image in
-                                    image
-                                } placeholder: {
-                                    Image(systemName: "airplane.circle")
+                        ForEach(routes, id:\.description) { r in
+                            Section {
+                                ForEach(r, id:\.flightInfo?.destination) { route in
+                                    NavigationLink(destination: FlightDetailView(flight: route.flight!, flightInfo: route.flightInfo!)) {
+                                        HStack {
+                                            AsyncImage(url: URL(string: route.flightInfo!.airlineLogo!)){ image in
+                                                image
+                                            } placeholder: {
+                                                Image(systemName: "airplane.circle")
+                                            }
+                                            VStack(alignment: .leading) {
+                                                Text("\(route.flightInfo!.flightIdent!): Operated by \(route.flight!.operatorName ?? ""), Aircraft: \(route.flightInfo!.aircraftType ?? "A/C Unknown"), \(route.flightInfo!.origin ?? "N/A") - \(route.flightInfo!.destination ?? "N/A")")
+                                                    .fontWeight(.bold)
+                                                Text("\(route.flightInfo!.flightDepartureTime ?? "?") - \(route.flightInfo!.flightArrivalTime ?? "?") \(route.flightInfo!.flightDepartureDay ?? "?") - \(route.flightInfo!.flightArrivalDay ?? "?")")
+                                                if !((route.flight!.scheduledBlockOut ?? "").isEmpty || (route.flight!.scheduledBlockIn ?? "").isEmpty) {
+                                                    Text("\(route.flight!.scheduledBlockOut!.split(separator: " ")[1].prefix(5)) UTC - \(route.flight!.scheduledBlockIn!.split(separator: " ")[1].prefix(5)) UTC")
+                                                }
+                                            }
+                                            .padding(.leading, 5)
+                                        }
+                                    }
                                 }
-                                VStack(alignment: .leading) {
-                                    Text("\(route.flightInfo!.flightIdent!): Operated by \(route.flight!.operatorName ?? ""), Aircraft: \(route.flightInfo!.aircraftType ?? "A/C Unknown"), \(route.flightInfo!.origin ?? "N/A") - \(route.flightInfo!.destination ?? "N/A")")
-                                        .fontWeight(.bold)
-                                    Text("\(route.flightInfo!.flightDepartureTime ?? "?") - \(route.flightInfo!.flightArrivalTime ?? "?") \(route.flightInfo!.flightDepartureDay ?? "?") - \(route.flightInfo!.flightArrivalDay ?? "?")")
-                                    Text("\(route.flight!.scheduledBlockOut!.split(separator: " ")[1].prefix(5)) UTC - \(route.flight!.scheduledBlockIn!.split(separator: " ")[1].prefix(5)) UTC")
-                                }
-                                .padding(.leading, 5)
                             }
                         }
                     }
@@ -136,7 +145,15 @@ struct SearchAirportView: View {
 }
 
 struct FlightDetailView: View {
+    let flight: Flight
+    let flightInfo: FlightInfo
     var body: some View {
-        Text("Flight Detail View")
+        VStack(alignment: .leading) {
+            Text("\(flightInfo.flightIdent!)")
+                .font(.largeTitle.bold())
+            Text("\(flight)")
+            Text("\(flightInfo)")
+        }
+        .padding()
     }
 }

@@ -144,13 +144,19 @@ struct MainView: View {
                 Spacer()
                 HStack {
                     NavigationLink(destination: Simbrief()) {
-                        VStack {
-                            Image("Simbrief")
-                                .resizable()
-                                .frame(width: 150, height: 150)
-                                .cornerRadius(20)
-                            Text("Simbrief")
-                                .foregroundStyle(.prm)
+                        ZStack {
+                            VStack {
+                                Image("Simbrief")
+                                    .resizable()
+                                    .frame(width: 130, height: 130)
+                                    .cornerRadius(20)
+                                Text("Simbrief")
+                                    .foregroundStyle(.prm)
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                            }
+                            Text("Search Flights")
+                                .hidden()
                                 .font(.title2)
                                 .fontWeight(.bold)
                         }
@@ -161,13 +167,19 @@ struct MainView: View {
                         }
                     }
                     NavigationLink(destination: MSPlanner()) {
-                        VStack {
-                            Image("MSFS")
-                                .resizable()
-                                .frame(width: 150, height: 150)
-                                .cornerRadius(20)
-                            Text("MSFS")
-                                .foregroundStyle(.prm)
+                        ZStack {
+                            VStack {
+                                Image("MSFS")
+                                    .resizable()
+                                    .frame(width: 130, height: 130)
+                                    .cornerRadius(20)
+                                Text("MSFS")
+                                    .foregroundStyle(.prm)
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                            }
+                            Text("Search Flights")
+                                .hidden()
                                 .font(.title2)
                                 .fontWeight(.bold)
                         }
@@ -178,20 +190,23 @@ struct MainView: View {
                         }
                     }
                     NavigationLink(destination: ChartView()) {
-                        VStack {
-                            Image(systemName: "map.fill")
-                                .resizable()
-                                .frame(width: 130, height: 130)
-                                .cornerRadius(20)
-                                .tint(.prm)
-                                .padding([.horizontal, .top], 25)
-                            Text("Charts")
-                                .foregroundStyle(.prm)
+                        ZStack {
+                            VStack {
+                                Image(systemName: "map.fill")
+                                    .resizable()
+                                    .frame(width: 130, height: 130)
+                                    .tint(.prm)
+                                Text("Charts")
+                                    .foregroundStyle(.prm)
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                            }
+                            Text("Search Flights")
+                                .hidden()
                                 .font(.title2)
                                 .fontWeight(.bold)
-                                .padding(.bottom)
                         }
-                        
+                        .padding()
                         .background {
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color(uiColor: UIColor.systemGray6))
@@ -200,38 +215,41 @@ struct MainView: View {
                 }
                 HStack {
                     NavigationLink(destination: AirportInfoView()) {
-                        VStack {
-                            Image(systemName: "info.circle.fill")
-                                .resizable()
-                                .frame(width: 130, height: 130)
-                                .cornerRadius(20)
-                                .tint(.prm)
-                                .padding([.horizontal, .top], 25)
-                            Text("Airport Info")
-                                .foregroundStyle(.prm)
+                        ZStack {
+                            VStack {
+                                Image(systemName: "info.circle.fill")
+                                    .resizable()
+                                    .frame(width: 130, height: 130)
+                                    .tint(.prm)
+                                Text("Airport Info")
+                                    .foregroundStyle(.prm)
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                            }
+                            Text("Search Flights")
+                                .hidden()
                                 .font(.title2)
                                 .fontWeight(.bold)
-                                .padding(.bottom)
                         }
-                        .background {
-                            RoundedRectangle(cornerRadius: 20)
-                                .fill(Color(uiColor: UIColor.systemGray6))
-                        }
+                            .padding()
+                            .background {
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(Color(uiColor: UIColor.systemGray6))
+                            }
+                        
                     }
                     NavigationLink(destination: SearchFlightsView()) {
                         VStack {
                             Image(systemName: "airplane.departure")
                                 .resizable()
                                 .frame(width: 130, height: 130)
-                                .cornerRadius(20)
                                 .tint(.prm)
-                                .padding([.horizontal, .top], 25)
                             Text("Search Flights")
                                 .foregroundStyle(.prm)
                                 .font(.title2)
                                 .fontWeight(.bold)
-                                .padding(.bottom)
                         }
+                        .padding()
                         .background {
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color(uiColor: UIColor.systemGray6))
