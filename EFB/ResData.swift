@@ -27,7 +27,7 @@ struct FlightInfo: Codable, Hashable {
     var flightDepartureTime: String?
 
     var flightIdent: String?
-    let flightStatus: String?
+    var flightStatus: String?
 
     let layoverDuration: String?
     let layoverLabel: String?

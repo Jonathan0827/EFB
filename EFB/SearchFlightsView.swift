@@ -10,7 +10,7 @@ import SwiftUI
 struct SearchFlightsView: View {
     @State var depIcao: String = ""
     @State var arrIcao: String = ""
-//    @State var opIcao: String = ""
+    //    @State var opIcao: String = ""
     @State var searchAirport: Int = 0
     @State var routes: [[flDS]] = []
     @State var state: Int = 0
@@ -60,22 +60,26 @@ struct SearchFlightsView: View {
                         ForEach(routes, id:\.description) { r in
                             Section {
                                 ForEach(r, id:\.flightInfo?.destination) { route in
-                                    NavigationLink(destination: FlightDetailView(flight: route.flight!, flightInfo: route.flightInfo!)) {
+                                    NavigationLink(destination: FlightDetailView(flight: r)) {
                                         HStack {
-                                            AsyncImage(url: URL(string: route.flightInfo!.airlineLogo!)){ image in
+                                            AsyncImage(url: URL(string: route.flightInfo!.airlineLogo ?? "")){ image in
                                                 image
+                                                    .frame(width: 30, height: 30)
                                             } placeholder: {
                                                 Image(systemName: "airplane.circle")
+                                                    .frame(width: 30, height: 30)
                                             }
+                                            .padding(.trailing, 5)
                                             VStack(alignment: .leading) {
-                                                Text("\(route.flightInfo!.flightIdent!): Operated by \(route.flight!.operatorName ?? ""), Aircraft: \(route.flightInfo!.aircraftType ?? "A/C Unknown"), \(route.flightInfo!.origin ?? "N/A") - \(route.flightInfo!.destination ?? "N/A")")
+                                                Text("\(route.flightInfo!.flightIdent!): Operated by \((route.flight!.operatorName ?? "").replacing("&quot&", with: "").replacing("&quot;", with: "")), Aircraft: \(route.flightInfo!.aircraftType ?? "A/C Unknown"), \(route.flightInfo!.origin ?? "N/A") - \(route.flightInfo!.destination ?? "N/A")")
                                                     .fontWeight(.bold)
                                                 Text("\(route.flightInfo!.flightDepartureTime ?? "?") - \(route.flightInfo!.flightArrivalTime ?? "?") \(route.flightInfo!.flightDepartureDay ?? "?") - \(route.flightInfo!.flightArrivalDay ?? "?")")
                                                 if !((route.flight!.scheduledBlockOut ?? "").isEmpty || (route.flight!.scheduledBlockIn ?? "").isEmpty) {
                                                     Text("\(route.flight!.scheduledBlockOut!.split(separator: " ")[1].prefix(5)) UTC - \(route.flight!.scheduledBlockIn!.split(separator: " ")[1].prefix(5)) UTC")
                                                 }
                                             }
-                                            .padding(.leading, 5)
+                                            Spacer()
+                                            Text("\((route.flight!.status ?? "").replacing("En_Route", with: "Enroute"))")
                                         }
                                     }
                                 }
@@ -145,15 +149,73 @@ struct SearchAirportView: View {
 }
 
 struct FlightDetailView: View {
-    let flight: Flight
-    let flightInfo: FlightInfo
+    let flight: [flDS]
+//    let flightInfo: [FlightInfo]
+    @State var shownData: Int = 0
+    @State var shownList: Int = 0
     var body: some View {
         VStack(alignment: .leading) {
-            Text("\(flightInfo.flightIdent!)")
-                .font(.largeTitle.bold())
-            Text("\(flight)")
-            Text("\(flightInfo)")
+            ForEach(flight, id: \.flight.debugDescription) { fl in
+                HStack {
+                    Text("\(fl.flightInfo!.flightIdent!.replacing("&quot&", with: "").replacing("&quot;", with: "")) Operated by \((fl.flight!.operatorName ?? "Unknown").replacing("&quot&", with: ""))")
+                        .font(.largeTitle.bold())
+                    if flight.count > 1 {
+                        Button(action: {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                let index = flight.firstIndex(where: {return $0 == fl})!
+                                if shownData == index {
+                                    shownData = -1
+                                } else {
+                                    shownData = index
+                                }
+                            }
+                        }, label: {
+                            Image(systemName: "chevron.right")
+                                .rotationEffect(.degrees(shownData == flight.firstIndex(of: fl)! ? 90 : 0))
+                        })
+                    }
+                    Spacer()
+                }
+                if shownData == flight.firstIndex(where: {return $0 == fl})! {
+                    List {
+                        if shownList == flight.firstIndex(where: {return $0 == fl})! {
+                            Section("Operator Information") {
+                                Text("Name: \(fl.flight!.operatorName ?? "Unknown")")
+                                Text("ICAO: \(fl.flight!.prefix ?? "Unknown")")
+                                Text("Alliance: \(fl.flight!.alliance ?? "No Alliance")")
+                            }
+                            Section("Aircraft Information") {
+                                Text("Name: \(fl.flight!.aircraftType ?? "Unknown")")
+                                Text("ICAO: \(fl.flightInfo!.aircraftType ?? "Unknown")")
+                            }
+                            Section("Flight Information") {
+                                Text("Status: \(fl.flightInfo!.flightStatus ?? "Unknown")")
+                                Text("IATA: \(fl.flightInfo!.origin ?? "N/A") - \(fl.flightInfo!.destination ?? "N/A")")
+                                Text("Departure Gate: \(fl.flight!.gateOrigin ?? "Unknown")")
+                                Text("Arrival Gate: \(fl.flight!.gateDestination ?? "Unknown")")
+                                Text("Departure Terminal: \(fl.flight!.terminalOrigin ?? "Unknown")")
+                                Text("Arrival Terminal: \(fl.flight!.terminalDestination ?? "Unknown")")
+                                Text("Departure Date, Time (Zulu Time): \(fl.flight!.scheduledBlockOut ?? "Unknown")")
+                                Text("Arrival Date, Time (Zulu Time): \(fl.flight!.scheduledBlockIn ?? "Unknown")")
+                                Text("Local Departure Time: \(fl.flightInfo!.flightDepartureTime ?? "Unknown")")
+                                Text("Local Arrival Time: \(fl.flightInfo!.flightArrivalTime ?? "Unknown")")
+//                                Text("\(fl)")
+                            }
+                            
+                        }
+                    }
+                    .listRowBackground(Color.clear)
+                }
+            }
+            Spacer()
         }
         .padding()
+        .onChange(of: shownData) { _, N in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                withAnimation {
+                    shownList = N
+                }
+            })
+        }
     }
 }
