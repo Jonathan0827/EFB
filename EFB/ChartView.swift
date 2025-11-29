@@ -25,21 +25,22 @@ struct ChartView: View {
         NavigationSplitView(columnVisibility: $columnVisibility,sidebar: {
             VStack {
                 HStack {
-                    TextField("icao", text: $icao)
+                    TextField("ICAO", text: $icao)
                         .disableAutocorrection(true)
                         .textInputAutocapitalization(.characters)
                         .onChange(of: icao) { o, n in
-                            loadingAirport = true
-                            searchICAO(n) { r in
-                                do {
-//                                    if try r.get() != nil {
+                            if !loading {
+                                showChartList = false
+                                loadingAirport = true
+                                searchICAO(n) { r in
+                                    do {
                                         airportList = try r.get().data
-//                                    }
-                                } catch {
-                                    print("No airport found")
-                                    airportList = []
+                                    } catch {
+                                        print("No airport found")
+                                        airportList = []
+                                    }
+                                    loadingAirport = false
                                 }
-                                loadingAirport = false
                             }
                         }
                     Button(action: {
@@ -60,17 +61,16 @@ struct ChartView: View {
                         Spacer()
                     } else {
                         List(airportList, id:\.id) { airport in
-//                            ForEach(airportList, id:\.id) { airport in
-                                Button("\(airport.icaoCode!): \(airport.name)", action: {
-                                    icao = airport.icaoCode!
-                                    showChartList = true
-                                    loading = true
-                                    getCharts(icao) { r in
-                                        charts = r
-                                        loading = false
-                                    }
-                                })
-//                            }
+                            Button("\(airport.icaoCode!): \(airport.name)", action: {
+                                showChartList = true
+                                loading = true
+                                icao = airport.icaoCode!
+                                charts = nil
+                                getCharts(icao) { r in
+                                    charts = r
+                                    loading = false
+                                }
+                            })
                         }
                     }
                 }
@@ -123,7 +123,10 @@ struct ChartView: View {
                     if chartData != nil {
                         RealChartView(chart: $chartData, columnVis: $columnVisibility)
                     } else {
-                        Text("Choose an item from the content")
+                        Text("Choose a chart from the list")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.secondary)
                     }
                 }
             }
@@ -145,7 +148,10 @@ struct RealChartView: View {
     var body: some View {
         VStack {
             if loading {
-                ProgressView("Loading \(chart!.name ?? "")")
+                ProgressView("Loading \(chart!.name ?? "")\n(App might be unresponsive while loading)")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.secondary)
                     .onAppear {
                         columnVis = .detailOnly
                     }

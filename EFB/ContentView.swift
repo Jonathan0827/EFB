@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import PDFKit
 import Alamofire
 import LocalConsole
 internal import Combine
@@ -53,7 +52,7 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showAdd) {
-                VStack {
+                ScrollView {
                     Text("Menu")
                     VStack(alignment: .trailing) {
                         Text("Last Cookie Update:")
@@ -78,6 +77,67 @@ struct ContentView: View {
                         TextField("ADB API Key", text: $ADBAPI)
                         TextField("AirLabs API Key", text: $ALAPI)
                     }
+                    VStack {
+                        Button("Reset CFox", action: {
+                            cfoxPAT = ""
+                            cfoxSID = ""
+                            xsrf = ""
+                            rweb = ""
+                            rwebd = ""
+                        })
+                        Button("Print Cookies", action: {
+                            print("PAT: \(cfoxPAT)")
+                            print("SID: \(cfoxSID)")
+                            print("XSRF: \(xsrf)")
+                        })
+                        Button("Run test", action: {
+                            testConnection() { r in
+                                print("r rcvd")
+                                print(r)
+                                if r != .ok {
+                                    showLoginCFoxBtn = true
+                                } else {
+                                    showLoginCFoxBtn = false
+                                }
+                            }
+                        })
+                        Button("Toggle Console", action: {
+                            consoleManager.isVisible.toggle()
+                        })
+//                    }
+//                    VStack {
+                        Button("Test AutoLogin", action: {
+                            AF.request("https://chartfox.org/", headers: headers())
+                                .saveLogin()
+                                .response {_ in
+                                    testConnection { r in
+                                        print("r rcvd")
+                                        print(r)
+                                        if r != .ok {
+                                            showLoginCFoxBtn = true
+                                        } else {
+                                            showLoginCFoxBtn = false
+                                        }
+                                    }
+                                }
+                        })
+                        Button("Clear ChartFox Cookies", action: {
+                            clearChartFox()
+                        })
+//                        Button("Test IFATC", action: {
+//                            getGateInfo("RKSI") { r in
+//                                print(r)
+//                            }
+//                            getAllGates("RKSI") { r in
+//                                print(r[0])
+//                            }
+//                        })
+//                        Button("Show Menu", action: {
+//                            withAnimation {
+//                                showAdd.toggle()
+//                            }
+//                        })
+                    }
                 }
             }
             .navigationTitle("EFB")
@@ -89,10 +149,19 @@ struct ContentView: View {
                             showLoginCFox = true
                         })
                     }
-                    Button("\(secondDP ? "Hide" : "Show") Secondary Screen", action: {
+                    Button(action: {
+                        showAdd = true
+                    }, label: {
+                        Image(systemName: "gear")
+                    })
+                    Button(action: {
                         withAnimation {
                             secondDP.toggle()
                         }
+                    }, label: {
+                        Image(systemName: "rectangle.split.2x1.\(secondDP ? "slash." : "")fill")
+                            .contentTransition(.symbolEffect(.replace.magic(fallback: .downUp.byLayer), options: .nonRepeating))
+                            .symbolRenderingMode(.hierarchical)
                     })
                 }
             }
@@ -254,67 +323,6 @@ struct MainView: View {
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color(uiColor: UIColor.systemGray6))
                         }
-                    }
-                    VStack {
-                        Button("Reset CFox", action: {
-                            cfoxPAT = ""
-                            cfoxSID = ""
-                            xsrf = ""
-                            rweb = ""
-                            rwebd = ""
-                        })
-                        Button("Print Cookies", action: {
-                            print("PAT: \(cfoxPAT)")
-                            print("SID: \(cfoxSID)")
-                            print("XSRF: \(xsrf)")
-                        })
-                        Button("Run test", action: {
-                            testConnection() { r in
-                                print("r rcvd")
-                                print(r)
-                                if r != .ok {
-                                    showLoginCFoxBtn = true
-                                } else {
-                                    showLoginCFoxBtn = false
-                                }
-                            }
-                        })
-                        Button("Toggle Console", action: {
-                            consoleManager.isVisible.toggle()
-                        })
-//                    }
-//                    VStack {
-                        Button("Test AutoLogin", action: {
-                            AF.request("https://chartfox.org/", headers: headers())
-                                .saveLogin()
-                                .response {_ in
-                                    testConnection { r in
-                                        print("r rcvd")
-                                        print(r)
-                                        if r != .ok {
-                                            showLoginCFoxBtn = true
-                                        } else {
-                                            showLoginCFoxBtn = false
-                                        }
-                                    }
-                                }
-                        })
-                        Button("Clear ChartFox Cookies", action: {
-                            clearChartFox()
-                        })
-//                        Button("Test IFATC", action: {
-//                            getGateInfo("RKSI") { r in
-//                                print(r)
-//                            }
-//                            getAllGates("RKSI") { r in
-//                                print(r[0])
-//                            }
-//                        })
-                        Button("Show Menu", action: {
-                            withAnimation {
-                                showAdd.toggle()
-                            }
-                        })
                     }
                 }
                 //            }

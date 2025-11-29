@@ -179,7 +179,7 @@ struct AirportDetail: Codable {
     let freqs: [Frequency]
     let country: Country
     let region: Region
-    let navaids: [Navaid]
+    let navaids: [Navaid]?
     let updatedAt: String?
     let station: Station?
 

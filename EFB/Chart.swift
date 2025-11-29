@@ -31,7 +31,7 @@ func getCharts(_ icao: String, completion: @escaping (ChartList) -> Void) {
                 case .success(let value):
                 if value.component != "error" {
                     let gC = value.props.groupedCharts!
-                    let cList = ChartList(General: gC["0"]!, Ground: gC["3"]!, SID: gC["4"]!, STAR: gC["5"]!, Approach: gC["6"]!)
+                    let cList = ChartList(General: gC["0"] ?? [], Ground: gC["3"] ?? [], SID: gC["4"] ?? [], STAR: gC["5"] ?? [], Approach: gC["6"] ?? [])
                     completion(cList)
                 } else {
                     print("Not Found")

@@ -74,9 +74,7 @@ struct SearchFlightsView: View {
                                                 Text("\(route.flightInfo!.flightIdent!): Operated by \((route.flight!.operatorName ?? "").replacing("&quot&", with: "").replacing("&quot;", with: "")), Aircraft: \(route.flightInfo!.aircraftType ?? "A/C Unknown"), \(route.flightInfo!.origin ?? "N/A") - \(route.flightInfo!.destination ?? "N/A")")
                                                     .fontWeight(.bold)
                                                 Text("\(route.flightInfo!.flightDepartureTime ?? "?") - \(route.flightInfo!.flightArrivalTime ?? "?") \(route.flightInfo!.flightDepartureDay ?? "?") - \(route.flightInfo!.flightArrivalDay ?? "?")")
-                                                if !((route.flight!.scheduledBlockOut ?? "").isEmpty || (route.flight!.scheduledBlockIn ?? "").isEmpty) {
-                                                    Text("\(route.flight!.scheduledBlockOut!.split(separator: " ")[1].prefix(5)) UTC - \(route.flight!.scheduledBlockIn!.split(separator: " ")[1].prefix(5)) UTC")
-                                                }
+                                                Text("\(toUTC(route.flightInfo!.flightDepartureTime!)) UTC- \(toUTC(route.flightInfo!.flightArrivalTime!)) UTC")
                                             }
                                             Spacer()
                                             Text("\((route.flight!.status ?? "").replacing("En_Route", with: "Enroute"))")
@@ -190,15 +188,18 @@ struct FlightDetailView: View {
                             }
                             Section("Flight Information") {
                                 Text("Status: \(fl.flightInfo!.flightStatus ?? "Unknown")")
+                                Text("Duration: \(fl.flight!.filedETE ?? "Unknown")")
                                 Text("IATA: \(fl.flightInfo!.origin ?? "N/A") - \(fl.flightInfo!.destination ?? "N/A")")
                                 Text("Departure Gate: \(fl.flight!.gateOrigin ?? "Unknown")")
                                 Text("Arrival Gate: \(fl.flight!.gateDestination ?? "Unknown")")
                                 Text("Departure Terminal: \(fl.flight!.terminalOrigin ?? "Unknown")")
                                 Text("Arrival Terminal: \(fl.flight!.terminalDestination ?? "Unknown")")
-                                Text("Departure Date, Time (Zulu Time): \(fl.flight!.scheduledBlockOut ?? "Unknown")")
-                                Text("Arrival Date, Time (Zulu Time): \(fl.flight!.scheduledBlockIn ?? "Unknown")")
-                                Text("Local Departure Time: \(fl.flightInfo!.flightDepartureTime ?? "Unknown")")
-                                Text("Local Arrival Time: \(fl.flightInfo!.flightArrivalTime ?? "Unknown")")
+                                if !((fl.flightInfo!.flightArrivalTime ?? "").isEmpty) {
+                                    Text("Departure Time (Zulu Time): \(toUTC(fl.flightInfo!.flightDepartureTime!)) UTC")
+                                    Text("Arrival Time (Zulu Time): \(toUTC(fl.flightInfo!.flightArrivalTime!)) UTC")
+                                    Text("Local Departure Time: \(fl.flightInfo!.flightDepartureTime!)")
+                                    Text("Local Arrival Time: \(fl.flightInfo!.flightArrivalTime!)")
+                                }
 //                                Text("\(fl)")
                             }
                             

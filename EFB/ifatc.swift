@@ -77,7 +77,7 @@ func getAllGates(_ icao: String, completion: @escaping ([gate]) -> Void) {
                         )
                     )
                 }
-                print(final)
+//                print(final)
                 completion(final)
             } catch let error {
                 print(error)
