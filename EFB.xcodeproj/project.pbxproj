@@ -12,6 +12,7 @@
 		9101E0CB2EC341680010677F /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 9101E0CA2EC341680010677F /* SwiftSoup */; };
 		914133AF2EC0696500944BC5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 914133AE2EC0696500944BC5 /* WebKit.framework */; };
 		914133C02EC0701C00944BC5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 914133BF2EC0701C00944BC5 /* Alamofire */; };
+		91A932B02EE3C20E002EA9E6 /* XMLCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 91A932AF2EE3C20E002EA9E6 /* XMLCoder */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91A932B02EE3C20E002EA9E6 /* XMLCoder in Frameworks */,
 				914133AF2EC0696500944BC5 /* WebKit.framework in Frameworks */,
 				9101E0C32EC2EF880010677F /* LocalConsole in Frameworks */,
 				9101E0C62EC2EFB20010677F /* LocalConsole in Frameworks */,
@@ -105,6 +107,7 @@
 				9101E0C22EC2EF880010677F /* LocalConsole */,
 				9101E0C52EC2EFB20010677F /* LocalConsole */,
 				9101E0CA2EC341680010677F /* SwiftSoup */,
+				91A932AF2EE3C20E002EA9E6 /* XMLCoder */,
 			);
 			productName = EFB;
 			productReference = 9141339F2EC0686A00944BC5 /* EFB.app */;
@@ -138,6 +141,7 @@
 				914133BE2EC0701C00944BC5 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				9101E0C42EC2EFB20010677F /* XCLocalSwiftPackageReference "LocalConsole-iOS18_crash_fix" */,
 				9101E0C92EC341680010677F /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				91A932AE2EE3C20E002EA9E6 /* XCRemoteSwiftPackageReference "XMLCoder" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 914133A02EC0686A00944BC5 /* Products */;
@@ -296,7 +300,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 249;
+				CURRENT_PROJECT_VERSION = 467;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -314,7 +318,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonathan.EFB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -339,7 +343,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 249;
+				CURRENT_PROJECT_VERSION = 467;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -357,7 +361,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonathan.EFB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -422,6 +426,14 @@
 				minimumVersion = 5.10.2;
 			};
 		};
+		91A932AE2EE3C20E002EA9E6 /* XCRemoteSwiftPackageReference "XMLCoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CoreOffice/XMLCoder";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.17.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -442,6 +454,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 914133BE2EC0701C00944BC5 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		91A932AF2EE3C20E002EA9E6 /* XMLCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 91A932AE2EE3C20E002EA9E6 /* XCRemoteSwiftPackageReference "XMLCoder" */;
+			productName = XMLCoder;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
