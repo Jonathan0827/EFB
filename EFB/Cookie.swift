@@ -48,4 +48,36 @@ extension DataRequest {
             }
         }
     }
+    func saveSBLogin() -> Self {
+        self.response {r in
+            print("saveSBLogin")
+            switch r.result {
+            case .success:
+                let setcookie = r.response!.headers.value(for: "Set-Cookie")
+                if setcookie == nil {
+                    print("No cookie")
+                    return
+                }
+                let cookies = setcookie!.split(separator: ", ")
+                var realCookies = [String: String]()
+                var a = 0
+                for cookie in cookies {
+                    let realCookie = cookie.split(separator: ";")[0]
+                    if realCookie.contains("=") {
+                        let theRealCookie = realCookie.split(separator: "=")
+                        let name = String(theRealCookie[0])
+                        let value = String(theRealCookie[1])
+                        realCookies[name] = value
+                    }
+                    a += 1
+                }
+                saveUserDefault("simbriefSSO", realCookies["simbrief_sso"])
+                saveUserDefault("simbriefUID", realCookies["simbrief_user"])
+                print("cookie set")
+            case .failure(let e):
+                print("fail ch")
+                print(e)
+            }
+        }
+    }
 }

@@ -124,9 +124,7 @@ struct ChartView: View {
                         RealChartView(chart: $chartData, columnVis: $columnVisibility)
                     } else {
                         Text("Choose a chart from the list")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundStyle(.secondary)
+                            .info()
                     }
                 }
             }

@@ -1,5 +1,5 @@
 {
-  "originHash" : "da73f0948ff4dda651a924c304d51ea816f100d28aae8a77928be0f1168e7500",
+  "originHash" : "9cbb4afde3febbb739df511059c58762760e918869e6bd3b5da9ecd2300856f9",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -35,6 +35,15 @@
       "state" : {
         "revision" : "4206bc7b8bd9a4ff8e9511211e1b4bff979ef9c4",
         "version" : "2.11.1"
+      }
+    },
+    {
+      "identity" : "xmlcoder",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/CoreOffice/XMLCoder",
+      "state" : {
+        "revision" : "b1e944cbd0ef33787b13f639a5418d55b3bed501",
+        "version" : "0.17.1"
       }
     }
   ],

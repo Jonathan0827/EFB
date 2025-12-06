@@ -51,9 +51,7 @@ struct SearchFlightsView: View {
                 if routes.isEmpty {
                     Spacer()
                     Text("No real world flights found")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.secondary)
+                        .info()
                     Spacer()
                 } else {
                     List {
@@ -64,9 +62,11 @@ struct SearchFlightsView: View {
                                         HStack {
                                             AsyncImage(url: URL(string: route.flightInfo!.airlineLogo ?? "")){ image in
                                                 image
+                                                    .resizable()
                                                     .frame(width: 30, height: 30)
                                             } placeholder: {
                                                 Image(systemName: "airplane.circle")
+                                                    .resizable()
                                                     .frame(width: 30, height: 30)
                                             }
                                             .padding(.trailing, 5)
@@ -88,9 +88,7 @@ struct SearchFlightsView: View {
             } else {
                 Spacer()
                 Text("Search real world flights")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundStyle(.secondary)
+                    .info()
                 Spacer()
             }
         }
@@ -155,6 +153,16 @@ struct FlightDetailView: View {
         VStack(alignment: .leading) {
             ForEach(flight, id: \.flight.debugDescription) { fl in
                 HStack {
+                    AsyncImage(url: URL(string: "https://www.flightaware.com/images/airline_logos/180px/\(fl.flight!.prefix ?? "").png")){ image in
+                        image
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                    } placeholder: {
+                        Image(systemName: "airplane.circle")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                    }
+                    .padding(.trailing, 5)
                     Text("\(fl.flightInfo!.flightIdent!.replacing("&quot&", with: "").replacing("&quot;", with: "")) Operated by \((fl.flight!.operatorName ?? "Unknown").replacing("&quot&", with: ""))")
                         .font(.largeTitle.bold())
                     if flight.count > 1 {
@@ -190,6 +198,7 @@ struct FlightDetailView: View {
                                 Text("Status: \(fl.flightInfo!.flightStatus ?? "Unknown")")
                                 Text("Duration: \(fl.flight!.filedETE ?? "Unknown")")
                                 Text("IATA: \(fl.flightInfo!.origin ?? "N/A") - \(fl.flightInfo!.destination ?? "N/A")")
+                                Text("Air Time: \(fl.flight!.filedETE ?? "Unknown")")
                                 Text("Departure Gate: \(fl.flight!.gateOrigin ?? "Unknown")")
                                 Text("Arrival Gate: \(fl.flight!.gateDestination ?? "Unknown")")
                                 Text("Departure Terminal: \(fl.flight!.terminalOrigin ?? "Unknown")")
@@ -211,6 +220,9 @@ struct FlightDetailView: View {
             Spacer()
         }
         .padding()
+//        .onAppear {
+//            print(flight)
+//        }
         .onChange(of: shownData) { _, N in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
                 withAnimation {

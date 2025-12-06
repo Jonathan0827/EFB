@@ -7,6 +7,402 @@
 
 import Foundation
 
+nonisolated
+struct AircraftData: Codable {
+    let aircraftID: String
+    let aircraftIcao: String
+    let aircraftName: String
+    let aircraftSort: String
+    let aircraftEngines: stringOrBool
+    let aircraftSearch: String
+    let aircraftPassengers: Int
+    let aircraftMtowLbs: Int
+    let aircraftMtowKgs: Int
+    let aircraftSpeed: String
+    let aircraftCeiling: Int
+    let aircraftTakeoff: intOrBool
+    let aircraftLanding: intOrBool
+    let aircraftThrustLbf: intOrBool
+    let aircraftThrustShp: intOrBool
+    let aircraftThrustFlatRating: intOrBool
+    let aircraftMaxCostindex: intOrBool
+    let aircraftFuelflowLbs: Int
+    let aircraftFuelflowKgs: Int
+    let aircraftIsCargo: Bool
+    let aircraftDiversionDistance: Int
+    let aircraftProfilesClimb: [String]
+    let aircraftProfilesCruise: [String]
+    let aircraftProfilesDescent: [String]
+    let aircraftProfilesTakeoffFlaps: [String]
+    let aircraftProfilesTakeoffThrust: [String]
+    let aircraftProfilesTakeoffThrustNames: [String]
+    let aircraftProfilesTakeoffBleeds: [String]
+    let aircraftProfilesTakeoffAntice: [String]
+    let aircraftProfilesLandingFlaps: [String]
+    let aircraftProfilesLandingBrakes: [String]
+    let aircraftProfilesLandingReverse: [String]
+    let aircraftDefaultCruise: stringOrBool
+    let statsUpdated: String
+    let statsAccuracy: stringOrBool
+    let statsPopularity: Double
+    let statsCharts: Bool
+    let statsCostindex: Bool
+    let statsTlr: intOrBool
+    let statsFlex: Bool
+    let statsIsCustom: Bool?
+    let airframes: [Airframe]
+    
+    enum CodingKeys: String, CodingKey {
+        case aircraftID = "aircraft_id"
+        case aircraftIcao = "aircraft_icao"
+        case aircraftName = "aircraft_name"
+        case aircraftSort = "aircraft_sort"
+        case aircraftEngines = "aircraft_engines"
+        case aircraftSearch = "aircraft_search"
+        case aircraftPassengers = "aircraft_passengers"
+        case aircraftMtowLbs = "aircraft_mtow_lbs"
+        case aircraftMtowKgs = "aircraft_mtow_kgs"
+        case aircraftSpeed = "aircraft_speed"
+        case aircraftCeiling = "aircraft_ceiling"
+        case aircraftTakeoff = "aircraft_takeoff"
+        case aircraftLanding = "aircraft_landing"
+        case aircraftThrustLbf = "aircraft_thrust_lbf"
+        case aircraftThrustShp = "aircraft_thrust_shp"
+        case aircraftThrustFlatRating = "aircraft_thrust_flat_rating"
+        case aircraftMaxCostindex = "aircraft_max_costindex"
+        case aircraftFuelflowLbs = "aircraft_fuelflow_lbs"
+        case aircraftFuelflowKgs = "aircraft_fuelflow_kgs"
+        case aircraftIsCargo = "aircraft_is_cargo"
+        case aircraftDiversionDistance = "aircraft_diversion_distance"
+        case aircraftProfilesClimb = "aircraft_profiles_climb"
+        case aircraftProfilesCruise = "aircraft_profiles_cruise"
+        case aircraftProfilesDescent = "aircraft_profiles_descent"
+        case aircraftProfilesTakeoffFlaps = "aircraft_profiles_takeoff_flaps"
+        case aircraftProfilesTakeoffThrust = "aircraft_profiles_takeoff_thrust"
+        case aircraftProfilesTakeoffThrustNames = "aircraft_profiles_takeoff_thrust_names"
+        case aircraftProfilesTakeoffBleeds = "aircraft_profiles_takeoff_bleeds"
+        case aircraftProfilesTakeoffAntice = "aircraft_profiles_takeoff_antice"
+        case aircraftProfilesLandingFlaps = "aircraft_profiles_landing_flaps"
+        case aircraftProfilesLandingBrakes = "aircraft_profiles_landing_brakes"
+        case aircraftProfilesLandingReverse = "aircraft_profiles_landing_reverse"
+        case aircraftDefaultCruise = "aircraft_default_cruise"
+        case statsUpdated = "stats_updated"
+        case statsAccuracy = "stats_accuracy"
+        case statsPopularity = "stats_popularity"
+        case statsCharts = "stats_charts"
+        case statsCostindex = "stats_costindex"
+        case statsTlr = "stats_tlr"
+        case statsFlex = "stats_flex"
+        case statsIsCustom = "stats_is_custom"
+        case airframes
+    }
+}
+
+struct Airframe: Codable {
+    let airframeID: intOrBool
+    let userID: stringOrBool
+    let pilotID: intOrBool
+    let modifiedTime: String
+    let airframeInternalID: String
+    let airframeBaseType: String
+    let airframeListType: String
+    let airframeIcao: String
+    let airframeName: String
+    let airframeEngines: stringOrBool
+    let airframeRegistration: String
+    let airframeFin: String
+    let airframePassengers: Int
+    let airframeComments: String
+    let airframeOptions: AirframeOptions
+    
+    enum CodingKeys: String, CodingKey {
+        case airframeID = "airframe_id"
+        case userID = "user_id"
+        case pilotID = "pilot_id"
+        case modifiedTime = "modified_time"
+        case airframeInternalID = "airframe_internal_id"
+        case airframeBaseType = "airframe_base_type"
+        case airframeListType = "airframe_list_type"
+        case airframeIcao = "airframe_icao"
+        case airframeName = "airframe_name"
+        case airframeEngines = "airframe_engines"
+        case airframeRegistration = "airframe_registration"
+        case airframeFin = "airframe_fin"
+        case airframePassengers = "airframe_passengers"
+        case airframeComments = "airframe_comments"
+        case airframeOptions = "airframe_options"
+    }
+}
+
+struct AirframeOptions: Codable {
+    let basetype: String
+    let icao: String
+    let reg: String
+    let fin: String
+    let selcal: stringOrBool
+    let hexcode: stringOrBool
+    let name: String
+    let engines: stringOrBool
+    let comments: stringOrBool
+    let cat: String
+    let per: String
+    let equip: String
+    let transponder: String
+    let pbn: String
+    let extrarmk: stringOrBool
+    let wgtunits: String
+    let maxpax: stringOrBool
+    let paxwgt: Int
+    let bagwgt: Int
+    let oew: Int
+    let mzfw: Int
+    let mtow: Int
+    let mlw: Int
+    let maxfuel: Int
+    let maxcargo: intOrBool
+    let defaultcruise: stringOrBool?
+    let defaultci: stringOrBool
+    let defaultclimb: stringOrBool?
+    let defaultdescent: stringOrBool?
+    let fuelfactor: stringOrBool
+    let ceiling: stringMeantToBeInt
+    let thrust: stringOrBool?
+    let thrustUnits: stringOrBool?
+    let flatrating: stringOrBool?
+    let cruiseoffset: stringOrBool
+    let etopsthreshold: stringMeantToBeInt?
+    let etopsrange: String?
+    let planunits: String?
+    let cargomode: String?
+    let planformat: String?
+    let flightrules: String?
+    let flighttype: String?
+    let altnsadvRadius: String?
+    let altnsadvRwy: String?
+    let altnsadvUnitsRwy: String?
+    let manualrmk: String?
+    let contpct: String?
+    let resvrule: String?
+    let taxifuel: String?
+    let minfob: String?
+    let minfod: String?
+    let melfuel: String?
+    let atcfuel: String?
+    let wxxfuel: String?
+    let addedfuel: String?
+    let tankering: String?
+    let minfobUnits: String?
+    let minfodUnits: String?
+    let melfuelUnits: String?
+    let atcfuelUnits: String?
+    let wxxfuelUnits: String?
+    let addedfuelUnits: String?
+    let tankeringUnits: String?
+    let addedfuelLabel: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case basetype
+        case icao
+        case reg
+        case fin
+        case selcal
+        case hexcode
+        case name
+        case engines
+        case comments
+        case cat
+        case per
+        case equip
+        case transponder
+        case pbn
+        case extrarmk
+        case wgtunits
+        case maxpax
+        case paxwgt
+        case bagwgt
+        case oew
+        case mzfw
+        case mtow
+        case mlw
+        case maxfuel
+        case maxcargo
+        case defaultcruise
+        case defaultci
+        case defaultclimb
+        case defaultdescent
+        case fuelfactor
+        case ceiling
+        case thrust
+        case thrustUnits = "thrust_units"
+        case flatrating
+        case cruiseoffset
+        case etopsthreshold
+        case etopsrange
+        case planunits
+        case cargomode
+        case planformat
+        case flightrules
+        case flighttype
+        case altnsadvRadius = "altnsadv_radius"
+        case altnsadvRwy = "altnsadv_rwy"
+        case altnsadvUnitsRwy = "altnsadv_units_rwy"
+        case manualrmk
+        case contpct
+        case resvrule
+        case taxifuel
+        case minfob
+        case minfod
+        case melfuel
+        case atcfuel
+        case wxxfuel
+        case addedfuel
+        case tankering
+        case minfobUnits = "minfob_units"
+        case minfodUnits = "minfod_units"
+        case melfuelUnits = "melfuel_units"
+        case atcfuelUnits = "atcfuel_units"
+        case wxxfuelUnits = "wxxfuel_units"
+        case addedfuelUnits = "addedfuel_units"
+        case tankeringUnits = "tankering_units"
+        case addedfuelLabel = "addedfuel_label"
+    }
+}
+
+
+nonisolated
+struct SBUserData: Codable {
+    let user: SBUser
+//    let app: SBApp
+//    let processTime: Double
+
+//    enum CodingKeys: String, CodingKey {
+//        case user
+//        case app
+//        case processTime = "process_time"
+//    }
+}
+
+struct SBUser: Codable {
+    let userID: String
+    let pilotID: Int
+    let loggedIn: Bool
+    let accountLinked: Bool
+    let accessToken: String
+    let username: String
+    let firstName: String
+    let lastName: String
+    let email: String
+    let firstLogin: String?
+    let lastUnlock: Bool
+    let permissions: String?
+    let creationMethod: String
+//    let airac: Airac
+//    let navigraph: Navigraph
+//    let consent: Consent
+
+    enum CodingKeys: String, CodingKey {
+        case userID = "user_id"
+        case pilotID = "pilot_id"
+        case loggedIn = "logged_in"
+        case accountLinked = "account_linked"
+        case accessToken = "access_token"
+        case username
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case email
+        case firstLogin = "first_login"
+        case lastUnlock = "last_unlock"
+        case permissions
+        case creationMethod = "creation_method"
+//        case airac
+//        case navigraph
+//        case consent
+    }
+}
+
+struct Airac: Codable {
+    let cycles: [String: AiracCycle]
+    let active: Int
+    let current: Int
+    let `default`: Int
+}
+
+struct AiracCycle: Codable {
+    let dateStart: String
+    let dateEnd: String
+    let unlocked: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case dateStart = "date_start"
+        case dateEnd = "date_end"
+        case unlocked
+    }
+}
+
+struct Navigraph: Codable {
+    let username: String
+    let givenName: String
+    let familyName: String
+    let email: String
+    let role: Bool?
+    let subscriptions: [String]
+
+    enum CodingKeys: String, CodingKey {
+        case username
+        case givenName = "given_name"
+        case familyName = "family_name"
+        case email
+        case role
+        case subscriptions
+    }
+}
+
+struct Consent: Codable {
+    let cookiesV2: ConsentEntry?
+    let analyticsV2: ConsentEntry?
+    let cookies: ConsentEntry?
+    let terms: ConsentEntry?
+    let dataUse: ConsentEntry?
+
+    enum CodingKeys: String, CodingKey {
+        case cookiesV2 = "cookies_v2"
+        case analyticsV2 = "analytics_v2"
+        case cookies
+        case terms
+        case dataUse = "data_use"
+    }
+}
+
+struct ConsentEntry: Codable {
+    let consentDate: String
+    let consentMethod: String
+    let consentResponse: String
+    let policyVersion: String
+    let userID: Int
+
+    enum CodingKeys: String, CodingKey {
+        case consentDate = "consent_date"
+        case consentMethod = "consent_method"
+        case consentResponse = "consent_response"
+        case policyVersion = "policy_version"
+        case userID = "user_id"
+    }
+}
+
+struct SBApp: Codable {
+    let versionCurrent: String
+    let enableLogging: Bool
+    let lastPath: Bool?
+    let lastPing: String
+
+    enum CodingKeys: String, CodingKey {
+        case versionCurrent = "version_current"
+        case enableLogging = "enable_logging"
+        case lastPath = "last_path"
+        case lastPing = "last_ping"
+    }
+}
+
 struct FlightInfo: Codable, Hashable {
     let aircraftLabel: String?
     let aircraftType: String?

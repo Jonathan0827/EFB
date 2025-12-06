@@ -43,9 +43,9 @@ struct DWebView: UIViewRepresentable {
                 print("setCookie \(name)")
             }
         }
-        print(webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { cookies in
-            print(cookies)
-        })
+//        print(webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { cookies in
+//            print(cookies)
+//        })
         webView.navigationDelegate = context.coordinator
         return webView
     }

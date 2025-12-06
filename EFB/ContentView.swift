@@ -18,6 +18,8 @@ struct ContentView: View {
     @AppStorage("rwebd") var rwebd: String = ""
     @AppStorage("ADBAPI") var ADBAPI: String = ""
     @AppStorage("ALAPI") var ALAPI: String = ""
+    @AppStorage("simbriefUID") var simbriefUID: String = ""
+    @AppStorage("simbriefSSO") var simbriefSSO: String = ""
     @State var showLoginCFox: Bool = false
     @State var showLoginCFoxBtn: Bool = false
     @State var showAdd: Bool = false
@@ -76,6 +78,8 @@ struct ContentView: View {
                         TextField("rwebd", text: $rwebd)
                         TextField("ADB API Key", text: $ADBAPI)
                         TextField("AirLabs API Key", text: $ALAPI)
+                        TextField("Simbrief Username", text: $simbriefUID)
+                        TextField("Simbrief SSO", text: $simbriefSSO)
                     }
                     VStack {
                         Button("Reset CFox", action: {
@@ -166,6 +170,10 @@ struct ContentView: View {
                 }
             }
             .onAppear {
+//                getTOPerf()
+//                getAircraftData("A35K") { r in
+//                    print(r)
+//                }
                 if Date().timeIntervalSince1970 - (readUserDefault("LastCookieUpdate")! as! Double) >= 7200 {
                     AF.request("https://chartfox.org/", headers: headers())
                         .saveLogin()

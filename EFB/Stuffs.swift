@@ -6,3 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
+
+extension Text {
+    func info() -> Text {
+        return self
+            .font(.title2)
+            .fontWeight(.bold)
+            .foregroundStyle(.secondary)
+    }
+}

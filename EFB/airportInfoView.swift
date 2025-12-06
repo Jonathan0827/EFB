@@ -25,9 +25,7 @@ struct AirportInfoView: View {
             if icao.isEmpty {
                 Spacer()
                 Text("Select an airport")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundStyle(.secondary)
+                    .info()
                 Spacer()
             } else {
                 if loading {
@@ -59,10 +57,8 @@ struct AirportInfoView: View {
                         columnVisibility = .detailOnly
                     }
             } else {
-                Text("Select an airport in the list")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundStyle(.secondary)
+                Text("Select an airport from the list")
+                    .info()
             }
         })
         .navigationTitle("IFATC")
