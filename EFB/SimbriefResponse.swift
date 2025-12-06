@@ -31,7 +31,7 @@ struct FlightPlan: Codable {
     let impacts: SBImpacts?
     let crew: SBCrew?
     let notams: SBNotams?
-    let sigmets: [String: String]?
+//    let sigmets: [String: String]?
     let text: SBText?
     let maps: SBMaps?
     let links: SBLinks?
@@ -50,7 +50,7 @@ struct FlightPlan: Codable {
         case enrouteStation = "enroute_station"
         case navlog, etops, tlr, atc, aircraft, fuel
         case fuelExtra = "fuel_extra"
-        case times, weights, impacts, crew, notams, sigmets, text, maps, links, files, images, tracks
+        case times, weights, impacts, crew, notams, text, maps, links, files, images, tracks
         case databaseUpdates = "database_updates"
         case apiParams = "api_params"
 //        case files = "files"
@@ -376,7 +376,7 @@ struct SBAtc: Codable {
     let firDest: String?
     let firAltn: [String: String]?
     let firEtops: [String: String]?
-    let firEnroute: String?
+    let firEnroute: stringOrDict?
 
     enum CodingKeys: String, CodingKey {
         case flightplanText = "flightplan_text"
