@@ -90,7 +90,7 @@ struct SimbriefWebView: View {
 }
 
 struct SimbriefOFPView: View {
-    @AppStorage("SBUserName") var sbUserName: String = ""
+    @AppStorage("simbriefUID") var simbriefUID: String = ""
     @State var fPlan: FlightPlan? = nil
     @State var depDate: String = ""
     @State var depTime: String = ""
@@ -98,7 +98,7 @@ struct SimbriefOFPView: View {
     @State var pdfData: Data? = nil
     var body: some View {
         VStack {
-            if sbUserName.isEmpty {
+            if simbriefUID.isEmpty {
                 Text("Configure Simbrief Username")
                     .info()
             } else {
