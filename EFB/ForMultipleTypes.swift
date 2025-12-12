@@ -30,7 +30,14 @@ enum notamEmpty: Codable {
 enum stringOrDict: Codable {
     
     case string(String), dict([String: String])
-    
+    var value: String? {
+            switch self {
+            case .string(let value):
+                return value
+            case .dict:
+                return nil
+            }
+        }
     init(from decoder: Decoder) throws {
         if let string = try? decoder.singleValueContainer().decode(String.self) {
             self = .string(string)
@@ -49,7 +56,14 @@ enum stringOrDict: Codable {
 enum intOrBool: Codable {
     
     case int(Int), bool(Bool)
-    
+    var value: Int? {
+            switch self {
+            case .int(let value):
+                return value
+            case .bool:
+                return nil
+            }
+        }
     init(from decoder: Decoder) throws {
         if let int = try? decoder.singleValueContainer().decode(Int.self) {
             self = .int(int)

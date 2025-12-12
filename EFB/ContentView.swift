@@ -170,10 +170,13 @@ struct ContentView: View {
                 }
             }
             .onAppear {
-//                getTOPerf()
 //                getAircraftData("A35K") { r in
-//                    print(r)
+//                    //                    print(r)
+//                    getTOPerf(ac: r.airframes[0].airframeInternalID, airport: "RKSI", rwy: "34R", weight: (r.airframes[0].airframeOptions.mtow).description) { res in
+//                        print(res)
+//                    }
 //                }
+//                getSBAirport("RKSI")
                 if Date().timeIntervalSince1970 - (readUserDefault("LastCookieUpdate")! as! Double) >= 7200 {
                     AF.request("https://chartfox.org/", headers: headers())
                         .saveLogin()

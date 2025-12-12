@@ -40,7 +40,7 @@ func getAircraftData(_ aircraftIcao: String, completion: @escaping (AircraftData
         .responseDecodable(of: Array<AircraftData>.self) { r in
             switch r.result {
             case .success(let value):
-                let r = value.map {
+                let _ = value.map {
                     if $0.aircraftIcao == aircraftIcao {
                         completion($0)
 //                        return true
@@ -52,49 +52,97 @@ func getAircraftData(_ aircraftIcao: String, completion: @escaping (AircraftData
             }
         }
 }
-
-func getTOPerf() {
-    let headers: HTTPHeaders = [
-        "Cookie": "simbrief_user=\(readUserDefault("simbriefUID")!);simbrief_sso=\(readUserDefault("simbriefSSO")!)"
-    ]
-    var jwt = ""
-    AF.request("https://dispatch.simbrief.com/ajax.login.php", headers: headers)
-        .saveSBLogin()
-    //        .response { res in
-    //            if let data = res.data {
-    //                print(String(data: data, encoding: .utf8)!)
-    //            }
-    //        }
-        .responseDecodable(of: SBUserData.self) { r in
+func getAircraftsList(completion: @escaping (Array<AircraftData>) -> Void) {
+    AF.request("https://api.simbrief.com/v2/airframes")
+        .responseDecodable(of: Array<AircraftData>.self) { r in
             switch r.result {
-            case .success(let userData):
-                print(userData)
-                jwt = userData.user.accessToken
-                print(jwt)
-                let params = [
-                    "aircraft": ""
-                ]
-                AF.request("https://api.simbrief.com/v2/performance/takeoff", method: .get, headers: ["Authorization": "Bearer \(jwt)"])
-                    .response { r in
-                        if let data = r.data {
-                            print(String(data: data, encoding: .utf8)!)
-                        }
-                    }
+            case .success(let value):
+                completion(value)
             case .failure(let err):
                 print(err)
             }
         }
 }
-
-struct TOConf {
-    let aircraft: String
-    let airport: String
-    let rwy: String
-    let lUnit: String
-    let wUnit: String
-    let weight: String
-    let bleed: String
-    let antiIce: String
-    let flex: String
+func getJWT(completion: @escaping (String) -> Void) {
+    let headers: HTTPHeaders = [
+        "Cookie": "simbrief_user=\(readUserDefault("simbriefUID")!);simbrief_sso=\(readUserDefault("simbriefSSO")!)"
+    ]
+    AF.request("https://dispatch.simbrief.com/ajax.login.php", headers: headers)
+        .saveSBLogin()
+        .responseDecodable(of: SBUserData.self) { r in
+            switch r.result {
+            case .success(let userData):
+                let tkn = userData.user.accessToken
+//                print(tkn)
+                completion(tkn)
+            case .failure(let error):
+                print(error)
+                completion("")
+            }
+        }
+}
+func getTOPerf(ac: String, airport: String, rwy: String, lUnit: String? = nil, wUnit: String? = nil, weight: String, flap: String? = nil, thrust: String? = nil, bleed: String? = nil, aIce: String? = nil, wind: String? = nil, temp: String? = nil, pUnit: String? = nil, pressure: String? = nil, sCond: String? = nil, flex: String? = nil, cOpt: String? = nil, completion: @escaping (TOPerformanceResponse) -> Void) {
+    
+    
+    //        .response { res in
+    //            if let data = res.data {
+    //                print(String(data: data, encoding: .utf8)!)
+    //            }
+    //        }
+    getJWT { jwt in
+        let params: [String: String] = [
+            "aircraft": ac,
+            "airport": airport,
+            "runway": rwy,
+            "length_units": lUnit ?? "",
+            "weight_units": wUnit ?? "",
+            "weight": weight,
+            "flap_setting": flap ?? "",
+            "thrust_setting": thrust ?? "",
+            "enable_bleeds": bleed ?? "",
+            "enable_anti_ice": aIce ?? "",
+            "wind": wind ?? "",
+            "temperature": temp ?? "",
+            "pressure_units": pUnit ?? "",
+            "altimeter": pressure ?? "",
+            "surface_condition": sCond ?? "",
+            "enable_flex": flex ?? "",
+            "enable_climb_optimization": cOpt ?? "",
+            
+        ]
+        AF.request("https://api.simbrief.com/v2/performance/takeoff", method: .get, parameters: params, headers: ["Authorization": "Bearer \(jwt)"])
+        //                        .response { r in
+        //                            if let data = r.data {
+        //                                print(String(data: data, encoding: .utf8)!)
+        //                            }
+        //                        }
+            .responseDecodable(of: TOPerformanceResponse.self) { r in
+                switch r.result {
+                case .success(let value):
+                    completion(value)
+                case .failure(let err):
+                    print(err)
+                }
+            }
+    }
 }
 
+func getSBAirport(_ icao: String, completion: @escaping (SBAirportData) -> Void) {
+    getJWT() { jwt in
+        AF.request(
+            "https://api.simbrief.com/v2/airports/\(icao)",
+            method: .get,
+            headers: [
+                "Authorization": "Bearer \(jwt)"
+            ]
+        )
+        .responseDecodable(of: SBAirportData.self) { r in
+            switch r.result {
+            case .success(let data):
+                completion(data)
+            case .failure(let e):
+                print(e)
+            }
+        }
+    }
+}

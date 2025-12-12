@@ -8,7 +8,8 @@
 import Foundation
 
 nonisolated
-struct AircraftData: Codable {
+struct AircraftData: Codable, Hashable {
+    let id = UUID().uuidString
     let aircraftID: String
     let aircraftIcao: String
     let aircraftName: String
@@ -96,9 +97,16 @@ struct AircraftData: Codable {
         case statsIsCustom = "stats_is_custom"
         case airframes
     }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id.hashValue)
+      }
+
+      static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.hashValue == rhs.hashValue
+      }
 }
 
-struct Airframe: Codable {
+struct Airframe: Codable, Hashable {
     let airframeID: intOrBool
     let userID: stringOrBool
     let pilotID: intOrBool
@@ -132,6 +140,13 @@ struct Airframe: Codable {
         case airframeComments = "airframe_comments"
         case airframeOptions = "airframe_options"
     }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.airframeInternalID.hashValue)
+      }
+
+      static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.hashValue == rhs.hashValue
+      }
 }
 
 struct AirframeOptions: Codable {

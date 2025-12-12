@@ -8,6 +8,53 @@
 import Foundation
 
 nonisolated
+struct SBAirportData: Codable {
+    let airport_icao: String
+    let airport_iata: String
+    let airport_region: String
+    let airport_name: String
+    let airport_latitude: Double
+    let airport_longitude: Double
+    let airport_elevation: Int
+    let airport_localtime: String
+    let airport_declination: Int
+    let metar_description: String
+    let metar_visibility: Int
+    let metar_ceiling: Int
+    let metar_wind_direction: Int
+    let metar_wind_speed: Int
+    let metar_wind_gust: Bool
+    let metar_temperature: Int
+    let metar_altimeter: Double
+    let metar_precipitation: stringOrBool
+    let transition_altitude: Int
+    let transition_level: Int
+    let text_metar: String
+    let text_taf: String
+//    let text_atis: [String]
+    let text_metar_age: String
+    let text_taf_age: String
+    let runways: [Runway]
+
+    struct Runway: Codable {
+        let identifier: String
+        let length: Int
+        let length_toda: Int
+        let length_tora: Int
+        let length_asda: Int
+        let length_lda: Int
+        let width: Int
+        let true_course: Int
+        let headwind_component: Int
+        let crosswind_component: Int
+        let used_for_departure: Bool
+        let used_for_arrival: Bool
+        let primary_for_departure: Bool
+        let primary_for_arrival: Bool
+    }
+}
+
+nonisolated
 struct FlightPlan: Codable {
     let fetch: SBFetch
     let params: SBParams
@@ -95,18 +142,18 @@ struct SBParams: Codable {
 
 struct SBGeneral: Codable {
     let release: String?
-    let icaoAirline: String?
+    let icaoAirline: stringOrDict?
     let flightNumber: String?
     let isEtops: String?
-    let dxRmk: String?
-    let sysRmk: [String: String]?
+    let dxRmk: stringOrDict?
+    let sysRmk: stringOrDict?
     let isDetailedProfile: String?
     let cruiseProfile: String?
     let climbProfile: String?
     let descentProfile: String?
     let alternateProfile: String?
     let reserveProfile: String?
-    let costindex: String?
+    let costindex: stringOrDict?
     let contRule: String?
     let initialAltitude: String?
     let stepclimbString: String?
@@ -122,13 +169,13 @@ struct SBGeneral: Codable {
     let cruiseTas: String?
     let cruiseMach: String?
     let passengers: String?
-    let route: String?
-    let routeIfps: String?
-    let routeNavigraph: String?
-    let sidIdent: String?
-    let sidTrans: [String: String]?
-    let starIdent: String?
-    let starTrans: [String: String]?
+    let route: stringOrDict?
+    let routeIfps: stringOrDict?
+    let routeNavigraph: stringOrDict?
+    let sidIdent: stringOrDict?
+    let sidTrans: stringOrDict?
+    let starIdent: stringOrDict?
+    let starTrans: stringOrDict?
 
     enum CodingKeys: String, CodingKey {
         case release
@@ -169,7 +216,7 @@ struct SBGeneral: Codable {
 
 struct SBAirport: Codable {
     let icaoCode: String?
-    let iataCode: String?
+    let iataCode: stringOrDict?
     let faaCode: stringOrDict?
     let icaoRegion: String?
     let elevation: String?
@@ -394,16 +441,16 @@ struct SBAtc: Codable {
 
 struct SBAircraft: Codable {
     let icaocode: String?
-    let iatacode: String?
+    let iatacode: stringOrDict?
     let baseType: String?
     let listType: String?
     let icaoCode: String?
-    let iataCode: String?
+    let iataCode: stringOrDict?
     let name: String?
     let engines: String?
     let reg: String?
-    let fin: String?
-    let selcal: String?
+    let fin: stringOrDict?
+    let selcal: stringOrDict?
     let equip: String?
     let equipCategory: String?
     let equipNavigation: String?
@@ -484,8 +531,8 @@ struct SBTimes: Codable {
     let estBlock: String?
     let origTimezone: String?
     let destTimezone: String?
-    let taxiOut: String?
-    let taxiIn: String?
+    let taxiOut: stringOrDict?
+    let taxiIn: stringOrDict?
     let reserveTime: String?
     let endurance: String?
     let contfuelTime: String?
@@ -597,11 +644,11 @@ struct SBImpactDetail: Codable {
 }
 
 struct SBCrew: Codable {
-    let pilotID: String?
-    let cpt: String?
-    let fo: String?
-    let dx: String?
-    let pu: String?
+    let pilotID: stringOrDict?
+    let cpt: stringOrDict?
+    let fo: stringOrDict?
+    let dx: stringOrDict?
+    let pu: stringOrDict?
     let fa: [String]?
 
     enum CodingKeys: String, CodingKey {
@@ -656,7 +703,7 @@ struct SBNotamRec: Codable {
 
 struct SBText: Codable {
     let natTracks: [String: String]?
-    let tlrSection: String?
+    let tlrSection: stringOrDict?
 
     enum CodingKeys: String, CodingKey {
         case natTracks = "nat_tracks"
@@ -704,7 +751,8 @@ struct SBNavlog: Codable {
     let fix: [SBNavFix]?
 }
 
-struct SBNavFix: Codable {
+struct SBNavFix: Codable, Identifiable {
+    let id = UUID()
     let ident: String?
     let name: String?
     let type: String?
@@ -802,25 +850,25 @@ struct SBFir: Codable {
 
 
  struct SBApiParams: Codable {
-     let airline: String?
-     let fltnum: String?
+     let airline: stringOrDict?
+     let fltnum: stringOrDict?
      let type: String?
      let orig: String?
      let dest: String?
      let date: String?
      let dephour: String?
      let depmin: String?
-     let route: String?
-     let stehour: String?
-     let stemin: String?
-     let reg: String?
-     let fin: String?
-     let selcal: String?
+     let route: stringOrDict?
+     let stehour: stringOrDict?
+     let stemin: stringOrDict?
+     let reg: stringOrDict?
+     let fin: stringOrDict?
+     let selcal: stringOrDict?
      let pax: String?
      let altn: String?
      let fl: stringOrDict?
-     let cpt: String?
-     let pid: String?
+     let cpt: stringOrDict?
+     let pid: stringOrDict?
      let fuelfactor: String?
      let manualpayload: String?
      let manualzfw: String?
@@ -844,20 +892,20 @@ struct SBFir: Codable {
      let flighttype: String?
      let contpct: String?
      let resvrule: String?
-     let taxiout: String?
-     let taxiin: String?
+     let taxiout: stringOrDict?
+     let taxiin: stringOrDict?
      let cargo: String?
      let origrwy: String?
      let destrwy: String?
-     let climb: String?
-     let descent: String?
-     let cruisemode: String?
-     let cruisesub: String?
+     let climb: stringOrDict?
+     let descent: stringOrDict?
+     let cruisemode: stringOrDict?
+     let cruisesub: stringOrDict?
      let planformat: String?
      let pounds: String?
      let navlog: String?
      let etops: String?
-     let stepclimbs: String?
+     let stepclimbs: stringOrDict?
      let tlr: String?
      let notams_opt: String?
      let firnot: String?
@@ -872,5 +920,117 @@ struct SBFir: Codable {
 //     let contlabel: [String: String]?
 //     let static_id: [String: String]?
 //     let acdata: [String: String]?
-     let acdata_parsed: String?
+     let acdata_parsed: stringOrDict?
+}
+nonisolated
+struct TOPerformanceResponse: Codable {
+    let inputs: Inputs
+    let airport: Airport
+    let runway: Runway
+    let aircraft: Aircraft
+    let result: ResultData
+    let remarks: [Remark]
+    let message: String
+
+    struct Inputs: Codable {
+        let airport: String
+        let runway: String
+        let aircraft: String
+        let aircraft_data: String?
+        let weight: Double
+        let runway_shorten: Double?
+        let flap_setting: String?
+        let thrust_setting: String?
+        let enable_flex: String?
+        let enable_climb_optimization: String?
+        let enable_bleeds: String?
+        let enable_anti_ice: String?
+        let wind_direction: Double?
+        let wind_speed: Double?
+        let temperature: Double?
+        let altimeter: String?
+        let surface_condition: String?
+        let weight_units: String?
+        let length_units: String?
+        let wind_units: String?
+        let pressure_units: String?
+    }
+
+    struct Airport: Codable {
+        let icao: String
+        let iata: String?
+        let name: String?
+        let region: String?
+        let latitude: Double?
+        let longitude: Double?
+        let elevation: Double?
+    }
+
+    struct Runway: Codable {
+        let identifier: String
+        let length: Double?
+        let length_tora: Double?
+        let length_toda: Double?
+        let length_asda: Double?
+        let length_lda: Double?
+        let width: Double?
+        let elevation: Double?
+        let gradient: Double?
+        let true_course: Double?
+        let magnetic_course: Double?
+        let threshold_latitude: Double?
+        let threshold_longitude: Double?
+        let headwind_component: Double?
+        let crosswind_component: Double?
+        let ils_frequency: String?
+    }
+
+    struct Aircraft: Codable {
+        let internal_id: String
+        let tlr_version: Int?
+        let icao: String
+        let name: String?
+        let engines: String?
+        let thrust: String?
+        let registration: String?
+    }
+
+    struct ResultData: Codable {
+        let weight: Double?
+        let flap_setting: String?
+        let thrust_setting: String?
+        let bleed_setting: String?
+        let anti_ice_setting: String?
+
+        // may be Int or Bool (flex_temperature, max_temperature, max_weight)
+        let flex_temperature: intOrBool?
+        let max_temperature: intOrBool?
+        let climb_optimized: Bool?
+        let max_weight: intOrBool?
+
+        let limit_code: String?
+        let limit_obstacle: Bool?
+
+        let speeds_v1: intOrBool?
+        let speeds_vr: intOrBool?
+        let speeds_v2: intOrBool?
+        let speeds_v2_id: String?
+
+        let speeds_other: intOrBool?
+        let speeds_other_id: String?
+
+        let distance_decide: Double?
+        let distance_reject: Double?
+        let distance_margin: Double?
+        let distance_continue: Double?
+        let sufficient_runway: Bool?
+
+        let limit_code_short: String?
+        let limit_code_long: String?
+    }
+
+    struct Remark: Codable {
+        let type: String?
+        let message: String?
+    }
 }

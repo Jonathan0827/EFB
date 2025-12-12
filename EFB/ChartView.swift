@@ -146,7 +146,7 @@ struct RealChartView: View {
     var body: some View {
         VStack {
             if loading {
-                ProgressView("Loading \(chart!.name ?? "")\n(App might be unresponsive while loading)")
+                ProgressView("Loading \(chart!.name ?? "")")
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundStyle(.secondary)
@@ -170,13 +170,11 @@ struct RealChartView: View {
         .onChange(of: chart!.id!, initial: true) {
             loading = true
             getChart(chart!.id!) { r in
-                DispatchQueue.main.async {
+                OperationQueue().addOperation {
                     chartData = r
                     //                    print(r)
-                    DispatchQueue.main.async {
-                        self.pdfData = try? Data(contentsOf: r.url)
-                        loading = false
-                    }
+                    self.pdfData = try? Data(contentsOf: r.url)
+                    loading = false
                 }
             }
         }
