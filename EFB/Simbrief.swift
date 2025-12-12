@@ -551,175 +551,337 @@ struct Marker: Identifiable {
     let location: CLLocationCoordinate2D
     let title: String
 }
+//struct MapView: View {
+//    let fPlan: FlightPlan
+//    @State var focus: String = ""
+//    @State var coords = [CLLocationCoordinate2D]()
+//    @State var camera: MapCameraPosition = .automatic
+//    @State var size: CGFloat = .zero
+//    var body: some View {
+//        VStack {
+//            Map(position: $camera) {
+//                MapPolyline(
+//                    MKPolyline(
+//                        coordinates: coords,
+//                        count: coords.count
+//                    )
+//                )
+//                .stroke(.blue, lineWidth: 3)
+//                Annotation(
+//                    fPlan.origin.icaoCode!, coordinate: CLLocationCoordinate2D(
+//                        latitude: Double(fPlan.origin.posLat!)!,
+//                        longitude: Double(fPlan.origin.posLong!)!
+//                    )
+//                ) {
+//                    ZStack() {
+//                        Circle().frame(width: 10, height: 10)
+//                        //                                                        .background {
+//                        if fPlan.origin.icaoCode! == focus {
+//                            //                                VStack {
+//                            VStack {
+//                                Text(fPlan.origin.icaoCode!)
+//                                    .font(.caption.bold())
+//                                Text("Origin")
+//                                    .font(.caption.bold())
+//                            }
+//                            .padding(5)
+//                            .foregroundStyle(.black)
+//                            .background(.white.opacity(0.7))
+//                            .cornerRadius(10)
+//                            .viewSize { s in
+//                                size = s.height
+//                            }
+//                            .offset(y: -size/2 - 10)
+//                        }
+//                    }
+//                    .onTapGesture {
+//                        if fPlan.origin.icaoCode! == focus {
+//                            focus = ""
+//                        } else {
+//                            focus = fPlan.origin.icaoCode!
+//                        }
+//                    }
+//                }
+//                ForEach(fPlan.navlog.fix!.dropLast(), id: \.id) { nav in
+//                    Annotation(
+//                        "\(nav.ident! == focus ? "" : nav.ident!)", coordinate: CLLocationCoordinate2D(
+//                            latitude: Double(nav.posLat!)!,
+//                            longitude: Double(nav.posLong!)!
+//                        )
+//                    ) {
+//                        ZStack() {
+//                            Circle().frame(width: 10, height: 10)
+//                            //                                                        .background {
+//                            if nav.ident! == focus {
+//                                //                                VStack {
+//                                VStack {
+//                                    Text(nav.ident!)
+//                                        .font(.caption.bold())
+//                                    Text("Altitude: \(nav.altitudeFeet!)")
+//                                        .font(.caption.bold())
+//                                    Text("Speed: \(nav.indAirspeed!)")
+//                                        .font(.caption.bold())
+//                                    Text("Airway: \(nav.viaAirway ?? "DCT")")
+//                                        .font(.caption.bold())
+//                                }
+//                                .padding(5)
+//                                .foregroundStyle(.black)
+//                                .background(.white.opacity(0.7))
+//                                .cornerRadius(10)
+//                                .viewSize { s in
+//                                    size = s.height
+//                                }
+//                                .offset(y: -size/2 - 10)
+//                            }
+//                        }
+////                            }
+//                        .onTapGesture {
+//                            if nav.ident! == focus {
+//                                focus = ""
+//                            } else {
+//                                focus = nav.ident!
+//                            }
+//                        }
+//                    }
+//
+//                }
+//                Annotation(
+//                    fPlan.destination.icaoCode!, coordinate: CLLocationCoordinate2D(
+//                        latitude: Double(fPlan.destination.posLat!)!,
+//                        longitude: Double(fPlan.destination.posLong!)!
+//                    )
+//                ) {
+//                    ZStack() {
+//                        Circle().frame(width: 10, height: 10)
+//                        //                                                        .background {
+//                        if fPlan.destination.icaoCode! == focus {
+//                            //                                VStack {
+//                            VStack {
+//                                Text(fPlan.destination.icaoCode!)
+//                                    .font(.caption.bold())
+//                                Text("Destination")
+//                                    .font(.caption.bold())
+//                            }
+//                            .padding(5)
+//                            .foregroundStyle(.black)
+//                            .background(.white.opacity(0.7))
+//                            .cornerRadius(10)
+//                            .viewSize { s in
+//                                size = s.height
+//                            }
+//                            .offset(y: -size/2 - 10)
+//                        }
+//                    }
+////                            }
+//                    .onTapGesture {
+//                        if fPlan.destination.icaoCode! == focus {
+//                            focus = ""
+//                        } else {
+//                            focus = fPlan.destination.icaoCode!
+//                        }
+//                    }
+//                }
+//            }
+//        }
+////        .onTapGesture {
+////            if focus != "" {
+////                focus = ""
+////            }
+////        }
+//        .onAppear {
+//            coords.append(CLLocationCoordinate2D(
+//                latitude: Double(fPlan.origin.posLat!)!,
+//                longitude: Double(fPlan.origin.posLong!)!
+//            ))
+//            for i in fPlan.navlog.fix! {
+//                    coords.append(CLLocationCoordinate2D(
+//                        latitude: Double(i.posLat!)!,
+//                        longitude: Double(i.posLong!)!
+//                    ))
+//            }
+//            coords.append(CLLocationCoordinate2D(
+//                latitude: Double(fPlan.destination.posLat!)!,
+//                longitude: Double(fPlan.destination.posLong!)!
+//            ))
+//            let minLat = coords.map { $0.latitude }.min()!
+//            let maxLat = coords.map { $0.latitude }.max()!
+//            let minLon = coords.map { $0.longitude }.min()!
+//            let maxLon = coords.map { $0.longitude }.max()!
+//
+//            let center = CLLocationCoordinate2D(
+//                latitude: (minLat + maxLat) / 2,
+//                longitude: (minLon + maxLon) / 2
+//            )
+//
+//            let span = MKCoordinateSpan(
+//                latitudeDelta: (maxLat - minLat) * 1.3,
+//                longitudeDelta: (maxLon - minLon) * 1.3
+//            )
+//
+//            let reg = MKCoordinateRegion(center: center, span: span)
+//            camera = .region(reg)
+//        }
+//    }
+//}
 struct MapView: View {
     let fPlan: FlightPlan
     @State var focus: String = ""
     @State var coords = [CLLocationCoordinate2D]()
     @State var camera: MapCameraPosition = .automatic
     @State var size: CGFloat = .zero
+
     var body: some View {
         VStack {
-            Map(position: $camera) {
-                MapPolyline(
-                    MKPolyline(
-                        coordinates: coords,
-                        count: coords.count
-                    )
-                )
-                .stroke(.blue, lineWidth: 3)
-                Annotation(
-                    fPlan.origin.icaoCode!, coordinate: CLLocationCoordinate2D(
-                        latitude: Double(fPlan.origin.posLat!)!,
-                        longitude: Double(fPlan.origin.posLong!)!
-                    )
-                ) {
-                    ZStack() {
-                        Circle().frame(width: 10, height: 10)
-                        //                                                        .background {
-                        if fPlan.origin.icaoCode! == focus {
-                            //                                VStack {
-                            VStack {
-                                Text(fPlan.origin.icaoCode!)
-                                    .font(.caption.bold())
-                                Text("Origin")
-                                    .font(.caption.bold())
-                            }
-                            .padding(5)
-                            .foregroundStyle(.black)
-                            .background(.white.opacity(0.7))
-                            .cornerRadius(10)
-                            .viewSize { s in
-                                size = s.height
-                            }
-                            .offset(y: -size/2 - 10)
-                        }
-                    }
-                    .onTapGesture {
-                        if fPlan.origin.icaoCode! == focus {
-                            focus = ""
-                        } else {
-                            focus = fPlan.origin.icaoCode!
-                        }
-                    }
-                }
-                ForEach(fPlan.navlog.fix!.dropLast(), id: \.id) { nav in
-                    Annotation(
-                        "\(nav.ident! == focus ? "" : nav.ident!)", coordinate: CLLocationCoordinate2D(
-                            latitude: Double(nav.posLat!)!,
-                            longitude: Double(nav.posLong!)!
+            if !coords.isEmpty {
+                Map(position: $camera) {
+
+                    // ROUTE LINE
+                    MapPolyline(
+                        MKPolyline(
+                            coordinates: coords,
+                            count: coords.count
                         )
-                    ) {
-                        ZStack() {
-                            Circle().frame(width: 10, height: 10)
-                            //                                                        .background {
-                            if nav.ident! == focus {
-                                //                                VStack {
-                                VStack {
-                                    Text(nav.ident!)
-                                        .font(.caption.bold())
-                                    Text("Altitude: \(nav.altitudeFeet!)")
-                                        .font(.caption.bold())
-                                    Text("Speed: \(nav.indAirspeed!)")
-                                        .font(.caption.bold())
-                                    Text("Airway: \(nav.viaAirway ?? "DCT")")
-                                        .font(.caption.bold())
+                    )
+                    .stroke(.blue, lineWidth: 3)
+
+                    // ORIGIN
+                    if let oLat = Double(fPlan.origin.posLat!),
+                       let oLon = Double(fPlan.origin.posLong!) {
+
+                        Annotation(
+                            fPlan.origin.icaoCode!,
+                            coordinate: CLLocationCoordinate2D(latitude: oLat, longitude: oLon)
+                        ) {
+                            ZStack {
+                                Circle().frame(width: 10, height: 10)
+                                if fPlan.origin.icaoCode! == focus {
+                                    VStack {
+                                        Text(fPlan.origin.icaoCode!)
+                                            .font(.caption.bold())
+                                        Text("Origin")
+                                            .font(.caption.bold())
+                                    }
+                                    .padding(5)
+                                    .foregroundStyle(.black)
+                                    .background(.white.opacity(0.7))
+                                    .cornerRadius(10)
+                                    .viewSize { s in size = s.height }
+                                    .offset(y: -size/2 - 10)
                                 }
-                                .padding(5)
-                                .foregroundStyle(.black)
-                                .background(.white.opacity(0.7))
-                                .cornerRadius(10)
-                                .viewSize { s in
-                                    size = s.height
-                                }
-                                .offset(y: -size/2 - 10)
                             }
-                        }
-//                            }
-                        .onTapGesture {
-                            if nav.ident! == focus {
-                                focus = ""
-                            } else {
-                                focus = nav.ident!
+                            .onTapGesture {
+                                focus = (focus == fPlan.origin.icaoCode!) ? "" : fPlan.origin.icaoCode!
                             }
                         }
                     }
 
-                }
-                Annotation(
-                    fPlan.destination.icaoCode!, coordinate: CLLocationCoordinate2D(
-                        latitude: Double(fPlan.destination.posLat!)!,
-                        longitude: Double(fPlan.destination.posLong!)!
-                    )
-                ) {
-                    ZStack() {
-                        Circle().frame(width: 10, height: 10)
-                        //                                                        .background {
-                        if fPlan.destination.icaoCode! == focus {
-                            //                                VStack {
-                            VStack {
-                                Text(fPlan.destination.icaoCode!)
-                                    .font(.caption.bold())
-                                Text("Destination")
-                                    .font(.caption.bold())
+                    // FIXES
+                    ForEach(fPlan.navlog.fix!.dropLast(), id: \.id) { nav in
+                        if let lat = Double(nav.posLat!), let lon = Double(nav.posLong!) {
+                            Annotation(
+                                "\(nav.ident! == focus ? "" : nav.ident!)",
+                                coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                            ) {
+                                ZStack {
+                                    Circle().frame(width: 10, height: 10)
+                                    if nav.ident! == focus {
+                                        VStack {
+                                            Text(nav.ident!)
+                                                .font(.caption.bold())
+                                            Text("Altitude: \(nav.altitudeFeet!)")
+                                                .font(.caption.bold())
+                                            Text("Speed: \(nav.indAirspeed!)")
+                                                .font(.caption.bold())
+                                            Text("Airway: \(nav.viaAirway ?? "DCT")")
+                                                .font(.caption.bold())
+                                        }
+                                        .padding(5)
+                                        .foregroundStyle(.black)
+                                        .background(.white.opacity(0.7))
+                                        .cornerRadius(10)
+                                        .viewSize { s in size = s.height }
+                                        .offset(y: -size/2 - 10)
+                                    }
+                                }
+                                .onTapGesture {
+                                    focus = (focus == nav.ident!) ? "" : nav.ident!
+                                }
                             }
-                            .padding(5)
-                            .foregroundStyle(.black)
-                            .background(.white.opacity(0.7))
-                            .cornerRadius(10)
-                            .viewSize { s in
-                                size = s.height
-                            }
-                            .offset(y: -size/2 - 10)
                         }
                     }
-//                            }
-                    .onTapGesture {
-                        if fPlan.destination.icaoCode! == focus {
-                            focus = ""
-                        } else {
-                            focus = fPlan.destination.icaoCode!
+
+                    // DESTINATION
+                    if let dLat = Double(fPlan.destination.posLat!),
+                       let dLon = Double(fPlan.destination.posLong!) {
+
+                        Annotation(
+                            fPlan.destination.icaoCode!,
+                            coordinate: CLLocationCoordinate2D(latitude: dLat, longitude: dLon)
+                        ) {
+                            ZStack {
+                                Circle().frame(width: 10, height: 10)
+                                if fPlan.destination.icaoCode! == focus {
+                                    VStack {
+                                        Text(fPlan.destination.icaoCode!)
+                                            .font(.caption.bold())
+                                        Text("Destination")
+                                            .font(.caption.bold())
+                                    }
+                                    .padding(5)
+                                    .foregroundStyle(.black)
+                                    .background(.white.opacity(0.7))
+                                    .cornerRadius(10)
+                                    .viewSize { s in size = s.height }
+                                    .offset(y: -size/2 - 10)
+                                }
+                            }
+                            .onTapGesture {
+                                focus = (focus == fPlan.destination.icaoCode!) ? "" : fPlan.destination.icaoCode!
+                            }
                         }
                     }
                 }
             }
         }
-//        .onTapGesture {
-//            if focus != "" {
-//                focus = ""
-//            }
-//        }
         .onAppear {
-            coords.append(CLLocationCoordinate2D(
-                latitude: Double(fPlan.origin.posLat!)!,
-                longitude: Double(fPlan.origin.posLong!)!
-            ))
-            for i in fPlan.navlog.fix! {
-                    coords.append(CLLocationCoordinate2D(
-                        latitude: Double(i.posLat!)!,
-                        longitude: Double(i.posLong!)!
-                    ))
+            coords.removeAll()
+
+            // ORIGIN
+            if let lat = Double(fPlan.origin.posLat!),
+               let lon = Double(fPlan.origin.posLong!) {
+                coords.append(CLLocationCoordinate2D(latitude: lat, longitude: lon))
             }
-            coords.append(CLLocationCoordinate2D(
-                latitude: Double(fPlan.destination.posLat!)!,
-                longitude: Double(fPlan.destination.posLong!)!
-            ))
-            let minLat = coords.map { $0.latitude }.min()!
-            let maxLat = coords.map { $0.latitude }.max()!
-            let minLon = coords.map { $0.longitude }.min()!
-            let maxLon = coords.map { $0.longitude }.max()!
 
-            let center = CLLocationCoordinate2D(
-                latitude: (minLat + maxLat) / 2,
-                longitude: (minLon + maxLon) / 2
-            )
+            // FIXES
+            for fix in fPlan.navlog.fix! {
+                if let lat = Double(fix.posLat!), let lon = Double(fix.posLong!) {
+                    coords.append(CLLocationCoordinate2D(latitude: lat, longitude: lon))
+                }
+            }
 
-            let span = MKCoordinateSpan(
-                latitudeDelta: (maxLat - minLat) * 1.3,
-                longitudeDelta: (maxLon - minLon) * 1.3
-            )
+            // DESTINATION
+            if let lat = Double(fPlan.destination.posLat!),
+               let lon = Double(fPlan.destination.posLong!) {
+                coords.append(CLLocationCoordinate2D(latitude: lat, longitude: lon))
+            }
 
-            let reg = MKCoordinateRegion(center: center, span: span)
-            camera = .region(reg)
+            // CAMERA
+            if !coords.isEmpty {
+                let minLat = coords.map { $0.latitude }.min()!
+                let maxLat = coords.map { $0.latitude }.max()!
+                let minLon = coords.map { $0.longitude }.min()!
+                let maxLon = coords.map { $0.longitude }.max()!
+
+                let center = CLLocationCoordinate2D(
+                    latitude: (minLat + maxLat) / 2,
+                    longitude: (minLon + maxLon) / 2
+                )
+                let span = MKCoordinateSpan(
+                    latitudeDelta: (maxLat - minLat) * 1.3,
+                    longitudeDelta: (maxLon - minLon) * 1.3
+                )
+                camera = .region(MKCoordinateRegion(center: center, span: span))
+            }
         }
     }
 }
