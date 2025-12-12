@@ -177,7 +177,7 @@ struct ContentView: View {
 //                    }
 //                }
 //                getSBAirport("RKSI")
-                if Date().timeIntervalSince1970 - (readUserDefault("LastCookieUpdate")! as! Double) >= 7200 {
+                if Date().timeIntervalSince1970 - ((readUserDefault("LastCookieUpdate") ?? 0.0) as! Double) >= 7200 {
                     AF.request("https://chartfox.org/", headers: headers())
                         .saveLogin()
                         .response { _ in
