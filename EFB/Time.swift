@@ -21,7 +21,9 @@ func toUTC(_ localTimeString: String) -> String {
         let tzGap = Int(tz)! * 60 * 60 * (isPositive ? 1 : -1)
         res = df.string(from: Date(timeIntervalSince1970: df.date(from: String(ds))!.timeIntervalSince1970 - Double(tzGap)))
     } else {
-        let tzGap = TimeZone(abbreviation: String(tz))!.secondsFromGMT()
+        let timezone = TimeZone(abbreviation: String(tz))
+        if timezone == nil { return "?" }
+        let tzGap = timezone!.secondsFromGMT()
         res = df.string(from: Date(timeIntervalSince1970: df.date(from: String(ds))!.timeIntervalSince1970 - Double(tzGap)))
     }
     return res

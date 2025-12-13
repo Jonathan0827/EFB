@@ -71,7 +71,7 @@ struct SimbriefWebView: View {
     @AppStorage("simbriefSSO") var simbriefSSO: String = ""
     @AppStorage("simbriefUID") var simbriefUID: String = ""
     var body: some View {
-        DWebView(url: URL(string: "https://dispatch.simbrief.com/home")!, cookie: [:], cUrl: $currentURL, newcookie: $cookie)
+        DWebView(url: URL(string: "https://dispatch.simbrief.com/home")!, cookie: ["\(simbriefUID.isEmpty ? "" : "simbrief_user")": "\(simbriefUID)", "\(simbriefSSO.isEmpty ? "" : "simbrief_sso")": "\(simbriefSSO)"], cUrl: $currentURL, newcookie: $cookie)
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Simbrief WebView")
             .onChange(of: cookie) { ov, nv in

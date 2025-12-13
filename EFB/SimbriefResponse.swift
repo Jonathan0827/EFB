@@ -234,7 +234,7 @@ struct SBAirport: Codable {
     let metarCeiling: String?
     let taf: String?
     let tafTime: String?
-    let atis: [String: String]?
+//    let atis: [String: String]?
     let notam: notamEmpty?
 
     enum CodingKeys: String, CodingKey {
@@ -250,7 +250,7 @@ struct SBAirport: Codable {
         case metar, metarTime = "metar_time", metarCategory = "metar_category"
         case metarVisibility = "metar_visibility"
         case metarCeiling = "metar_ceiling"
-        case taf, tafTime = "taf_time", atis, notam
+        case taf, tafTime = "taf_time", notam
     }
 }
 

@@ -78,7 +78,7 @@ struct ContentView: View {
                         TextField("rwebd", text: $rwebd)
                         TextField("ADB API Key", text: $ADBAPI)
                         TextField("AirLabs API Key", text: $ALAPI)
-                        TextField("Simbrief Username", text: $simbriefUID)
+                        TextField("Simbrief ID", text: $simbriefUID)
                         TextField("Simbrief SSO", text: $simbriefSSO)
                     }
                     VStack {
