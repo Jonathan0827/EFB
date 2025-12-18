@@ -111,19 +111,21 @@ struct ContentView: View {
 //                    }
 //                    VStack {
                         Button("Test AutoLogin", action: {
-                            AF.request("https://chartfox.org/", headers: headers())
-                                .saveLogin()
-                                .response {_ in
-                                    testConnection { r in
-                                        print("r rcvd")
-                                        print(r)
-                                        if r != .ok {
-                                            showLoginCFoxBtn = true
-                                        } else {
-                                            showLoginCFoxBtn = false
+                            CFoxHeaders { h in
+                                AF.request("https://chartfox.org/", headers: h)
+                                    .saveLogin()
+                                    .response {_ in
+                                        testConnection { r in
+                                            print("r rcvd")
+                                            print(r)
+                                            if r != .ok {
+                                                showLoginCFoxBtn = true
+                                            } else {
+                                                showLoginCFoxBtn = false
+                                            }
                                         }
                                     }
-                                }
+                            }
                         })
                         Button("Clear ChartFox Cookies", action: {
                             clearChartFox()
@@ -178,19 +180,21 @@ struct ContentView: View {
 //                }
 //                getSBAirport("RKSI")
                 if Date().timeIntervalSince1970 - ((readUserDefault("LastCookieUpdate") ?? 0.0) as! Double) >= 7200 {
-                    AF.request("https://chartfox.org/", headers: headers())
-                        .saveLogin()
-                        .response { _ in
-                            testConnection { r in
-                                print("r rcvd")
-                                print(r)
-                                if r != .ok {
-                                    showLoginCFoxBtn = true
-                                } else {
-                                    showLoginCFoxBtn = false
+                    CFoxHeaders { h in
+                        AF.request("https://chartfox.org/", headers: h)
+                            .saveLogin()
+                            .response { _ in
+                                testConnection { r in
+                                    print("r rcvd")
+                                    print(r)
+                                    if r != .ok {
+                                        showLoginCFoxBtn = true
+                                    } else {
+                                        showLoginCFoxBtn = false
+                                    }
                                 }
                             }
-                        }
+                    }
                 }
             }
         }

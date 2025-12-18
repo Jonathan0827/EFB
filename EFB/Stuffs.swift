@@ -7,6 +7,14 @@
 
 import Foundation
 import SwiftUI
+import LocalConsole
+
+let consoleManager = LCManager.shared
+
+func print(_ msg: Any) {
+    Swift.print(msg)
+    consoleManager.print(msg)
+}
 
 extension Text {
     func info() -> Text {

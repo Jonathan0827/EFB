@@ -206,18 +206,20 @@ struct RealChartView: View {
 }
 
 func searchICAO(_ icao: String, completion: @escaping (Result<AirportResponse, Error>) -> Void) {
-    AF.request("https://api.chartfox.org/v2/airports?query=\(icao)&supported=1", headers: headers())
-        .saveLogin()
-        .responseDecodable(of: AirportResponse.self) { r in
-            switch r.result {
-            case .success(let res):
-                for i in res.data {
-                    print(i.icaoCode ?? "")
+    CFoxHeaders() { h in
+        AF.request("https://api.chartfox.org/v2/airports?query=\(icao)&supported=1", headers: h)
+            .saveLogin()
+            .responseDecodable(of: AirportResponse.self) { r in
+                switch r.result {
+                case .success(let res):
+                    for i in res.data {
+                        print(i.icaoCode ?? "")
+                    }
+                    completion(.success(res))
+                case .failure(let e):
+                    print(e)
+                    completion(.failure(e))
                 }
-                completion(.success(res))
-            case .failure(let e):
-                print(e)
-                completion(.failure(e))
             }
-        }
+    }
 }

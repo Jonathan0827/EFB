@@ -1,5 +1,5 @@
 //
-//  CFoxLogin.swift
+//  CFoxLoginView.swift
 //  EFB
 //
 //  Created by Jonathan Lim on 11/9/25.
