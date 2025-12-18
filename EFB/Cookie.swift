@@ -27,14 +27,23 @@ extension DataRequest {
                         let realCookie = cookie.split(separator: ";")[0].split(separator: "=")
                         let name = String(realCookie[0])
                         let value = String(realCookie[1])
-                        realCookies[name] = value
+                        if (realCookies[name] ?? "").isEmpty {
+                            realCookies[name] = value
+                        }
                     }
                     a += 1
                 }
                 saveUserDefault("LastCookieUpdate", Date().timeIntervalSince1970)
-                saveUserDefault("cfoxPAT", realCookies["chartfox_user_pat"])
-                saveUserDefault("cfoxSID", realCookies["chartfoxv2_session"])
-                saveUserDefault("xsrf", realCookies["XSRF-TOKEN"])
+                if realCookies["chartfox_user_pat"] != nil {
+                    saveUserDefault("cfoxPAT", realCookies["chartfox_user_pat"])
+                }
+                if realCookies["chartfoxv2_session"] != nil {
+                    saveUserDefault("cfoxSID", realCookies["chartfoxv2_session"])
+                }
+                if realCookies["XSRF-TOKEN"] != nil {
+                    saveUserDefault("xsrf", realCookies["XSRF-TOKEN"])
+                }
+                print(realCookies["chartfox_user_pat"] ?? "No PAT")
                 for cookie in realCookies {
                     if cookie.key.hasPrefix("remember_web_") {
                         saveUserDefault("rweb", cookie.key)
@@ -67,7 +76,9 @@ extension DataRequest {
                         let theRealCookie = realCookie.split(separator: "=")
                         let name = String(theRealCookie[0])
                         let value = String(theRealCookie[1])
-                        realCookies[name] = value
+                        if (realCookies[name] ?? "").isEmpty {
+                            realCookies[name] = value
+                        }
                     }
                     a += 1
                 }

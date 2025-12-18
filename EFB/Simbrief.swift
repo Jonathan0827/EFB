@@ -92,7 +92,6 @@ struct SimbriefWebView: View {
 
 @Observable
 class SBTOModel {
-    var fPlan: FlightPlan? = nil
     var depDate: String = ""
     var depTime: String = ""
     var arrTime: String = ""
@@ -128,9 +127,46 @@ class SBTOModel {
     var text: String = ""
 }
 
+@Observable
+class SBLDGModel {
+    var depDate: String = ""
+    var depTime: String = ""
+    var arrTime: String = ""
+    var pdfData: Data? = nil
+    var toPerf: TOPerformanceResponse? = nil
+    var aircraft: AircraftData? = nil
+    var acList: Array<AircraftData>? = nil
+    var ac: AircraftData? = nil
+    var airframe: Airframe? = nil
+    var airport: String = ""
+    var rwy: String = ""
+    var rwyLen: String = ""
+    var rwys: Array<String> = []
+    var lUnit: String = ""
+    var wUnit: String = "kgs"
+    var weight: String = ""
+    var flap: String = ""
+    var flaps: Array<String> = []
+    var thrust: String = ""
+    var thrusts: Array<String> = []
+    var bleed: String = "1"
+    var aIceE: Bool = false
+    var aIce: String = "auto"
+    var wind: String = ""
+    var temp: String = ""
+    var pUnit: String = "inHg"
+    var pressure: String = "29.92"
+    var sCond: String = "dry"
+    var flex: String = "1"
+    var cOpt: String = "1"
+    var toStat: Int = 0
+    var disable: Bool = false
+    var text: String = ""
+}
 struct SimbriefOFPView: View {
     @AppStorage("simbriefUID") var simbriefUID: String = ""
-    @State var model = SBTOModel()
+    @State var TO = SBTOModel()
+    @State var fPlan: FlightPlan?
     @FocusState var ap: Bool
     var body: some View {
         VStack {
@@ -140,14 +176,14 @@ struct SimbriefOFPView: View {
                     .info()
             } else {
                 VStack {
-                    if model.fPlan == nil {
+                    if fPlan == nil {
                         HStack {
                             Text("Loading Flight Plan")
                                 .info()
                             ProgressView()
                         }
                     } else {
-                        let fPlan = model.fPlan!
+                        let fPlan = fPlan!
                         HStack {
                             AsyncImage(url: URL(string: "https://www.flightaware.com/images/airline_logos/180px/\(fPlan.general.icaoAirline?.value ?? "").png")){ image in
                                 image
@@ -168,9 +204,9 @@ struct SimbriefOFPView: View {
                                 List {
                                     Section("Flight Info") {
                                         Text("Flight Number: \(fPlan.general.icaoAirline?.value ?? "")\(fPlan.general.flightNumber ?? "")")
-                                        Text("Departure Date: \(model.depDate) UTC")
-                                        Text("Gate Departure Time: \(model.depTime) UTC")
-                                        Text("Gate Arrival Time: \(model.arrTime) UTC")
+                                        Text("Departure Date: \(TO.depDate) UTC")
+                                        Text("Gate Departure Time: \(TO.depTime) UTC")
+                                        Text("Gate Arrival Time: \(TO.arrTime) UTC")
                                         Text("Departure: \(fPlan.origin.icaoCode ?? "Unknown") / \(fPlan.origin.iataCode?.value ?? "Unknown") / \(fPlan.origin.name ?? "Unknown")")
                                         Text("Destination: \(fPlan.destination.icaoCode ?? "Unknown") / \(fPlan.destination.iataCode?.value ?? "Unknown") / \(fPlan.destination.name ?? "Unknown")")
                                         Text("Alternate: \(fPlan.alternate.icaoCode ?? "-") / \(fPlan.alternate.iataCode?.value ?? "-") / \(fPlan.alternate.name ?? "-")")
@@ -242,31 +278,31 @@ struct SimbriefOFPView: View {
                                 }
                             }
                             Tab("T.O. Perf", systemImage: "circle") {
-                                if model.toStat == 0 {
+                                if TO.toStat == 0 {
                                     ProgressView("Loading T.O. Performance Calculator...")
                                         .font(.title2)
                                         .fontWeight(.bold)
                                         .foregroundStyle(.secondary)
                                 } else {
-                                    let acList = model.acList!
+                                    let acList = TO.acList!
                                     List {
-                                        Picker("Aircraft Type", selection: $model.ac) {
+                                        Picker("Aircraft Type", selection: $TO.ac) {
                                             ForEach(acList, id: \.self) { acraft in
                                                 Text("\(acraft.aircraftIcao) - \(acraft.aircraftName)")
                                                     .tag(acraft)
                                             }
                                         }
-                                        if model.toStat == -1 {
+                                        if TO.toStat == -1 {
                                             Text("Unsupported Aircraft")
                                         } else {
-                                        Picker("Airframe", selection: $model.airframe) {
-                                            ForEach(model.ac!.airframes, id: \.airframeInternalID) { af in
+                                        Picker("Airframe", selection: $TO.airframe) {
+                                            ForEach(TO.ac!.airframes, id: \.airframeInternalID) { af in
                                                 Text("\(af.airframeComments)")
                                                     .tag(af)
                                             }
                                         }
                                             HStack {
-                                                Picker("Weight Units", selection: $model.wUnit) {
+                                                Picker("Weight Units", selection: $TO.wUnit) {
                                                     Text("kgs")
                                                         .tag("kgs")
                                                     Text("lbs")
@@ -276,7 +312,7 @@ struct SimbriefOFPView: View {
                                                 HStack {
                                                     Text("Weight")
                                                     Spacer()
-                                                    TextField("Weight", text: $model.weight)
+                                                    TextField("Weight", text: $TO.weight)
                                                         .multilineTextAlignment(.trailing)
                                                         .frame(maxWidth: 150)   // Prevents cycles by limiting width
                                                 }
@@ -285,33 +321,33 @@ struct SimbriefOFPView: View {
                                                 HStack {
                                                     Text("Airport")
                                                     Spacer()
-                                                    TextField("Airport", text: $model.airport)
+                                                    TextField("Airport", text: $TO.airport)
                                                         .multilineTextAlignment(.trailing)
                                                         .frame(maxWidth: 150)
                                                         .focused($ap)
                                                 }
                                                 Divider()
-                                                Picker("Runway", selection: $model.rwy) {
-                                                    ForEach(model.rwys, id: \.self) { r in
+                                                Picker("Runway", selection: $TO.rwy) {
+                                                    ForEach(TO.rwys, id: \.self) { r in
                                                         Text("\(r)")
                                                             .tag(r)
                                                     }
                                                 }
                                             }
                                             HStack {
-                                                Picker("Flaps", selection: $model.flap) {
+                                                Picker("Flaps", selection: $TO.flap) {
                                                     Text("Optimum")
                                                         .tag("")
-                                                    ForEach(model.flaps, id: \.self) { f in
+                                                    ForEach(TO.flaps, id: \.self) { f in
                                                         Text("\(f)")
                                                             .tag(f)
                                                     }
                                                 }
                                                 Divider()
-                                                Picker("Takeoff Thrust", selection: $model.thrust) {
+                                                Picker("Takeoff Thrust", selection: $TO.thrust) {
                                                     Text("Optimum")
                                                         .tag("")
-                                                    ForEach(model.thrusts, id: \.self) { t in
+                                                    ForEach(TO.thrusts, id: \.self) { t in
                                                         Text("\(t)")
                                                             .tag(t)
                                                     }
@@ -320,12 +356,12 @@ struct SimbriefOFPView: View {
                                             HStack {
                                                 Text("Wind")
                                                 Spacer()
-                                                TextField("Wind", text: $model.wind)
+                                                TextField("Wind", text: $TO.wind)
                                                     .multilineTextAlignment(.trailing)
                                                     .frame(maxWidth: 150)
                                             }
                                             HStack {
-                                                Picker("Pressure Units", selection: $model.pUnit) {
+                                                Picker("Pressure Units", selection: $TO.pUnit) {
                                                     Text("inHg")
                                                         .tag("inHg")
                                                     Text("hPa")
@@ -335,7 +371,7 @@ struct SimbriefOFPView: View {
                                                 HStack {
                                                     Text("Altimeter")
                                                     Spacer()
-                                                    TextField("Altimeter", text: $model.pressure)
+                                                    TextField("Altimeter", text: $TO.pressure)
                                                         .multilineTextAlignment(.trailing)
                                                         .frame(maxWidth: 150)
                                                 }
@@ -343,25 +379,25 @@ struct SimbriefOFPView: View {
                                             HStack {
                                                 Text("Temperature (Celsius)")
                                                 Spacer()
-                                                TextField("Temperature", text: $model.temp)
+                                                TextField("Temperature", text: $TO.temp)
                                                     .multilineTextAlignment(.trailing)
                                                     .frame(maxWidth: 150)
                                             }
-                                            Picker("Surface Condition", selection: $model.sCond) {
+                                            Picker("Surface Condition", selection: $TO.sCond) {
                                                 Text("Dry")
                                                     .tag("dry")
                                                 Text("Wet")
                                                     .tag("wet")
                                             }
                                             HStack {
-                                                Picker("Flex T.O.", selection: $model.flex) {
+                                                Picker("Flex T.O.", selection: $TO.flex) {
                                                     Text("On")
                                                         .tag("1")
                                                     Text("Off")
                                                         .tag("0")
                                                 }
                                                 Divider()
-                                                Picker("Climb Optimization", selection: $model.cOpt) {
+                                                Picker("Climb Optimization", selection: $TO.cOpt) {
                                                     Text("On")
                                                         .tag("1")
                                                     Text("Off")
@@ -371,71 +407,71 @@ struct SimbriefOFPView: View {
                                             Section {
                                                 Button(action: {
                                                     withAnimation {
-                                                        model.text = "loading"
+                                                        TO.text = "loading"
                                                     }
-                                                    getTOPerf(ac: model.ac!.aircraftIcao, airport: model.airport, rwy: model.rwy, lUnit: model.lUnit, wUnit: model.wUnit, weight: model.weight, flap: model.flap, thrust: model.thrust, bleed: model.bleed, aIce: model.aIce, wind: model.wind, temp: model.temp, pUnit: model.pUnit, pressure: model.pressure, sCond: model.sCond, flex: model.flex, cOpt: model.cOpt) { r in
+                                                    getTOPerf(ac: TO.ac!.aircraftIcao, airport: TO.airport, rwy: TO.rwy, lUnit: TO.lUnit, wUnit: TO.wUnit, weight: TO.weight, flap: TO.flap, thrust: TO.thrust, bleed: TO.bleed, aIce: TO.aIce, wind: TO.wind, temp: TO.temp, pUnit: TO.pUnit, pressure: TO.pressure, sCond: TO.sCond, flex: TO.flex, cOpt: TO.cOpt) { r in
                                                         withAnimation {
-                                                            model.text = r.message
+                                                            TO.text = r.message
                                                         }
                                                     }
                                                 }, label: {
                                                     HStack {
                                                         Text("Calculate")
-                                                        if model.text == "loading" {
+                                                        if TO.text == "loading" {
                                                             ProgressView()
                                                         }
                                                     }
                                                 })
-                                                .disabled(model.text == "loading" || model.weight.isEmpty || model.airport.isEmpty || model.rwy.isEmpty)
+                                                .disabled(TO.text == "loading" || TO.weight.isEmpty || TO.airport.isEmpty || TO.rwy.isEmpty)
                                             }
-                                            if model.text.isEmpty == false {
-                                                Text(model.text)
+                                            if TO.text.isEmpty == false {
+                                                Text(TO.text)
                                                     .fontDesign(.monospaced)
                                             }
                                         }
                                     }
-                                    .disabled(model.disable)
-                                    .onChange(of: model.ac) { o, nv in
+                                    .disabled(TO.disable)
+                                    .onChange(of: TO.ac) { o, nv in
                                         let n = nv!
-                                        model.disable = true
+                                        TO.disable = true
                                         if n.statsTlr.value == nil {
-                                            model.toStat = -1
+                                            TO.toStat = -1
                                         } else {
-                                            model.airframe = n.airframes[0]
-                                            model.flaps = n.aircraftProfilesTakeoffFlaps
-                                            model.flap = ""
-                                            model.thrusts = n.aircraftProfilesTakeoffThrust
-                                            model.thrust = ""
+                                            TO.airframe = n.airframes[0]
+                                            TO.flaps = n.aircraftProfilesTakeoffFlaps
+                                            TO.flap = ""
+                                            TO.thrusts = n.aircraftProfilesTakeoffThrust
+                                            TO.thrust = ""
                                             if n.aircraftProfilesTakeoffAntice.contains("2") {
-                                                model.aIceE = true
+                                                TO.aIceE = true
                                             }
-                                            model.toStat = 1
+                                            TO.toStat = 1
                                         }
-                                        model.disable = false
+                                        TO.disable = false
                                     }
                                     .onChange(of: ap) { o, n in
-                                        model.airport = model.airport.uppercased()
+                                        TO.airport = TO.airport.uppercased()
                                         if !n {
-                                            model.disable = true
-                                            getSBAirport(model.airport) { r in
-                                                model.wind = "\(String(format: "%03d", r.metar_wind_direction))/\(String(format: "%02d", r.metar_wind_speed))"
-                                                model.pressure = r.metar_altimeter.description
-                                                model.temp = r.metar_temperature.description
-                                                model.rwys = []
+                                            TO.disable = true
+                                            getSBAirport(TO.airport) { r in
+                                                TO.wind = "\(String(format: "%03d", r.metar_wind_direction))/\(String(format: "%02d", r.metar_wind_speed))"
+                                                TO.pressure = r.metar_altimeter.description
+                                                TO.temp = r.metar_temperature.description
+                                                TO.rwys = []
                                                 for i in r.runways {
-                                                    model.rwys.append(i.identifier)
+                                                    TO.rwys.append(i.identifier)
                                                 }
-                                                model.rwy = r.runways[0].identifier
-                                                model.rwyLen = "\(r.runways[0].length)"
-                                                model.disable = false
+                                                TO.rwy = r.runways[0].identifier
+                                                TO.rwyLen = "\(r.runways[0].length)"
+                                                TO.disable = false
                                             }
                                         }
                                     }
                                 }
                             }
                             Tab("Briefing", systemImage: "circle") {
-                                if model.pdfData != nil {
-                                    PDFViewRepresentable(data: model.pdfData!, usePageViewController: true,backgroundColor: .mode)
+                                if TO.pdfData != nil {
+                                    PDFViewRepresentable(data: TO.pdfData!, usePageViewController: true,backgroundColor: .mode)
                                 }
                             }
                         }
@@ -448,7 +484,7 @@ struct SimbriefOFPView: View {
                         OperationQueue().addOperation {
                             do {
                                 let data = try Data(contentsOf: url)
-                                model.pdfData = data
+                                TO.pdfData = data
                             } catch {
                                 print(error)
                             }
@@ -458,41 +494,41 @@ struct SimbriefOFPView: View {
                         let df = DateFormatter()
                         df.timeZone = TimeZone(abbreviation: "UTC")
                         df.dateFormat = "yyyy-MM-dd"
-                        model.depDate = df.string(from: Date(timeIntervalSince1970: Double(dUnix)!))
+                        TO.depDate = df.string(from: Date(timeIntervalSince1970: Double(dUnix)!))
                         df.dateFormat = "HH:mm"
-                        model.depTime = df.string(from: Date(timeIntervalSince1970: Double(dUnix)!))
-                        model.arrTime = df.string(from: Date(timeIntervalSince1970: Double(aUnix)!))
-                        model.weight = r.weights.estTow ?? ""
-                        model.airport = r.origin.icaoCode!
+                        TO.depTime = df.string(from: Date(timeIntervalSince1970: Double(dUnix)!))
+                        TO.arrTime = df.string(from: Date(timeIntervalSince1970: Double(aUnix)!))
+                        TO.weight = r.weights.estTow ?? ""
+                        TO.airport = r.origin.icaoCode!
                         if r.tlr.takeoff != nil {
-                            model.sCond = r.tlr.takeoff!.conditions!["surface_condition"]!
+                            TO.sCond = r.tlr.takeoff!.conditions!["surface_condition"]!
                         }
-                        model.rwy = r.origin.planRwy!
-                        model.wUnit = r.params.units!
+                        TO.rwy = r.origin.planRwy!
+                        TO.wUnit = r.params.units!
                         withAnimation {
-                            model.fPlan = r
+                            fPlan = r
                         }
                         print("OFP fetch completed")
                         getAircraftsList() { res in
-                            model.acList = res
+                            TO.acList = res
                             print("AClist set")
                             for i in res {
                                 if i.aircraftIcao == r.aircraft.icaoCode! {
-                                    model.ac = i
+                                    TO.ac = i
                                     if i.statsTlr.value == nil {
-                                        model.toStat = -1
+                                        TO.toStat = -1
                                     } else {
-                                        model.flaps = i.aircraftProfilesTakeoffFlaps
-                                        model.flap = ""
-                                        model.thrusts = i.aircraftProfilesTakeoffThrust
-                                        model.thrust = ""
+                                        TO.flaps = i.aircraftProfilesTakeoffFlaps
+                                        TO.flap = ""
+                                        TO.thrusts = i.aircraftProfilesTakeoffThrust
+                                        TO.thrust = ""
                                         if i.aircraftProfilesTakeoffAntice.contains("2") {
-                                            model.aIceE = true
+                                            TO.aIceE = true
                                         }
                                         for j in i.airframes {
                                             if j.airframeInternalID == r.aircraft.internalID! {
-                                                model.airframe = j
-                                                model.toStat = 1
+                                                TO.airframe = j
+                                                TO.toStat = 1
                                             }
                                         }
                                         break
@@ -501,13 +537,13 @@ struct SimbriefOFPView: View {
                             }
                         }
                         getSBAirport(r.origin.icaoCode!) { a in
-                            model.wind = "\(String(format: "%03d", a.metar_wind_direction))/\(String(format: "%02d", a.metar_wind_speed))"
-                            model.pressure = a.metar_altimeter.description
-                            model.temp = a.metar_temperature.description
+                            TO.wind = "\(String(format: "%03d", a.metar_wind_direction))/\(String(format: "%02d", a.metar_wind_speed))"
+                            TO.pressure = a.metar_altimeter.description
+                            TO.temp = a.metar_temperature.description
                             for i in a.runways {
-                                model.rwys.append(i.identifier)
+                                TO.rwys.append(i.identifier)
                                 if i.identifier == r.origin.planRwy! {
-                                    model.rwyLen = "\(i.length)"
+                                    TO.rwyLen = "\(i.length)"
                                 }
                             }
                         }

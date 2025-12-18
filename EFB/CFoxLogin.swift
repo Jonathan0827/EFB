@@ -38,7 +38,11 @@ struct CFoxLogin: View {
                 }
             }
             if !rweb.isEmpty {
-                cfoxPAT = nv["chartfox_user_pat"]!
+                if cfoxPAT.isEmpty || !(nv["chartfox_user_pat"]!.isEmpty) {
+                    cfoxPAT = nv["chartfox_user_pat"]!
+                    print("Set pat")
+                    print(nv["chartfox_user_pat"]!)
+                }
                 cfoxSID = nv["chartfoxv2_session"]!
                 xsrf = nv["XSRF-TOKEN"]!
 //                print(cfoxPAT)

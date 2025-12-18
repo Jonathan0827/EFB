@@ -29,20 +29,20 @@ func testConnection(completion: @escaping (stat) -> Void) {
                         .responseDecodable(of: ChartData.self) {r in
                             switch r.result {
                             case .success(let data):
-                                print("ok tc")
+                                print("tc done")
                                 completion(.ok)
                             case .failure(let e):
-                                print("fail chtd de")
+                                print("fail test 2")
                                 print(e)
                                 completion(.fail)
                             }
                         }
                 } else if data.component == "auth/loginLanding" {
-                    print("login req")
+                    print("login required")
                     completion(.loginreq)
                 }
             case .failure(let err):
-                print("fail ch de")
+                print("fail test 1")
                 print(err)
                 completion(.fail)
             }

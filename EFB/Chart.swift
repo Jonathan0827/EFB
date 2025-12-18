@@ -16,7 +16,7 @@ func headers(_ inclpat: Bool = true) -> HTTPHeaders {
     let rwebd = UserDefaults().string(forKey: "rwebd") ?? ""
     var headers: HTTPHeaders = [
         "X-Inertia": "true",
-        "X-Inertia-Version": "35784934205c3489a38a57e0b48631c6",
+        "X-Inertia-Version": "46a11fa95c2feec9098bc61c2c89bb6e",
         "X-XSRF-TOKEN": xsrf.replacing("%3D", with: "")
     ]
     headers["Cookie"] = "\(inclpat ? " chartfox_user_pat=\(pat);chartfoxv2_session=\(sid);XSRF-TOKEN=\(xsrf);" : "")\(rweb)=\(rwebd)"
