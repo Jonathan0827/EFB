@@ -43,7 +43,7 @@ extension DataRequest {
                 if realCookies["XSRF-TOKEN"] != nil {
                     saveUserDefault("xsrf", realCookies["XSRF-TOKEN"])
                 }
-                print(realCookies["chartfox_user_pat"] ?? "No PAT")
+                print((realCookies["chartfox_user_pat"] ?? "").isEmpty ? "PAT Avail" : "No PAT")
                 for cookie in realCookies {
                     if cookie.key.hasPrefix("remember_web_") {
                         saveUserDefault("rweb", cookie.key)

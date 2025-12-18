@@ -23,7 +23,7 @@ struct SBAirportData: Codable {
     let metar_ceiling: Int
     let metar_wind_direction: Int
     let metar_wind_speed: Int
-    let metar_wind_gust: Bool
+    let metar_wind_gust: intOrBool
     let metar_temperature: Int
     let metar_altimeter: Double
     let metar_precipitation: stringOrBool
@@ -991,7 +991,7 @@ struct TOPerformanceResponse: Codable {
         let icao: String
         let name: String?
         let engines: String?
-        let thrust: String?
+        let thrust: stringOrBool?
         let registration: String?
     }
 
@@ -1017,7 +1017,7 @@ struct TOPerformanceResponse: Codable {
         let speeds_v2_id: String?
 
         let speeds_other: intOrBool?
-        let speeds_other_id: String?
+        let speeds_other_id: stringOrBool?
 
         let distance_decide: Double?
         let distance_reject: Double?
@@ -1025,6 +1025,103 @@ struct TOPerformanceResponse: Codable {
         let distance_continue: Double?
         let sufficient_runway: Bool?
 
+        let limit_code_short: String?
+        let limit_code_long: String?
+    }
+
+    struct Remark: Codable {
+        let type: String?
+        let message: String?
+    }
+}
+
+nonisolated
+struct LDGPerformanceResponse: Codable {
+    let inputs: Inputs
+    let airport: Airport
+    let runway: Runway
+    let aircraft: Aircraft
+    let result: Result
+    let remarks: [Remark]
+    let message: String
+
+    struct Inputs: Codable {
+        let airport: String
+        let runway: String
+        let aircraft: String
+        let aircraft_data: String?
+        let weight: Double
+        let runway_shorten: Double?
+        let flap_setting: String?
+        let brake_setting: String?
+        let reverser_credit: String?
+        let vref_additive: Int?
+        let wind_direction: Double?
+        let wind_speed: Double?
+        let temperature: Double?
+        let altimeter: String?
+        let surface_condition: String?
+        let weight_units: String?
+        let length_units: String?
+        let wind_units: String?
+        let pressure_units: String?
+        let calculation_method: String?
+        let margin_method: String?
+    }
+
+    struct Airport: Codable {
+        let icao: String
+        let iata: String?
+        let name: String?
+        let region: String?
+        let latitude: Double?
+        let longitude: Double?
+        let elevation: Double?
+    }
+
+    struct Runway: Codable {
+        let identifier: String
+        let length: Double?
+        let length_tora: Double?
+        let length_toda: Double?
+        let length_asda: Double?
+        let length_lda: Double?
+        let width: Double?
+        let elevation: Double?
+        let gradient: Double?
+        let true_course: Double?
+        let magnetic_course: Double?
+        let threshold_latitude: Double?
+        let threshold_longitude: Double?
+        let headwind_component: Double?
+        let crosswind_component: Double?
+        let ils_frequency: String?
+    }
+
+    struct Aircraft: Codable {
+        let internal_id: String
+        let tlr_version: Int?
+        let icao: String
+        let name: String?
+        let engines: String?
+        let thrust: String?
+        let registration: String?
+    }
+
+    struct Result: Codable {
+        let weight: Double?
+        let flap_setting: String?
+        let brake_setting: String?
+        let reverser_credit: String?
+        let max_weight: Double?
+        let limit_code: String?
+        let actual_distance: Double?
+        let factored_distance: Double?
+        let margin_distance: Double?
+        let sufficient_runway: Bool?
+        let speeds_vref: Int?
+        let speeds_vadd: Int?
+        let speeds_vapp: Int?
         let limit_code_short: String?
         let limit_code_long: String?
     }

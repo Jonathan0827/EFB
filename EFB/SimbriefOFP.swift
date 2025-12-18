@@ -81,52 +81,73 @@ func getJWT(completion: @escaping (String) -> Void) {
             }
         }
 }
-func getTOPerf(ac: String, airport: String, rwy: String, lUnit: String? = nil, wUnit: String? = nil, weight: String, flap: String? = nil, thrust: String? = nil, bleed: String? = nil, aIce: String? = nil, wind: String? = nil, temp: String? = nil, pUnit: String? = nil, pressure: String? = nil, sCond: String? = nil, flex: String? = nil, cOpt: String? = nil, completion: @escaping (TOPerformanceResponse) -> Void) {
-    
-    
-    //        .response { res in
-    //            if let data = res.data {
-    //                print(String(data: data, encoding: .utf8)!)
-    //            }
-    //        }
+func getTOPerf(_ TOConf: SBTOModel, completion: @escaping (TOPerformanceResponse) -> Void) {
     getJWT { jwt in
         let params: [String: String] = [
-            "aircraft": ac,
-            "airport": airport,
-            "runway": rwy,
-            "length_units": lUnit ?? "",
-            "weight_units": wUnit ?? "",
-            "weight": weight,
-            "flap_setting": flap ?? "",
-            "thrust_setting": thrust ?? "",
-            "enable_bleeds": bleed ?? "",
-            "enable_anti_ice": aIce ?? "",
-            "wind": wind ?? "",
-            "temperature": temp ?? "",
-            "pressure_units": pUnit ?? "",
-            "altimeter": pressure ?? "",
-            "surface_condition": sCond ?? "",
-            "enable_flex": flex ?? "",
-            "enable_climb_optimization": cOpt ?? "",
-            
+            "aircraft": TOConf.ac!.aircraftIcao,
+            "airport": TOConf.airport,
+            "runway": TOConf.rwy,
+            "length_units": TOConf.lUnit,
+            "weight_units": TOConf.wUnit,
+            "weight": TOConf.weight,
+            "flap_setting": TOConf.flap,
+            "thrust_setting": TOConf.thrust,
+            "enable_bleeds": TOConf.bleed,
+            "enable_anti_ice": TOConf.aIce,
+            "wind": TOConf.wind,
+            "temperature": TOConf.temp,
+            "pressure_units": TOConf.pUnit,
+            "altimeter": TOConf.pressure,
+            "surface_condition": TOConf.sCond,
+            "enable_flex": TOConf.flex,
+            "enable_climb_optimization": TOConf.cOpt
         ]
         AF.request("https://api.simbrief.com/v2/performance/takeoff", method: .get, parameters: params, headers: ["Authorization": "Bearer \(jwt)"])
-        //                        .response { r in
-        //                            if let data = r.data {
-        //                                print(String(data: data, encoding: .utf8)!)
-        //                            }
-        //                        }
             .responseDecodable(of: TOPerformanceResponse.self) { r in
                 switch r.result {
                 case .success(let value):
                     completion(value)
                 case .failure(let err):
+                    print(TOConf.ac!.aircraftIcao)
                     print(err)
                 }
             }
     }
 }
-
+func getLDGPerf(_ LDGConf: SBLDGModel, completion: @escaping (LDGPerformanceResponse) -> Void) {
+    getJWT { jwt in
+        let params: [String: String] = [
+            "aircraft": LDGConf.ac?.aircraftIcao ?? "",
+            "airport": LDGConf.airport,
+            "runway": LDGConf.rwy,
+            "length_units": LDGConf.lUnit,
+            "weight_units": LDGConf.wUnit,
+            "weight": LDGConf.weight,
+            "flap_setting": LDGConf.flap,
+            "brake_setting": LDGConf.brake,
+            "reverser_credit": LDGConf.reverser,
+            "vref_additive": LDGConf.vrefAdd,
+            "wind": LDGConf.wind,
+            "temperature": LDGConf.temp,
+            "pressure_units": LDGConf.pUnit,
+            "altimeter": LDGConf.pressure,
+            "surface_condition": LDGConf.sCond,
+            "calculation_method": LDGConf.calcMethod,
+            "margin_method": LDGConf.marginMethod
+        ]
+        AF.request("https://api.simbrief.com/v2/performance/landing", method: .get, parameters: params, headers: ["Authorization": "Bearer \(jwt)"])
+            .responseDecodable(of: LDGPerformanceResponse.self) { r in
+                switch r.result {
+                case .success(let value):
+                    LDGConf.ldgPerf = value
+                    completion(value)
+                case .failure(let err):
+                    print(LDGConf.ac?.aircraftIcao ?? "")
+                    print(err)
+                }
+            }
+    }
+}
 func getSBAirport(_ icao: String, completion: @escaping (SBAirportData) -> Void) {
     getJWT() { jwt in
         AF.request(

@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import LocalConsole
+import Alamofire
 
 let consoleManager = LCManager.shared
 
@@ -45,4 +46,14 @@ extension View {
 struct SizePreferenceKey: PreferenceKey {
   static var defaultValue: CGSize = .zero
   static func reduce(value: inout CGSize, nextValue: () -> CGSize) { }
+}
+
+extension DataRequest {
+    func printString() -> Self {
+        response { res in
+            if let data = res.data {
+                print(String(data: data, encoding: .utf8) ?? "No data")
+            }
+        }
+    }
 }
