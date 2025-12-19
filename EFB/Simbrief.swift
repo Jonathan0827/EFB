@@ -922,12 +922,8 @@ struct MapView: View {
                 }
             }
         }
-//        .onTapGesture {
-//            if focus != "" {
-//                focus = ""
-//            }
-//        }
         .onAppear {
+            coords = []
             coords.append(CLLocationCoordinate2D(
                 latitude: Double(fPlan.origin.posLat!)!,
                 longitude: Double(fPlan.origin.posLong!)!
