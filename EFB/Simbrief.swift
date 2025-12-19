@@ -120,6 +120,10 @@ class SBTOModel {
     var toStat: Int = 0
     var disable: Bool = false
     var text: String = ""
+    var depDate: String = ""
+    var depTime: String = ""
+    var fPlan: FlightPlan?
+    var acList: Array<AircraftData> = []
 }
 
 @Observable
@@ -157,18 +161,14 @@ class SBLDGModel {
     var ldgStat: Int = 0
     var disable: Bool = false
     var text: String = ""
+    var arrTime: String = ""
 }
 struct SimbriefOFPView: View {
     @AppStorage("simbriefUID") var simbriefUID: String = ""
     @AppStorage("simbriefSSO") var simbriefSSO: String = ""
     @State var TO = SBTOModel()
     @State var LDG = SBLDGModel()
-    @State var fPlan: FlightPlan?
-    @State var acList: Array<AircraftData> = []
-    @State var depDate: String = ""
-    @State var depTime: String = ""
-    @State var arrTime: String = ""
-    @State var pdfData: Data? = nil
+        @State var pdfData: Data? = nil
     @FocusState var ap: Bool
     var body: some View {
         VStack {
@@ -178,14 +178,14 @@ struct SimbriefOFPView: View {
                     .info()
             } else {
                 VStack {
-                    if fPlan == nil {
+                    if TO.fPlan == nil {
                         HStack {
                             Text("Loading Flight Plan")
                                 .info()
                             ProgressView()
                         }
                     } else {
-                        let fPlan = fPlan!
+                        let fPlan = TO.fPlan!
                         HStack {
                             AsyncImage(url: URL(string: "https://www.flightaware.com/images/airline_logos/180px/\(fPlan.general.icaoAirline?.value ?? "").png")){ image in
                                 image
@@ -206,9 +206,9 @@ struct SimbriefOFPView: View {
                                 List {
                                     Section("Flight Info") {
                                         Text("Flight Number: \(fPlan.general.icaoAirline?.value ?? "")\(fPlan.general.flightNumber ?? "")")
-                                        Text("Departure Date: \(depDate) UTC")
-                                        Text("Gate Departure Time: \(depTime) UTC")
-                                        Text("Gate Arrival Time: \(arrTime) UTC")
+                                        Text("Departure Date: \(TO.depDate) UTC")
+                                        Text("Gate Departure Time: \(TO.depTime) UTC")
+                                        Text("Gate Arrival Time: \(LDG.arrTime) UTC")
                                         Text("Departure: \(fPlan.origin.icaoCode ?? "Unknown") / \(fPlan.origin.iataCode?.value ?? "Unknown") / \(fPlan.origin.name ?? "Unknown")")
                                         Text("Destination: \(fPlan.destination.icaoCode ?? "Unknown") / \(fPlan.destination.iataCode?.value ?? "Unknown") / \(fPlan.destination.name ?? "Unknown")")
                                         Text("Alternate: \(fPlan.alternate.icaoCode ?? "-") / \(fPlan.alternate.iataCode?.value ?? "-") / \(fPlan.alternate.name ?? "-")")
@@ -286,10 +286,9 @@ struct SimbriefOFPView: View {
                                         .fontWeight(.bold)
                                         .foregroundStyle(.secondary)
                                 } else {
-//                                    let acList = acList!
                                     List {
                                         Picker("Aircraft Type", selection: $TO.ac) {
-                                            ForEach(acList, id: \.self) { acraft in
+                                            ForEach(TO.acList, id: \.self) { acraft in
                                                 Text("\(acraft.aircraftIcao) - \(acraft.aircraftName)")
                                                     .tag(acraft)
                                             }
@@ -297,12 +296,12 @@ struct SimbriefOFPView: View {
                                         if TO.toStat == -1 {
                                             Text("Unsupported Aircraft")
                                         } else {
-                                        Picker("Airframe", selection: $TO.airframe) {
-                                            ForEach(TO.ac!.airframes, id: \.airframeInternalID) { af in
-                                                Text("\(af.airframeComments)")
-                                                    .tag(af)
+                                            Picker("Airframe", selection: $TO.airframe) {
+                                                ForEach(TO.ac!.airframes, id: \.airframeInternalID) { af in
+                                                    Text("\(af.airframeComments)")
+                                                        .tag(af)
+                                                }
                                             }
-                                        }
                                             HStack {
                                                 Picker("Weight Units", selection: $TO.wUnit) {
                                                     Text("kgs")
@@ -316,7 +315,7 @@ struct SimbriefOFPView: View {
                                                     Spacer()
                                                     TextField("Weight", text: $TO.weight)
                                                         .multilineTextAlignment(.trailing)
-                                                        .frame(maxWidth: 150)   // Prevents cycles by limiting width
+                                                        .frame(maxWidth: 150)
                                                 }
                                             }
                                             HStack {
@@ -471,6 +470,7 @@ struct SimbriefOFPView: View {
                                 }
                             }
                             Tab("LDG Perf", systemImage: "arrow.down.circle") {
+                                let acList = TO.acList
                                 if LDG.ldgStat == 0 {
                                     ProgressView("Loading Landing Performance Calculator...")
                                         .font(.title2)
@@ -664,6 +664,7 @@ struct SimbriefOFPView: View {
                                             }
                                         }
                                     }
+                                    
                                 }
                             }
                             Tab("Briefing", systemImage: "circle") {
@@ -692,10 +693,10 @@ struct SimbriefOFPView: View {
                         let df = DateFormatter()
                         df.timeZone = TimeZone(abbreviation: "UTC")
                         df.dateFormat = "yyyy-MM-dd"
-                        depDate = df.string(from: Date(timeIntervalSince1970: Double(dUnix)!))
+                        TO.depDate = df.string(from: Date(timeIntervalSince1970: Double(dUnix)!))
                         df.dateFormat = "HH:mm"
-                        depTime = df.string(from: Date(timeIntervalSince1970: Double(dUnix)!))
-                        arrTime = df.string(from: Date(timeIntervalSince1970: Double(aUnix)!))
+                        TO.depTime = df.string(from: Date(timeIntervalSince1970: Double(dUnix)!))
+                        LDG.arrTime = df.string(from: Date(timeIntervalSince1970: Double(aUnix)!))
                         TO.weight = r.weights.estTow ?? ""
                         LDG.weight = r.weights.estLdw ?? ""
                         TO.airport = r.origin.icaoCode!
@@ -711,13 +712,13 @@ struct SimbriefOFPView: View {
                         TO.wUnit = r.params.units!
                         LDG.wUnit = r.params.units!
                         withAnimation {
-                            fPlan = r
+                            TO.fPlan = r
                         }
                         print("OFP Set")
                         getAircraftsList() { res in
                             for airc in res {
                                 if airc.statsTlr.value != nil {
-                                    acList.append(airc)
+                                    TO.acList.append(airc)
                                 }
                             }
                             print("AClist set")
@@ -960,3 +961,4 @@ struct MapView: View {
         }
     }
 }
+
