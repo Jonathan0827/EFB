@@ -923,21 +923,23 @@ struct MapView: View {
             }
         }
         .onAppear {
-            coords = []
-            coords.append(CLLocationCoordinate2D(
-                latitude: Double(fPlan.origin.posLat!)!,
-                longitude: Double(fPlan.origin.posLong!)!
-            ))
-            for i in fPlan.navlog.fix! {
+//            coords = []
+            if coords.isEmpty {
+                coords.append(CLLocationCoordinate2D(
+                    latitude: Double(fPlan.origin.posLat!)!,
+                    longitude: Double(fPlan.origin.posLong!)!
+                ))
+                for i in fPlan.navlog.fix! {
                     coords.append(CLLocationCoordinate2D(
                         latitude: Double(i.posLat!)!,
                         longitude: Double(i.posLong!)!
                     ))
+                }
+                coords.append(CLLocationCoordinate2D(
+                    latitude: Double(fPlan.destination.posLat!)!,
+                    longitude: Double(fPlan.destination.posLong!)!
+                ))
             }
-            coords.append(CLLocationCoordinate2D(
-                latitude: Double(fPlan.destination.posLat!)!,
-                longitude: Double(fPlan.destination.posLong!)!
-            ))
             let minLat = coords.map { $0.latitude }.min()!
             let maxLat = coords.map { $0.latitude }.max()!
             let minLon = coords.map { $0.longitude }.min()!

@@ -142,6 +142,13 @@ struct ContentView: View {
                 HStack {
                     if cfoxPAT.isEmpty || cfoxSID.isEmpty || showLoginCFoxBtn {
                         Button("Login to ChartFox", action: {
+                            if showLoginCFoxBtn {
+                                cfoxPAT = ""
+                                cfoxSID = ""
+                                xsrf = ""
+                                rweb = ""
+                                rwebd = ""
+                            }
                             showLoginCFox = true
                         })
                     }
