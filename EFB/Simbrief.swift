@@ -160,6 +160,7 @@ class SBLDGModel {
 }
 struct SimbriefOFPView: View {
     @AppStorage("simbriefUID") var simbriefUID: String = ""
+    @AppStorage("simbriefSSO") var simbriefSSO: String = ""
     @State var TO = SBTOModel()
     @State var LDG = SBLDGModel()
     @State var fPlan: FlightPlan?
@@ -172,8 +173,8 @@ struct SimbriefOFPView: View {
     var body: some View {
         VStack {
             
-            if simbriefUID.isEmpty {
-                Text("Configure Simbrief Username")
+            if simbriefUID.isEmpty || simbriefSSO.isEmpty {
+                Text("Configure Simbrief")
                     .info()
             } else {
                 VStack {
@@ -360,6 +361,12 @@ struct SimbriefOFPView: View {
                                                 TextField("Wind", text: $TO.wind)
                                                     .multilineTextAlignment(.trailing)
                                                     .frame(maxWidth: 150)
+                                                Divider()
+                                                Text("Temperature (Celsius)")
+                                                Spacer()
+                                                TextField("Temperature", text: $TO.temp)
+                                                    .multilineTextAlignment(.trailing)
+                                                    .frame(maxWidth: 150)
                                             }
                                             HStack {
                                                 Picker("Pressure Units", selection: $TO.pUnit) {
@@ -376,13 +383,6 @@ struct SimbriefOFPView: View {
                                                         .multilineTextAlignment(.trailing)
                                                         .frame(maxWidth: 150)
                                                 }
-                                            }
-                                            HStack {
-                                                Text("Temperature (Celsius)")
-                                                Spacer()
-                                                TextField("Temperature", text: $TO.temp)
-                                                    .multilineTextAlignment(.trailing)
-                                                    .frame(maxWidth: 150)
                                             }
                                             Picker("Surface Condition", selection: $TO.sCond) {
                                                 Text("Dry")
@@ -481,7 +481,7 @@ struct SimbriefOFPView: View {
                                         Picker("Aircraft Type", selection: $LDG.ac) {
                                             ForEach(acList, id: \.self) { acraft in
                                                 Text("\(acraft.aircraftIcao) - \(acraft.aircraftName)")
-                                                    .tag(acraft as AircraftData?)
+                                                    .tag(acraft)
                                             }
                                         }
                                         if TO.toStat == -1 {
@@ -490,25 +490,26 @@ struct SimbriefOFPView: View {
                                             Picker("Airframe", selection: $LDG.airframe) {
                                                 ForEach(LDG.ac!.airframes, id: \.airframeInternalID) { af in
                                                     Text("\(af.airframeComments)")
-                                                        .tag(af as Airframe?)
+                                                        .tag(af)
                                                 }
                                             }
                                             
                                             HStack {
-                                                Text("Airport")
-                                                Spacer()
-                                                TextField("Airport", text: $LDG.airport)
-                                                    .multilineTextAlignment(.trailing)
-                                                    .frame(maxWidth: 150)
-                                                    .focused($ap)
-                                            }
-                                            
-                                            HStack {
-                                                Text("Runway")
-                                                Spacer()
-                                                TextField("Runway", text: $LDG.rwy)
-                                                    .multilineTextAlignment(.trailing)
-                                                    .frame(maxWidth: 150)
+                                                HStack {
+                                                    Text("Airport")
+                                                    Spacer()
+                                                    TextField("Airport", text: $LDG.airport)
+                                                        .multilineTextAlignment(.trailing)
+                                                        .frame(maxWidth: 150)
+                                                        .focused($ap)
+                                                }
+                                                Divider()
+                                                Picker("Runway", selection: $LDG.rwy) {
+                                                    ForEach(LDG.rwys, id: \.self) { r in
+                                                        Text("\(r)")
+                                                            .tag(r)
+                                                    }
+                                                }
                                             }
                                             
                                             HStack {
@@ -527,10 +528,9 @@ struct SimbriefOFPView: View {
                                             }
                                             
                                             HStack {
-                                                Picker("Flaps", selection: $LDG.flap) {
-                                                    ForEach(LDG.flaps, id: \.self) { f in
-                                                        Text("\(f)").tag(f)
-                                                    }
+                                                Picker("Reverse", selection: $LDG.reverser) {
+                                                    Text("Yes").tag("1")
+                                                    Text("No").tag("0")
                                                 }
                                                 Divider()
                                                 Picker("Brakes", selection: $LDG.brake) {
@@ -542,34 +542,36 @@ struct SimbriefOFPView: View {
                                             }
                                             
                                             HStack {
-                                                Picker("Reverse", selection: $LDG.reverser) {
-                                                    Text("Yes").tag("1")
-                                                    Text("No").tag("0")
+                                                Picker("Flaps", selection: $LDG.flap) {
+                                                    ForEach(LDG.flaps, id: \.self) { f in
+                                                        Text("\(f)").tag(f)
+                                                    }
+                                                }
+                                                Divider()
+                                                HStack {
+                                                    Text("VREF Additive")
+                                                    Spacer()
+                                                    TextField("VREF Add", text: $LDG.vrefAdd)
+                                                        .multilineTextAlignment(.trailing)
+                                                        .frame(maxWidth: 150)
                                                 }
                                             }
-                                            
                                             HStack {
-                                                Text("VREF Additive")
-                                                Spacer()
-                                                TextField("VREF Add", text: $LDG.vrefAdd)
-                                                    .multilineTextAlignment(.trailing)
-                                                    .frame(maxWidth: 150)
-                                            }
-                                            
-                                            HStack {
-                                                Text("Wind")
-                                                Spacer()
-                                                TextField("Wind", text: $LDG.wind)
-                                                    .multilineTextAlignment(.trailing)
-                                                    .frame(maxWidth: 150)
-                                            }
-                                            
-                                            HStack {
-                                                Text("Temperature (Celsius)")
-                                                Spacer()
-                                                TextField("Temperature", text: $LDG.temp)
-                                                    .multilineTextAlignment(.trailing)
-                                                    .frame(maxWidth: 150)
+                                                HStack {
+                                                    Text("Wind")
+                                                    Spacer()
+                                                    TextField("Wind", text: $LDG.wind)
+                                                        .multilineTextAlignment(.trailing)
+                                                        .frame(maxWidth: 150)
+                                                }
+                                                Divider()
+                                                HStack {
+                                                    Text("Temperature (Celsius)")
+                                                    Spacer()
+                                                    TextField("Temperature", text: $LDG.temp)
+                                                        .multilineTextAlignment(.trailing)
+                                                        .frame(maxWidth: 150)
+                                                }
                                             }
                                             
                                             HStack {
@@ -675,6 +677,7 @@ struct SimbriefOFPView: View {
                 }
                 .onAppear {
                     getSBOFP() { r in
+                        print("OFP Rcvd")
                         let url = URL(string: "\(r.files!.directory!)\(r.files!.pdf!.link!)")!
                         OperationQueue().addOperation {
                             do {
@@ -710,14 +713,13 @@ struct SimbriefOFPView: View {
                         withAnimation {
                             fPlan = r
                         }
-                        print("OFP fetch completed")
+                        print("OFP Set")
                         getAircraftsList() { res in
                             for airc in res {
                                 if airc.statsTlr.value != nil {
                                     acList.append(airc)
                                 }
                             }
-//                            TO.acList = res
                             print("AClist set")
                             for i in res {
                                 if i.aircraftIcao == r.aircraft.icaoCode! {
@@ -744,6 +746,7 @@ struct SimbriefOFPView: View {
                                                 LDG.airframe = j
                                                 TO.toStat = 1
                                                 LDG.ldgStat = 1
+                                                print("Calculator ready")
                                             }
                                         }
                                         break
@@ -762,11 +765,11 @@ struct SimbriefOFPView: View {
                                 }
                             }
                         }
-                        getSBAirport(r.destination.icaoCode!) { a in
-                            LDG.wind = "\(String(format: "%03d", a.metar_wind_direction))/\(String(format: "%02d", a.metar_wind_speed))"
-                            LDG.pressure = a.metar_altimeter.description
-                            LDG.temp = a.metar_temperature.description
-                            for i in a.runways {
+                        getSBAirport(r.destination.icaoCode!) { b in
+                            LDG.wind = "\(String(format: "%03d", b.metar_wind_direction))/\(String(format: "%02d", b.metar_wind_speed))"
+                            LDG.pressure = b.metar_altimeter.description
+                            LDG.temp = b.metar_temperature.description
+                            for i in b.runways {
                                 LDG.rwys.append(i.identifier)
                                 if i.identifier == r.destination.planRwy! {
                                     LDG.rwyLen = "\(i.length)"

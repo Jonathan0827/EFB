@@ -11,7 +11,7 @@ import Alamofire
 extension DataRequest {
     func saveLogin() -> Self {
         self.response {r in
-            print("saveLogin")
+            print("saveCFoxLogin")
             switch r.result {
             case .success:
                 let setcookie = r.response!.headers.value(for: "Set-Cookie")
@@ -50,7 +50,6 @@ extension DataRequest {
                         saveUserDefault("rwebd", cookie.value)
                     }
                 }
-                print("cookie set")
             case .failure(let e):
                 print("fail ch")
                 print(e)
@@ -84,7 +83,6 @@ extension DataRequest {
                 }
                 saveUserDefault("simbriefSSO", realCookies["simbrief_sso"])
                 saveUserDefault("simbriefUID", realCookies["simbrief_user"])
-                print("cookie set")
             case .failure(let e):
                 print("fail ch")
                 print(e)

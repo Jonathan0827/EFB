@@ -38,20 +38,23 @@ struct ContentView: View {
             VStack {
                 LazyVGrid(columns: columns) {
                     MainView(
-                        showLoginCFox: $showLoginCFox,
-                        showLoginCFoxBtn: $showLoginCFoxBtn,
+//                        showLoginCFox: $showLoginCFox,
+//                        showLoginCFoxBtn: $showLoginCFoxBtn,
                         showAdd: $showAdd
                     )
                     .frame(height: (currentOrientation.rawValue == 1 || currentOrientation.rawValue == 2) && secondDP ? UIScreen.main.bounds.height/2-25 : UIScreen.main.bounds.height-30)
                     if secondDP {
                         MainView(
-                            showLoginCFox: $showLoginCFox,
-                            showLoginCFoxBtn: $showLoginCFoxBtn,
+//                            showLoginCFox: $showLoginCFox,
+//                            showLoginCFoxBtn: $showLoginCFoxBtn,
                             showAdd: $showAdd
                         )
                         .frame(height: (currentOrientation.rawValue == 1 || currentOrientation.rawValue == 2) && secondDP ? UIScreen.main.bounds.height/2-25 : UIScreen.main.bounds.height-30)
                     }
                 }
+            }
+            .sheet(isPresented: $showLoginCFox) {
+                CFoxLogin(isPresented: $showLoginCFox, loginBtn: $showLoginCFoxBtn)
             }
             .sheet(isPresented: $showAdd) {
                 ScrollView {
@@ -130,19 +133,6 @@ struct ContentView: View {
                         Button("Clear ChartFox Cookies", action: {
                             clearChartFox()
                         })
-//                        Button("Test IFATC", action: {
-//                            getGateInfo("RKSI") { r in
-//                                print(r)
-//                            }
-//                            getAllGates("RKSI") { r in
-//                                print(r[0])
-//                            }
-//                        })
-//                        Button("Show Menu", action: {
-//                            withAnimation {
-//                                showAdd.toggle()
-//                            }
-//                        })
                     }
                 }
             }
@@ -172,13 +162,6 @@ struct ContentView: View {
                 }
             }
             .onAppear {
-//                getAircraftData("A35K") { r in
-//                    //                    print(r)
-//                    getTOPerf(ac: r.airframes[0].airframeInternalID, airport: "RKSI", rwy: "34R", weight: (r.airframes[0].airframeOptions.mtow).description) { res in
-//                        print(res)
-//                    }
-//                }
-//                getSBAirport("RKSI")
                 if Date().timeIntervalSince1970 - ((readUserDefault("LastCookieUpdate") ?? 0.0) as! Double) >= 7200 {
                     CFoxHeaders { h in
                         AF.request("https://chartfox.org/", headers: h)
@@ -212,8 +195,8 @@ struct MainView: View {
             .init(.adaptive(minimum: 200, maximum: 200))
         ]
     }
-    @Binding var showLoginCFox: Bool
-    @Binding var showLoginCFoxBtn: Bool
+//    @Binding var showLoginCFox: Bool
+//    @Binding var showLoginCFoxBtn: Bool
     @Binding var showAdd: Bool
     @AppStorage("cfoxPAT") var cfoxPAT: String = ""
     @AppStorage("cfoxSID") var cfoxSID: String = ""
@@ -353,9 +336,6 @@ struct MainView: View {
         //                }
         //            }
         //        }
-        .sheet(isPresented: $showLoginCFox) {
-            CFoxLogin(isPresented: $showLoginCFox)
-        }
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }

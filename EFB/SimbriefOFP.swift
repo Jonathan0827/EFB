@@ -10,11 +10,6 @@ import Alamofire
 
 func getSBOFP(completion: @escaping (FlightPlan) -> Void) {
     AF.request("https://www.simbrief.com/api/xml.fetcher.php?userid=\(readUserDefault("simbriefUID") ?? "")&json=1")
-//        .response { res in
-//            if let data = res.data {
-//                print(String(data: data, encoding: .utf8) ?? "No Data")
-//            }
-//        }
         .responseDecodable(of: FlightPlan.self) { res in
             switch res.result {
                 case .success(let fp):
@@ -24,15 +19,6 @@ func getSBOFP(completion: @escaping (FlightPlan) -> Void) {
                 print(err)
             }
         }
-//        .responseDecodable(of: SimBriefResponse.self) { res in
-//            switch res.result {
-//                case .success(let fp):
-////                completion(fp)
-//                print(fp)
-//            case .failure(let err):
-//                print(err)
-//            }
-//        }
 }
 
 func getAircraftData(_ aircraftIcao: String, completion: @escaping (AircraftData) -> Void) {
@@ -43,9 +29,7 @@ func getAircraftData(_ aircraftIcao: String, completion: @escaping (AircraftData
                 let _ = value.map {
                     if $0.aircraftIcao == aircraftIcao {
                         completion($0)
-//                        return true
                     }
-//                    return false
                 }
             case .failure(let err):
                 print(err)

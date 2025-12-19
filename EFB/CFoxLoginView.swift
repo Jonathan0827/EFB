@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CFoxLogin: View {
     @Binding var isPresented: Bool
+    @Binding var loginBtn: Bool
     @State var currentURL: URL = URL(string: "https://chartfox.org/login")!
     @State var cookie: [String: String] = [:]
     @AppStorage("cfoxPAT") var cfoxPAT: String = ""
@@ -24,12 +25,8 @@ struct CFoxLogin: View {
             }
             DWebView(url: URL(string: "https://chartfox.org/login")!, cookie: ["XSRF-TOKEN": xsrf, "chartfox_user_pat": cfoxPAT, "chartfoxv2_session": cfoxSID, rweb: rwebd], cUrl: $currentURL, newcookie: $cookie)
         }
-        .onAppear {
-            print("Login")
-//            print(["XSRF-TOKEN": xsrf, "chartfox_user_pat": cfoxPAT, "chartfoxv2_session": cfoxSID, rweb: rwebd])
-        }
         .onChange(of: cookie) { ov, nv in
-            print("Cookie Change")
+            print("Cookie Rcvd")
             for cookie in nv {
                 if cookie.key.hasPrefix("remember_web_") {
 //                    print(cookie.key)
@@ -40,14 +37,15 @@ struct CFoxLogin: View {
             if !rweb.isEmpty {
                 if cfoxPAT.isEmpty || !(nv["chartfox_user_pat"]!.isEmpty) {
                     cfoxPAT = nv["chartfox_user_pat"]!
-                    print("Set pat")
-                    print(nv["chartfox_user_pat"]!)
+                    print("CFox PAT Set")
+//                    print(nv["chartfox_user_pat"]!)
                 }
                 cfoxSID = nv["chartfoxv2_session"]!
                 xsrf = nv["XSRF-TOKEN"]!
 //                print(cfoxPAT)
                 testConnection() { r in
                     if r == .ok {
+                        loginBtn = false
                         isPresented = false
                     }
                 }

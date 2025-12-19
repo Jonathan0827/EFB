@@ -66,7 +66,7 @@ struct DWebView: UIViewRepresentable {
             
             webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { cookies in
                 for cookie in cookies {
-                    print(cookie)
+//                    print(cookie)
                     if !(self.parent.newcookie[cookie.name] ?? "").isEmpty && cookie.value.isEmpty {
                         print("Skip")
                     } else {
