@@ -924,12 +924,12 @@ struct SBFir: Codable {
 }
 nonisolated
 struct TOPerformanceResponse: Codable {
-    let inputs: Inputs
-    let airport: Airport
-    let runway: Runway
-    let aircraft: Aircraft
-    let result: ResultData
-    let remarks: [Remark]
+//    let inputs: Inputs
+//    let airport: Airport
+//    let runway: Runway
+//    let aircraft: Aircraft
+//    let result: ResultData
+//    let remarks: [Remark]
     let message: String
 
     struct Inputs: Codable {
@@ -982,7 +982,7 @@ struct TOPerformanceResponse: Codable {
         let threshold_longitude: Double?
         let headwind_component: Double?
         let crosswind_component: Double?
-        let ils_frequency: String?
+//        let ils_frequency: String?
     }
 
     struct Aircraft: Codable {
@@ -1037,12 +1037,12 @@ struct TOPerformanceResponse: Codable {
 
 nonisolated
 struct LDGPerformanceResponse: Codable {
-    let inputs: Inputs
-    let airport: Airport
-    let runway: Runway
-    let aircraft: Aircraft
-    let result: Result
-    let remarks: [Remark]
+//    let inputs: Inputs
+//    let airport: Airport
+//    let runway: Runway
+//    let aircraft: Aircraft
+//    let result: Result
+//    let remarks: [Remark]
     let message: String
 
     struct Inputs: Codable {

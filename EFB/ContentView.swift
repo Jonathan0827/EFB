@@ -17,11 +17,13 @@ struct ContentView: View {
     @AppStorage("rweb") var rweb: String = ""
     @AppStorage("rwebd") var rwebd: String = ""
     @AppStorage("ADBAPI") var ADBAPI: String = ""
-    @AppStorage("ALAPI") var ALAPI: String = ""
+//    @AppStorage("ALAPI") var ALAPI: String = ""
     @AppStorage("simbriefUID") var simbriefUID: String = ""
     @AppStorage("simbriefSSO") var simbriefSSO: String = ""
+    @AppStorage("experimemtalAL") var experimentalAL: Bool = false
+    @AppStorage("inclCFCookie") var inclCFCookie: Bool = true
+    @AppStorage("showLoginCFoxBtn") var showLoginCFoxBtn: Bool = false
     @State var showLoginCFox: Bool = false
-    @State var showLoginCFoxBtn: Bool = false
     @State var showAdd: Bool = false
     @State var secondDP: Bool = false
     @State var currentOrientation = UIDevice.current.orientation
@@ -38,15 +40,11 @@ struct ContentView: View {
             VStack {
                 LazyVGrid(columns: columns) {
                     MainView(
-//                        showLoginCFox: $showLoginCFox,
-//                        showLoginCFoxBtn: $showLoginCFoxBtn,
                         showAdd: $showAdd
                     )
                     .frame(height: (currentOrientation.rawValue == 1 || currentOrientation.rawValue == 2) && secondDP ? UIScreen.main.bounds.height/2-25 : UIScreen.main.bounds.height-30)
                     if secondDP {
                         MainView(
-//                            showLoginCFox: $showLoginCFox,
-//                            showLoginCFoxBtn: $showLoginCFoxBtn,
                             showAdd: $showAdd
                         )
                         .frame(height: (currentOrientation.rawValue == 1 || currentOrientation.rawValue == 2) && secondDP ? UIScreen.main.bounds.height/2-25 : UIScreen.main.bounds.height-30)
@@ -59,18 +57,20 @@ struct ContentView: View {
             .sheet(isPresented: $showAdd) {
                 ScrollView {
                     Text("Menu")
-                    VStack(alignment: .trailing) {
-                        Text("Last Cookie Update:")
-                        Text("Current Unix Time:")
-                        if readUserDefault("LastCookieUpdate") != nil {
-                            Text("Cookie Reset required:")
+                    HStack {
+                        VStack(alignment: .trailing) {
+                            Text("Last Cookie Update:")
+                            Text("Current Unix Time:")
+                            if readUserDefault("LastCookieUpdate") != nil {
+                                Text("Cookie Reset required:")
+                            }
                         }
-                    }
-                    VStack(alignment: .leading) {
-                        Text("\(String(describing: readUserDefault("LastCookieUpdate") ?? "N/A"))")
-                        Text("\(Date().timeIntervalSince1970.description)")
-                        if readUserDefault("LastCookieUpdate") != nil {
-                            Text("\(Date().timeIntervalSince1970 - (readUserDefault("LastCookieUpdate")! as! Double) >= 7200 ? "Yes" : "No")")
+                        VStack(alignment: .leading) {
+                            Text("\(String(describing: readUserDefault("LastCookieUpdate") ?? "N/A"))")
+                            Text("\(Date().timeIntervalSince1970.description)")
+                            if readUserDefault("LastCookieUpdate") != nil {
+                                Text("\(Date().timeIntervalSince1970 - (readUserDefault("LastCookieUpdate")! as! Double) >= 7200 ? "Yes" : "No")")
+                            }
                         }
                     }
                     VStack {
@@ -80,10 +80,12 @@ struct ContentView: View {
                         TextField("rweb", text: $rweb)
                         TextField("rwebd", text: $rwebd)
                         TextField("ADB API Key", text: $ADBAPI)
-                        TextField("AirLabs API Key", text: $ALAPI)
+//                        TextField("AirLabs API Key", text: $ALAPI)
                         TextField("Simbrief ID", text: $simbriefUID)
                         TextField("Simbrief SSO", text: $simbriefSSO)
                     }
+                    Toggle("Experimental Auto Login", isOn: $experimentalAL)
+                    Toggle("Include Cookie when logging in to CFox", isOn: $inclCFCookie)
                     VStack {
                         Button("Reset CFox", action: {
                             cfoxPAT = ""
@@ -114,7 +116,7 @@ struct ContentView: View {
 //                    }
 //                    VStack {
                         Button("Test AutoLogin", action: {
-                            CFoxHeaders { h in
+                            CFoxHeaders(!experimentalAL) { h in
                                 AF.request("https://chartfox.org/", headers: h)
                                     .saveLogin()
                                     .response {_ in
@@ -169,8 +171,8 @@ struct ContentView: View {
                 }
             }
             .onAppear {
-                if Date().timeIntervalSince1970 - ((readUserDefault("LastCookieUpdate") ?? 0.0) as! Double) >= 7200 {
-                    CFoxHeaders { h in
+//                if Date().timeIntervalSince1970 - ((readUserDefault("LastCookieUpdate") ?? 0.0) as! Double) >= 7200 {
+                    CFoxHeaders() { h in
                         AF.request("https://chartfox.org/", headers: h)
                             .saveLogin()
                             .response { _ in
@@ -184,7 +186,7 @@ struct ContentView: View {
                                     }
                                 }
                             }
-                    }
+//                    }
                 }
             }
         }

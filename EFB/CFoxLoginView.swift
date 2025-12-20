@@ -17,13 +17,15 @@ struct CFoxLogin: View {
     @AppStorage("xsrf") var xsrf: String = ""
     @AppStorage("rweb") var rweb: String = ""
     @AppStorage("rwebd") var rwebd: String = ""
+    @AppStorage("inclCFCookie") var inclCFCookie: Bool = false
     var body: some View {
+        let cookies = inclCFCookie ? ["XSRF-TOKEN": xsrf, "chartfox_user_pat": cfoxPAT, "chartfoxv2_session": cfoxSID, rweb: rwebd] : [:]
         VStack {
             HStack {
                 Text("\(currentURL)")
                     .padding(.top)
             }
-            DWebView(url: URL(string: "https://chartfox.org/login")!, cookie: ["XSRF-TOKEN": xsrf, "chartfox_user_pat": cfoxPAT, "chartfoxv2_session": cfoxSID, rweb: rwebd], cUrl: $currentURL, newcookie: $cookie)
+            DWebView(url: URL(string: "https://chartfox.org/login")!, cookie: cookies, cUrl: $currentURL, newcookie: $cookie)
         }
         .onChange(of: cookie) { ov, nv in
             print("Cookie Rcvd")

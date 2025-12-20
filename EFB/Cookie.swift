@@ -35,6 +35,7 @@ extension DataRequest {
                 }
                 saveUserDefault("LastCookieUpdate", Date().timeIntervalSince1970)
                 if realCookies["chartfox_user_pat"] != nil {
+                    print("PAT Avail")
                     saveUserDefault("cfoxPAT", realCookies["chartfox_user_pat"])
                 }
                 if realCookies["chartfoxv2_session"] != nil {
@@ -43,9 +44,9 @@ extension DataRequest {
                 if realCookies["XSRF-TOKEN"] != nil {
                     saveUserDefault("xsrf", realCookies["XSRF-TOKEN"])
                 }
-                print((realCookies["chartfox_user_pat"] ?? "").isEmpty ? "PAT Avail" : "No PAT")
                 for cookie in realCookies {
                     if cookie.key.hasPrefix("remember_web_") {
+                        print("Rweb Avail")
                         saveUserDefault("rweb", cookie.key)
                         saveUserDefault("rwebd", cookie.value)
                     }
